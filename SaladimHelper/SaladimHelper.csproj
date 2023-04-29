@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net452</TargetFramework>
+		<LangVersion>preview</LangVersion>
+		<RootNamespace>Celeste.Mod.SaladimHelper</RootNamespace>
+		<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+		<Platforms>AnyCPU;x86</Platforms>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="Celeste">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Celeste\Celeste.exe</HintPath>
+		</Reference>
+		<Reference Include="FNA">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Celeste\FNA.dll</HintPath>
+		</Reference>
+		<Reference Include="MMHOOK_Celeste">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Celeste\MMHOOK_Celeste.dll</HintPath>
+		</Reference>
+		<Reference Include="Mono.Cecil">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Celeste\Mono.Cecil.dll</HintPath>
+		</Reference>
+		<Reference Include="MonoMod.Utils">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Celeste\MonoMod.Utils.dll</HintPath>
+		</Reference>
+		<Reference Include="YamlDotNet">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Celeste\YamlDotNet.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="Monocle" />
+		<Using Include="Microsoft.Xna.Framework" />
+		<Using Include="Celeste" />
+		<Using Include="Celeste.Mod" />
+		<Using Include="Celeste.Mod.SaladimHelper" />
+		<Using Include="System" />
+		<Using Include="System.Linq" />
+		<Using Include="System.Collections.Generic" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Tasks\" />
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="cd ..\&#xD;&#xA;csi SaladimHelper\Tasks\on_built.csx" />
+	</Target>
+
+</Project>
