@@ -4,6 +4,12 @@ namespace Celeste.Mod.SaladimHelper;
 
 public class SaladimHelperModule : EverestModule
 {
+    public static SaladimHelperModule Instance { get; set; }
+    public static SaladimHelperModuleSettings Settings => Instance._Settings as SaladimHelperModuleSettings;
+    public override Type SettingsType => typeof(SaladimHelperModuleSettings);
+
+    public SaladimHelperModule() => Instance = this;
+
     public const string Name = "SaladimHelper";
 
     public static void CallInitMethods(string methodName)

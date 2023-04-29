@@ -3,24 +3,21 @@ local utils = require("utils")
 local reelCamera = {}
 reelCamera.name = "SaladimHelper/ReelCamera"
 reelCamera.depth = -1
-reelCamera.placements =
-{
-    {
-        name = "reel_camera", data =
-        {
-            width = 80,
-            height = 80,
-            move_time_sequence = "1,1,4,5,1,4",
-            delay_sequence = "19,1,9,8,1,0",
-            start_delay = 1.0,
-            start_move_time = 1.0,
-            squash_horizontal_area = true
-        }
-    }
-}
-reelCamera.nodeLimits = { 2, 200 }
+reelCamera.nodeLimits = {2, 200}
 reelCamera.nodeVisibility = "selected"
 reelCamera.nodeLineRenderType = "line"
+reelCamera.placements = {
+    name = "reelCamera_normal",
+    data = {
+        width = 80,
+        height = 80,
+        move_time_sequence = "1,1,4,5,1,4",
+        delay_sequence = "19,1,9,8,1,0",
+        start_delay = 1.0,
+        start_move_time = 1.0,
+        squash_horizontal_area = true
+    }
+}
 
 function reelCamera.draw(room, entity, viewport)
     love.graphics.setColor(124 / 255, 251 / 255, 171 / 255, 0.4)
@@ -40,7 +37,7 @@ function reelCamera.nodeRectangle(room, entity, node, nodeIndex, viewport)
 end
 
 function reelCamera.nodeOffset(room, entity)
-    return { entity.x - entity.width, entity.y - entity.height }
+    return {entity.x - entity.width, entity.y - entity.height}
 end
 
 return reelCamera
