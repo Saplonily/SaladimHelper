@@ -15,7 +15,10 @@ reelCamera.placements = {
         delay_sequence = "19,1,9,8,1,0",
         start_delay = 1.0,
         start_move_time = 1.0,
-        squash_horizontal_area = true
+        squash_horizontal_area = true,
+        set_offset_on_finished = false,
+        offset_x = 0,
+        offset_y = 0
     }
 }
 

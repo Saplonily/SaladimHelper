@@ -117,7 +117,7 @@ public class DirtBounceBlock : Solid
 
     public IEnumerator MakeRespawnCoroutine(Vector2 prePos)
     {
-        while (CollideCheck<Player>(StartPosition))
+        while (CollideCheck<Player>(StartPosition) || CollideCheck<Solid>(StartPosition))
             yield return null;
         Position = StartPosition;
         Vector2 posOffset = Position - prePos;

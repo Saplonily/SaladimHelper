@@ -9,19 +9,19 @@ public partial class ReelCamera
     {
         On.Celeste.Player.Update += Player_Update;
         On.Celeste.Level.TransitionTo += Level_TransitionTo;
-        On.Celeste.Level.Begin += Level_Begin;
+        On.Celeste.Player.ctor += Player_ctor;
     }
 
     public static void Unload()
     {
         On.Celeste.Player.Update -= Player_Update;
         On.Celeste.Level.TransitionTo -= Level_TransitionTo;
-        On.Celeste.Level.Begin -= Level_Begin;
+        On.Celeste.Player.ctor -= Player_ctor;
     }
 
-    private static void Level_Begin(On.Celeste.Level.orig_Begin orig, Level self)
+    private static void Player_ctor(On.Celeste.Player.orig_ctor orig, Player self, Vector2 position, PlayerSpriteMode spriteMode)
     {
-        orig(self);
+        orig(self, position, spriteMode);
         ResetReel();
     }
 

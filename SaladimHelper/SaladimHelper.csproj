@@ -46,7 +46,7 @@
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="cd ..\&#xD;&#xA;csi SaladimHelper\Tasks\on_built.csx" />
+		<Exec Command="Tasks\on_built.bat" />
 	</Target>
 
 </Project>

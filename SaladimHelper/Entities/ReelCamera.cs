@@ -19,6 +19,9 @@ public partial class ReelCamera : Entity
     public float StartDelay;
     public float StartMoveTime;
 
+    public bool SetOffsetOnFinished;
+    public Vector2 OnFinishedOffset;
+
     public bool Delaying = false;
 
     public static ReelCamera ActivedReelCamera;
@@ -27,6 +30,10 @@ public partial class ReelCamera : Entity
     public ReelCamera(EntityData data, Vector2 offset) : base(data.Position + offset)
     {
         Collider = new Hitbox(data.Width, data.Height);
+        SquashHorizontalArea = data.Bool("squash_horizontal_area", true);
+        SetOffsetOnFinished = data.Bool("set_offset_on_finished", false);
+        OnFinishedOffset = new(data.Float("offset_x", 0f), data.Float("offset_y", 0f));
+
         Nodes = data.NodesOffset(offset);
         for (int i = 0; i < Nodes.Length; i++)
             Nodes[i] = Nodes[i] with { X = Nodes[i].X + Width / 2, Y = Nodes[i].Y + Height / 2 };
@@ -54,8 +61,6 @@ public partial class ReelCamera : Entity
         {
             throw new Exception($"Loading sequence failed. Maybe failed parsing numbers. Inner msg:{e.Message}");
         }
-
-        SquashHorizontalArea = data.Bool("squash_horizontal_area", true);
     }
 
     public ReelCamera(
@@ -100,13 +105,13 @@ public partial class ReelCamera : Entity
                 PlayerDoingReel = player;
                 ActivedReelCamera = this;
 
-                Add(new Coroutine(GetMovingCoroutine(level, player)));
+                Add(new Coroutine(MakeMovingCoroutine(level, player)));
                 CameraPosition = c.Position + new Vector2(c.Right - c.Left, c.Bottom - c.Top) / 2;
             }
         }
     }
 
-    public IEnumerator GetMovingCoroutine(Level level, Player player)
+    public IEnumerator MakeMovingCoroutine(Level level, Player player)
     {
         PlayerDoingReel = player;
         Camera c = level.Camera;
@@ -142,7 +147,6 @@ public partial class ReelCamera : Entity
             motionTween.Start();
             while (!motionTweenCompleted)
             {
-                Logger.Log(LogLevel.Info, "S", "Hey you fuck you!");
                 Vector2 p = to - from;
                 if (DoPlayerDieCheck(level, player, SquashHorizontalArea, p.Y > 0))
                     yield break;
@@ -154,6 +158,8 @@ public partial class ReelCamera : Entity
             Delaying = false;
         }
         ResetReel();
+        if (SetOffsetOnFinished)
+            level.CameraOffset = OnFinishedOffset;
         yield break;
     }
 
@@ -162,53 +168,46 @@ public partial class ReelCamera : Entity
         if (level.Tracker.GetEntity<Player>() == null) return false;
         if (player is null) return false;
         bool died = false;
-        try
+        float xx = level.Camera.Left;
+        if (player.Left < xx)
         {
-            float xx = level.Camera.Left;
-            if (player.Left < xx)
-            {
-                player.Left = xx;
-                player.OnBoundsH();
+            player.Left = xx;
+            player.OnBoundsH();
 
-                if (!squash)
-                {
-                    player.Die(Vector2.UnitX);
-                    died = true;
-                }
-            }
-            xx = level.Camera.Right;
-            if (player.Right > xx)
+            if (!squash)
             {
-                player.Right = xx;
-                player.OnBoundsH();
-
-                if (!squash)
-                {
-                    player.Die(-Vector2.UnitX);
-                    died = true;
-                }
-            }
-            float yy = level.Camera.Top;
-            if (player.Top < yy)
-            {
-                player.Top = yy;
-                player.OnBoundsV();
-                if (isYPositive)
-                {
-                    player.Die(-Vector2.UnitY);
-                    died = true;
-                }
-
-            }
-            if (player.Top > level.Camera.Bottom)
-            {
-                player.Die(Vector2.UnitY);
+                player.Die(Vector2.UnitX);
                 died = true;
             }
         }
-        catch (Exception e)
+        xx = level.Camera.Right;
+        if (player.Right > xx)
         {
-            Logger.Log(LogLevel.Error, SaladimHelperModule.ModuleName, "at ReelCamera die check:" + "\n" + e.Message + "\n" + e.StackTrace);
+            player.Right = xx;
+            player.OnBoundsH();
+
+            if (!squash)
+            {
+                player.Die(-Vector2.UnitX);
+                died = true;
+            }
+        }
+        float yy = level.Camera.Top;
+        if (player.Bottom < yy)
+        {
+            player.Bottom = yy;
+            player.OnBoundsV();
+            if (isYPositive)
+            {
+                player.Die(-Vector2.UnitY);
+                died = true;
+            }
+
+        }
+        if (player.Top > level.Camera.Bottom)
+        {
+            player.Die(Vector2.UnitY);
+            died = true;
         }
         if (player.CollideCheck<Solid>())
         {
