@@ -4,13 +4,13 @@ namespace Celeste.Mod.SaladimHelper;
 
 public class SaladimHelperModule : EverestModule
 {
-    public static SaladimHelperModule Instance { get; set; }
-    public static SaladimHelperModuleSettings Settings => Instance._Settings as SaladimHelperModuleSettings;
+    public static SaladimHelperModule ModuleInstance { get; set; }
+    public static SaladimHelperModuleSettings ModuleSettings => ModuleInstance._Settings as SaladimHelperModuleSettings;
     public override Type SettingsType => typeof(SaladimHelperModuleSettings);
 
-    public SaladimHelperModule() => Instance = this;
+    public SaladimHelperModule() => ModuleInstance = this;
 
-    public const string Name = "SaladimHelper";
+    public const string ModuleName = "SaladimHelper";
 
     public static void CallInitMethods(string methodName)
     {
@@ -22,13 +22,13 @@ public class SaladimHelperModule : EverestModule
 
     public override void Load()
     {
-        Logger.Log(LogLevel.Info, Name, "Loading module hooks...");
+        Logger.Log(LogLevel.Info, ModuleName, "Loading module hooks...");
         CallInitMethods(nameof(Load));
     }
 
     public override void Unload()
     {
-        Logger.Log(LogLevel.Info, Name, "Unloading module hooks...");
+        Logger.Log(LogLevel.Info, ModuleName, "Unloading module hooks...");
         CallInitMethods(nameof(Unload));
     }
 }

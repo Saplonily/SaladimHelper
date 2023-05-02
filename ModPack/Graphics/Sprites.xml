@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+
+  <sal_bumpBlockCenterDirt path="SaladimHelper/Entities/more_bounce_block/" start="idle">
+    <Center/>
+    <Loop id="idle" path="rock_center" delay="0.1"/>
+  </sal_bumpBlockCenterDirt>
+
+</Sprites>

@@ -6,7 +6,7 @@ using YamlDotNet.Core.Tokens;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity("SaladimHelper/ReelCamera"), Tracked]
+[CustomEntity($"{ModuleName}/ReelCamera"), Tracked]
 public partial class ReelCamera : Entity
 {
     public Vector2[] Nodes;
@@ -208,7 +208,7 @@ public partial class ReelCamera : Entity
         }
         catch (Exception e)
         {
-            Logger.Log(LogLevel.Error, SaladimHelperModule.Name, "at ReelCamera die check:" + "\n" + e.Message + "\n" + e.StackTrace);
+            Logger.Log(LogLevel.Error, SaladimHelperModule.ModuleName, "at ReelCamera die check:" + "\n" + e.Message + "\n" + e.StackTrace);
         }
         if (player.CollideCheck<Solid>())
         {

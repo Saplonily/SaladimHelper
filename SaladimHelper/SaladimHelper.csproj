@@ -1,11 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net452</TargetFramework>
-		<LangVersion>preview</LangVersion>
-		<RootNamespace>Celeste.Mod.SaladimHelper</RootNamespace>
-		<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+		<!--make celeste or everest core version happy-->
+		<TargetFrameworks>net452<!--;netstandard2.1--></TargetFrameworks>
 		<Platforms>AnyCPU;x86</Platforms>
+		<!--make me happy-->
+		<LangVersion>preview</LangVersion>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<RootNamespace>Celeste.Mod.SaladimHelper</RootNamespace>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -37,15 +40,13 @@
 		<Using Include="Celeste.Mod.SaladimHelper" />
 		<Using Include="System" />
 		<Using Include="System.Linq" />
+		<Using Include="System.Collections" />
 		<Using Include="System.Collections.Generic" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Tasks\" />
+		<Using Include="Celeste.Mod.SaladimHelper.SaladimHelperModule" Static="true" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="cd ..\&#xD;&#xA;csi SaladimHelper\Tasks\on_built.csx" />
+		<Exec Command="cd ..\&#xD;&#xA;csi SaladimHelper\Tasks\on_built.csx" />
 	</Target>
 
 </Project>
