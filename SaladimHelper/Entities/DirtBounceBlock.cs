@@ -63,6 +63,7 @@ public class DirtBounceBlock : Solid
 
             SceneAs<Level>().ParticlesFG.Emit(P_Motion, (int)(75 * AreaRadio), Center, new Vector2(Width, Height) / 1.9f, dir.Angle());
             Celeste.Freeze(0.05f);
+            Audio.Play("event:/game/general/fallblock_shake", Center);
             return DashCollisionResults.Rebound;
         }
         else
@@ -103,6 +104,7 @@ public class DirtBounceBlock : Solid
                     float sp = FallingSpeed;
                     d.Speed = direction * Calc.Random.Range(sp * 0.2f, sp * 0.4f);
                 });
+                Audio.Play("event:/game/general/wall_break_stone", BottomCenter);
                 DisableStaticMovers();
                 Visible = false;
                 Collidable = false;
@@ -124,7 +126,9 @@ public class DirtBounceBlock : Solid
         MoveStaticMovers(posOffset);
         Collidable = true;
         MakeRespawnDebris($"{ModuleName}/Entities/more_bounce_block/rock_rubble", 0.4f);
-        yield return 0.4f;
+        yield return 0.2f;
+        Audio.Play("event:/game/09_core/bounceblock_reappear", Center);
+        yield return 0.2f;
 
         Visible = true;
         EnableStaticMovers();
