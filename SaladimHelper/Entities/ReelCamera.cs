@@ -89,6 +89,8 @@ public partial class ReelCamera : Entity
         base.Update();
 
         Level level = SceneAs<Level>();
+        if (level is null)
+            return;
         var c = level.Camera;
         if (ActivedReelCamera == this)
         {

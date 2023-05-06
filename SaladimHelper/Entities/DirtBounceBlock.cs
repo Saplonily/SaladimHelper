@@ -8,10 +8,20 @@ namespace Celeste.Mod.SaladimHelper.Entities;
 [CustomEntity($"{ModuleName}/DirtBounceBlock")]
 public class DirtBounceBlock : Solid
 {
+    public enum State
+    {
+        Invalid,
+        Idle,
+        Breaking,
+        Broken,
+        Reforming,
+        Appearing
+    }
+
     public static ParticleType P_Motion;
     public static readonly float MaxFallingSpeed = 260f;
 
-    public bool readyToFall = true;
+    public State curState = State.Idle;
     public float FallingSpeed;
     public Coroutine coroutine = null;
     public Vector2 StartPosition;
@@ -56,7 +66,7 @@ public class DirtBounceBlock : Solid
 
     public DashCollisionResults OnDashCollided(Player player, Vector2 dir)
     {
-        if (readyToFall)
+        if (curState is State.Idle)
         {
             coroutine = new Coroutine(MakeFallingCoroutine());
             Add(coroutine);
@@ -85,7 +95,7 @@ public class DirtBounceBlock : Solid
 
     public IEnumerator MakeFallingCoroutine()
     {
-        readyToFall = false;
+        curState = State.Breaking;
         StartShaking(1f);
         yield return 1f;
         FallingSpeed = 0f;
@@ -97,6 +107,7 @@ public class DirtBounceBlock : Solid
             SceneAs<Level>().Particles.Emit(P_Motion, 1, Center, new Vector2(Width, Height) / 1.5f);
             if (collided)
             {
+                curState = State.Broken;
                 SceneAs<Level>().Particles.Emit(P_Motion, (int)(100 * AreaRadio), BottomCenter, new Vector2(Width, 2) / 2f);
                 MakeFallingDebris($"{ModuleName}/Entities/more_bounce_block/rock_rubble", d =>
                 {
@@ -106,8 +117,7 @@ public class DirtBounceBlock : Solid
                 });
                 Audio.Play("event:/game/general/wall_break_stone", BottomCenter);
                 DisableStaticMovers();
-                Visible = false;
-                Collidable = false;
+                Visible = Collidable = false;
                 Vector2 prePos = Position;
                 Alarm.Set(this, 1.5f, () => Add(new Coroutine(MakeRespawnCoroutine(prePos))));
                 break;
@@ -125,11 +135,12 @@ public class DirtBounceBlock : Solid
         Vector2 posOffset = Position - prePos;
         MoveStaticMovers(posOffset);
         Collidable = true;
+        curState = State.Reforming;
         MakeRespawnDebris($"{ModuleName}/Entities/more_bounce_block/rock_rubble", 0.4f);
         yield return 0.2f;
         Audio.Play("event:/game/09_core/bounceblock_reappear", Center);
         yield return 0.2f;
-
+        curState = State.Appearing;
         Visible = true;
         EnableStaticMovers();
         respawnFlashPercent = 0f;
@@ -142,7 +153,7 @@ public class DirtBounceBlock : Solid
                 break;
         }
         MakeReformParticles();
-        readyToFall = true;
+        curState = State.Idle;
         respawnFlashPercent = 1f;
     }
 
@@ -217,6 +228,19 @@ public class DirtBounceBlock : Solid
                 h += 8;
             }
             w += 8;
+        }
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        if (curState is State.Broken)
+        {
+            Visible = Collidable = false;
+        }
+        if (curState is State.Reforming)
+        {
+            Visible = false;
         }
     }
 
