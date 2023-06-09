@@ -12,30 +12,19 @@ namespace Celeste.Mod.SaladimHelper;
 public static class GlobalHooks
 {
     public static ILHook Player_orig_Update_ILHook;
+    public static void Unload()
+    {
+        //Player_orig_Update_ILHook.Dispose(); 
+    }
+
     public static void Load()
     {
         //Player_orig_Update_ILHook = new ILHook(typeof(Player).GetMethod("orig_Update"), Player_orig_Update);
-        //On.Celeste.LavaRect.Quad_refInt32_Vector2_Color_Vector2_Color_Vector2_Color_Vector2_Color +=
-        //    LavaRect_Quad_refInt32_Vector2_Color_Vector2_Color_Vector2_Color_Vector2_Color;
-        //On.Celeste.LavaRect.ctor += LavaRect_ctor;
     }
 
     private static void LavaRect_ctor(On.Celeste.LavaRect.orig_ctor orig, LavaRect self, float width, float height, int step)
     {
         orig(self, width, height, 1);
-    }
-
-    private static void LavaRect_Quad_refInt32_Vector2_Color_Vector2_Color_Vector2_Color_Vector2_Color(
-        On.Celeste.LavaRect.orig_Quad_refInt32_Vector2_Color_Vector2_Color_Vector2_Color_Vector2_Color orig, 
-        LavaRect self, ref int vert, Vector2 va, Color ca, Vector2 vb, Color cb, Vector2 vc, Color cc, Vector2 vd, Color cd)
-    {
-        orig(self, ref vert, va, ca, vb, cb, vc, cc, vd, cd);
-        Draw.SpriteBatch.Begin();
-        Draw.Line(va, vc, Color.White);
-        Draw.Line(vb, vd, Color.Red);
-        Draw.Line(va, vb, Color.Blue);
-        Draw.Line(vc, vd, Color.Green);
-        Draw.SpriteBatch.End();
     }
 
     private static void Player_orig_Update(ILContext il)
@@ -60,11 +49,6 @@ public static class GlobalHooks
             => ins.MatchCallvirt<Camera>("set_Position") &&
             ins.Previous.MatchCall<Vector2>("op_Addition") &&
             ins.Previous.Previous.MatchCall<Vector2>("op_Multiply");
-    }
-
-    public static void Unload()
-    {
-        //Player_orig_Update_ILHook.Dispose(); 
     }
 
     public static Vector2 AlignTo(this Vector2 vec, Vector2 alignVec)

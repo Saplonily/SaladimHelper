@@ -22,13 +22,13 @@ public class SaladimHelperModule : EverestModule
 
     public override void Load()
     {
-        Logger.Log(LogLevel.Info, ModuleName, "Loading module hooks...");
+        Logger.Log(LogLevel.Info, ModuleName, "Invoking module Load methods...");
         CallInitMethods(nameof(Load));
     }
 
     public override void Unload()
     {
-        Logger.Log(LogLevel.Info, ModuleName, "Unloading module hooks...");
+        Logger.Log(LogLevel.Info, ModuleName, "Invoking module Unload methods...");
         CallInitMethods(nameof(Unload));
     }
 }
