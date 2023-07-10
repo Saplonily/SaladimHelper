@@ -1,0 +1,25 @@
+<Project>
+	<!--Windows only for now-->
+	<Target Name="CopyModAssets" AfterTargets="PostBuildEvent">
+		<Error Condition="!Exists('$(CelesteRootPath)\Celeste.exe')" Text="Celeste.exe not found in $(CelesteRootPath)."/>
+		<Error Condition="!Exists('$(CelesteRootPath)\Celeste.Mod.mm.dll')" Text="Celeste.exe found but without Everest."/>
+		
+		<Copy SourceFiles="$(OutputPath)\$(AssemblyName).dll;" DestinationFolder="$(ModAssetsFolderName)"/>
+		<Copy SourceFiles="$(OutputPath)\$(AssemblyName).pdb;" DestinationFolder="$(ModAssetsFolderName)"/>
+		<ItemGroup>
+			<ModAssetsFolderContents Include="$(ModAssetsFolderName)\**"/>
+		</ItemGroup>
+		<MakeDir Condition="!Exists('$(CelesteRootPath)\Mods\$(AssemblyName)')" Directories="$(CelesteRootPath)\Mods\$(AssemblyName)"/>
+		<Copy SourceFiles="@(ModAssetsFolderContents)"
+			  DestinationFolder="$(CelesteRootPath)\Mods\$(AssemblyName)\%(RecursiveDir)"
+			  SkipUnchangedFiles="true"/>
+		<Message Text="Copied files in '$(ModAssetsFolderName)' to '$(CelesteRootPath)\Mods\$(AssemblyName)'" Importance="high"/>
+	</Target>
+
+	<Target Name="Checking" BeforeTargets="PreBuildEvent">
+		<Message Text="Checking celeste root path..." Importance="normal"/>
+		<Error Condition="!Exists($(CelesteRootPath))" Text="Celeste root path not found!"/>
+		<MakeDir Condition="!Exists($(ModAssetsFolderName))" Directories="$(ModAssetsFolderName)"/>
+	</Target>
+
+</Project>

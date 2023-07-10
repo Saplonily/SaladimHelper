@@ -1,0 +1,57 @@
+<Project>
+	<!--Windows only for now-->
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net452</TargetFramework>
+		<Platforms>x86</Platforms>
+
+		<CommonCelesteUsings>false</CommonCelesteUsings>
+		<CommonCelesteUsingsIncludeSystems>true</CommonCelesteUsingsIncludeSystems>
+
+		<CelesteRootPath/>
+		<ModAssetsFolderName>ModFolder</ModAssetsFolderName>
+	</PropertyGroup>
+
+	<!--常用Usings-->
+	<ItemGroup Condition="'$(CommonCelesteUsings)' == 'true'">
+		<Using Include="Celeste.Mod" />
+		<Using Include="Celeste" />
+		<Using Include="Monocle" />
+		<Using Include="Microsoft.Xna.Framework" />
+		<Using Include="MonoMod.Cil"/>
+	</ItemGroup>
+
+	<!--常用System系列Usings-->
+	<ItemGroup Condition="'$(CommonCelesteUsingsIncludeSystems)|$(CommonCelesteUsings)' == 'true|true'">
+		<Using Include="System"/>
+		<Using Include="System.Collections.Generic"/>
+		<Using Include="System.IO"/>
+		<Using Include="System.Linq"/>
+		<Using Include="System.Threading"/>
+		<Using Include="System.Threading.Tasks"/>
+	</ItemGroup>
+
+	<!--常见蔚蓝程序集引用-->
+	<ItemGroup Condition="'$(CommonCelesteReferences)' == 'true'">
+		<Reference Include="Celeste">
+			<HintPath>$(CelesteRootPath)\Celeste.exe</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="FNA">
+			<HintPath>$(CelesteRootPath)\FNA.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="MMHOOK_Celeste">
+			<HintPath>$(CelesteRootPath)\MMHOOK_Celeste.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="YamlDotNet">
+			<HintPath>$(CelesteRootPath)\YamlDotNet.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="MonoMod.Utils">
+			<HintPath>$(CelesteRootPath)\MonoMod.Utils.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+</Project>
