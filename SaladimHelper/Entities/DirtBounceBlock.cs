@@ -1,7 +1,5 @@
 ﻿using Celeste.Mod.Entities;
 using FMOD;
-using static Celeste.GaussianBlur;
-using static Celeste.TrackSpinner;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
@@ -33,20 +31,6 @@ public class DirtBounceBlock : Solid
     public float AreaRadio => Hitbox.Size.X * Hitbox.Size.Y / 1400f;
 
     protected List<Image> images;
-
-    static DirtBounceBlock()
-    {
-        P_Motion = new(BounceBlock.P_FireBreak)
-        {
-            Acceleration = Vector2.UnitY * 60f,
-            SpeedMax = 40f,
-            SpeedMin = 10f,
-            SpeedMultiplier = 1f,
-            Color = Calc.HexToColor("58421C"),
-            Color2 = Calc.HexToColor("866833"),
-            Direction = (float)(-Math.PI / 2)
-        };
-    }
 
     public DirtBounceBlock(Vector2 position, float width, float height)
         : base(position, width, height, false)

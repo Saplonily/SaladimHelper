@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Using Include="System.Collections"/>
+		<Using Include="System.Collections" />
 		<Using Include="Celeste.Mod.SaladimHelper.SaladimHelperModule" Static="true" />
 		<Reference Include="Mono.Cecil">
 			<HintPath>$(CelesteRootPath)\Mono.Cecil.dll</HintPath>
@@ -20,5 +20,5 @@
 		</Reference>
 	</ItemGroup>
 
-	<Import Project="CelesteMod.targets"/>
+	<Import Project="CelesteMod.targets" />
 </Project>

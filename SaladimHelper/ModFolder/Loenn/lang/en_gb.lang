@@ -1,3 +1,7 @@
 entities.SaladimHelper/DirtBounceBlock.placements.name.dirtBounceBlock_normal=Dirt Bounce Block
 entities.SaladimHelper/ReelCamera.placements.name.reelCamera_normal=Reel Camera
 entities.SaladimHelper/KeyTeleField.placements.name.keyTeleField_normal=Key Tele Field
+
+entities.SaladimHelper/DelayedFallingBlock.placements.name.normal=Delayed Falling Block
+entities.SaladimHelper/RustyZipMover.placements.name.normal=RustyZipMover (normal)
+entities.SaladimHelper/RustyZipMover.placements.name.moon=RustyZipMover (moon)

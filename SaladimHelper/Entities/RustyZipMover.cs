@@ -12,6 +12,9 @@ public sealed class RustyZipMover : ZipMover
 {
     public static ILHook hook;
     public bool Rusty = true;
+    public float AreaRadio => Hitbox.Size.X * Hitbox.Size.Y / 1400f;
+
+    public static ParticleType P_Motion;
 
     public RustyZipMover(EntityData data, Vector2 offset)
         : this(data.Position + offset, data.Width, data.Height, data.NodesOffset(offset)[0], data.Bool("is_moon") ? Themes.Moon : Themes.Normal)
@@ -25,17 +28,23 @@ public sealed class RustyZipMover : ZipMover
             if (Rusty)
             {
                 Rusty = false;
+                SceneAs<Level>().ParticlesFG.Emit(P_Motion, (int)(200 * AreaRadio), BottomCenter, new Vector2(Width, 2) / 2f);
                 return DashCollisionResults.Rebound;
             }
             return DashCollisionResults.NormalCollision;
         };
     }
 
-    public override void Render()
+    public override void Update()
     {
-        base.Render();
-
+        base.Update();
     }
+
+    //public override void Render()
+    //{
+    //    base.Render();
+
+    //}
 
     private static void SequenceILHooked(ILContext il)
     {

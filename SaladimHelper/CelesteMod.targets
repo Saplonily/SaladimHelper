@@ -9,11 +9,11 @@
 		<ItemGroup>
 			<ModAssetsFolderContents Include="$(ModAssetsFolderName)\**"/>
 		</ItemGroup>
-		<MakeDir Condition="!Exists('$(CelesteRootPath)\Mods\$(AssemblyName)')" Directories="$(CelesteRootPath)\Mods\$(AssemblyName)"/>
+		<MakeDir Condition="!Exists('$(CelesteRootPath)\Mods\$(AssemblyName)')" Directories="$(CelesteRootPath)\..\Mods\$(AssemblyName)"/>
 		<Copy SourceFiles="@(ModAssetsFolderContents)"
-			  DestinationFolder="$(CelesteRootPath)\Mods\$(AssemblyName)\%(RecursiveDir)"
+			  DestinationFolder="$(CelesteRootPath)\..\Mods\$(AssemblyName)\%(RecursiveDir)"
 			  SkipUnchangedFiles="true"/>
-		<Message Text="Copied files in '$(ModAssetsFolderName)' to '$(CelesteRootPath)\Mods\$(AssemblyName)'" Importance="high"/>
+		<Message Text="Copied files in '$(ModAssetsFolderName)' to '$(CelesteRootPath)\..\Mods\$(AssemblyName)'" Importance="high"/>
 	</Target>
 
 	<Target Name="Checking" BeforeTargets="PreBuildEvent">
