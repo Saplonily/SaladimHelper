@@ -46,8 +46,20 @@ public static class GlobalHooks
         BitsMomentumRefill.P_Shatter = new(Refill.P_Shatter);
         BitsMomentumRefill.P_Regen = new(Refill.P_Regen);
         BitsMomentumRefill.P_Glow = new(Refill.P_Glow);
-        BitsMomentumRefill.P_ShatterTwo = new(Refill.P_ShatterTwo);
-        BitsMomentumRefill.P_RegenTwo = new(Refill.P_RegenTwo);
-        BitsMomentumRefill.P_GlowTwo = new(Refill.P_GlowTwo);
+
+        BitsMomentumRefill.P_SpeedField = new(Refill.P_Regen)
+        {
+            DirectionRange = 0f,
+            Direction = 0f,
+            SpeedMax = 0f,
+            SpeedMin = 0f,
+            Color = Calc.HexToColor("FFD500"),
+            //Color2 = Calc.HexToColor("FFEF9E"),
+            Color2 = Calc.HexToColor("FFFFFF"),
+            ColorMode = ParticleType.ColorModes.Fade,
+            LifeMin = 0.3f,
+            LifeMax = 0.5f,
+            
+        };
     }
 }

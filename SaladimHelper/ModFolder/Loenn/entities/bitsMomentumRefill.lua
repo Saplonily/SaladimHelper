@@ -5,7 +5,9 @@ refill.depth = -100
 refill.placements = {
     name = "normal",
     data = {
-        oneUse = false
+        oneUse = false,
+        recordX = true,
+        recordY = true
     }
 }
 
