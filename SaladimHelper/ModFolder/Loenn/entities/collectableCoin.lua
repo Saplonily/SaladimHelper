@@ -8,6 +8,6 @@ c.placements = {
     }
 }
 
-c.sprite = "SaladimHelper/Entities/collectable_coin/idle00"
+c.texture = "SaladimHelper/Entities/collectable_coin/idle00"
 
 return c

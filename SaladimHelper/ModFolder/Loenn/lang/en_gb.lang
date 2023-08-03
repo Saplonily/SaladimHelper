@@ -5,3 +5,5 @@ entities.SaladimHelper/KeyTeleField.placements.name.keyTeleField_normal=Key Tele
 entities.SaladimHelper/DelayedFallingBlock.placements.name.normal=Delayed Falling Block
 entities.SaladimHelper/RustyZipMover.placements.name.normal=RustyZipMover (normal)
 entities.SaladimHelper/RustyZipMover.placements.name.moon=RustyZipMover (moon)
+entities.SaladimHelper/BitsMomentumRefill.placements.name.normal=BitsMomentumRefill
+entities.SaladimHelper/CollectableCoin.placements.name.normal=CollectableCoin

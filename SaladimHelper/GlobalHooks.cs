@@ -41,5 +41,13 @@ public static class GlobalHooks
             Color2 = Calc.HexToColor("866833"),
             Direction = -MathHelper.Pi / 2
         };
+
+        // happy copying
+        BitsMomentumRefill.P_Shatter = new(Refill.P_Shatter);
+        BitsMomentumRefill.P_Regen = new(Refill.P_Regen);
+        BitsMomentumRefill.P_Glow = new(Refill.P_Glow);
+        BitsMomentumRefill.P_ShatterTwo = new(Refill.P_ShatterTwo);
+        BitsMomentumRefill.P_RegenTwo = new(Refill.P_RegenTwo);
+        BitsMomentumRefill.P_GlowTwo = new(Refill.P_GlowTwo);
     }
 }
