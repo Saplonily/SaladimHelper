@@ -5,3 +5,5 @@ entities.SaladimHelper/KeyTeleField.placements.name.keyTeleField_normal=Key Tele
 entities.SaladimHelper/DelayedFallingBlock.placements.name.normal=Delayed Falling Block
 entities.SaladimHelper/RustyZipMover.placements.name.normal=RustyZipMover (normal)
 entities.SaladimHelper/RustyZipMover.placements.name.moon=RustyZipMover (moon)
+
+triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=EnableFrostFreezeTrigger

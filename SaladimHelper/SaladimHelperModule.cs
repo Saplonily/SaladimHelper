@@ -5,8 +5,10 @@ namespace Celeste.Mod.SaladimHelper;
 public class SaladimHelperModule : EverestModule
 {
     public static SaladimHelperModule ModuleInstance { get; set; }
-    public static SaladimHelperModuleSettings ModuleSettings => ModuleInstance._Settings as SaladimHelperModuleSettings;
-    public override Type SettingsType => typeof(SaladimHelperModuleSettings);
+    public static SaladimHelperSettings ModuleSettings => ModuleInstance._Settings as SaladimHelperSettings;
+    public override Type SettingsType => typeof(SaladimHelperSettings);
+    public static SaladimHelperSession ModuleSession => ModuleInstance._Session as SaladimHelperSession;
+    public override Type SessionType => typeof(SaladimHelperSession);
 
     public SaladimHelperModule() => ModuleInstance = this;
 
