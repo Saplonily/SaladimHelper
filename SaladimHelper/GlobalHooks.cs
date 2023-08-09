@@ -1,5 +1,5 @@
 ﻿using Celeste.Mod.SaladimHelper.Entities;
-using Microsoft.Xna.Framework.Graphics;
+using MonoMod.RuntimeDetour;
 
 namespace Celeste.Mod.SaladimHelper;
 
@@ -8,17 +8,17 @@ public static class GlobalHooks
 {
     public static void Load()
     {
-        On.Celeste.ParticleTypes.Load += LoadParticles;
+        On.Celeste.ParticleTypes.Load += OnLoadParticles;
     }
 
     public static void Unload()
     {
-        On.Celeste.ParticleTypes.Load -= LoadParticles;
+        On.Celeste.ParticleTypes.Load -= OnLoadParticles;
     }
 
-    public static void LoadParticles(On.Celeste.ParticleTypes.orig_Load orig)
+    public static void LoadParticles()
     {
-        orig();
+        if (BounceBlock.P_FireBreak is null) return;
         RustyZipMover.P_Motion = new(BounceBlock.P_FireBreak)
         {
             Acceleration = Vector2.UnitY * 60f,
@@ -59,7 +59,13 @@ public static class GlobalHooks
             ColorMode = ParticleType.ColorModes.Fade,
             LifeMin = 0.3f,
             LifeMax = 0.5f,
-            
+
         };
+    }
+
+    public static void OnLoadParticles(On.Celeste.ParticleTypes.orig_Load orig)
+    {
+        orig();
+        LoadParticles();
     }
 }

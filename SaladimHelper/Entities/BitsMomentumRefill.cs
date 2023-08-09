@@ -28,12 +28,7 @@ public class BitsMomentumRefill : Entity
     private bool recordX;
     private bool recordY;
 
-#if NEVER // hot reloading makes our static fields to null, so, load them again here
-    static BitsMomentumRefill()
-    {
-        GlobalHooks.LoadParticles(() => { });
-    }
-#endif
+    static BitsMomentumRefill() => GlobalHooks.LoadParticles();
 
     public static void Load()
     {

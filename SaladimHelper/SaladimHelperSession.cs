@@ -8,6 +8,7 @@ public class SaladimHelperSession : EverestModuleSession
     public HashSet<EntityID> CollectedCoins = new();
     public Dictionary<string, int> GroupToCoinsMap = new();
 
+    // TODO: reset after death
     public Vector2? MomentumRefillSpeedKept = null;
 
     [YamlIgnore]
