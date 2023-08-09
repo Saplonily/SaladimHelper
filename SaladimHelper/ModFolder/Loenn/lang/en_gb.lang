@@ -7,3 +7,5 @@ entities.SaladimHelper/RustyZipMover.placements.name.normal=RustyZipMover (norma
 entities.SaladimHelper/RustyZipMover.placements.name.moon=RustyZipMover (moon)
 entities.SaladimHelper/BitsMomentumRefill.placements.name.normal=BitsMomentumRefill
 entities.SaladimHelper/CollectableCoin.placements.name.normal=CollectableCoin
+
+triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=EnableFrostFreezeTrigger

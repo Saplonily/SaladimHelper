@@ -13,4 +13,5 @@ public class SaladimHelperSession : EverestModuleSession
 
     [YamlIgnore]
     public CoinDisplayer CurrentCoinDisplayer = null;
+    public bool EnabledFrostFreeze = false;
 }
