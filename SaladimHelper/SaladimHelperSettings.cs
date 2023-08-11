@@ -2,7 +2,6 @@
 
 namespace Celeste.Mod.SaladimHelper;
 
-[SettingName("Saladim helper settings")]
 public class SaladimHelperSettings : EverestModuleSettings
 {
     [DefaultButtonBinding(Buttons.RightShoulder, Keys.X)]
@@ -10,4 +9,6 @@ public class SaladimHelperSettings : EverestModuleSettings
     
     [DefaultButtonBinding(Buttons.RightShoulder, Keys.X)]
     public ButtonBinding DoLightSwitch { get; set; } = new();
+
+    public bool AlwaysEnableFrostFreeze { get; set; }
 }

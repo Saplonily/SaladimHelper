@@ -42,7 +42,7 @@ public static class GlobalHooks
             cur.Index++;
             cur.EmitDelegate(() =>
             {
-                if (!ModuleSession.EnabledFrostFreeze) return;
+                if (!ModuleSession.EnabledFrostFreeze && !ModuleSettings.AlwaysEnableFrostFreeze) return;
                 if (Engine.TimeRate > 0.25f)
                 {
                     Celeste.Freeze(0.05f);
