@@ -3,11 +3,11 @@ entities.SaladimHelper/ReelCamera.placements.name.reelCamera_normal=Reel Camera
 entities.SaladimHelper/KeyTeleField.placements.name.keyTeleField_normal=Key Tele Field
 
 entities.SaladimHelper/DelayedFallingBlock.placements.name.normal=Delayed Falling Block
-entities.SaladimHelper/RustyZipMover.placements.name.normal=RustyZipMover (normal)
-entities.SaladimHelper/RustyZipMover.placements.name.moon=RustyZipMover (moon)
-entities.SaladimHelper/BitsMomentumRefill.placements.name.normal=BitsMomentumRefill
-entities.SaladimHelper/CollectableCoin.placements.name.normal=CollectableCoin
+entities.SaladimHelper/RustyZipMover.placements.name.normal=Rusty Zip Mover (normal)
+entities.SaladimHelper/RustyZipMover.placements.name.moon=Rusty Zip Mover (moon)
+entities.SaladimHelper/BitsMomentumRefill.placements.name.normal=Bits Momentum Refill
+entities.SaladimHelper/CollectableCoin.placements.name.normal=Collectable Coin
 
 entities.SaladimHelper/DummyImage.placements.name.normal=Dummy Image
 
-triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=EnableFrostFreezeTrigger
+triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=Enable Frost Freeze Trigger
