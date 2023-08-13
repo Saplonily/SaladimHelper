@@ -7,10 +7,18 @@ shop.nodeLineRenderType = "fan"
 shop.placements = {
     name = "normal",
     data = {
-        oneUse = false,
         width = 16,
         height = 16,
-        config_path = "path/to/your/yaml"
+        cost_sequence = "1,2,3",
+        tex_sequence = "x,areas/new,areas/city",
+        line_max = 4
+    }
+}
+
+shop.fieldInformation = {
+    line_max = {
+        fieldType = "integer",
+        minumumValue = 1
     }
 }
 

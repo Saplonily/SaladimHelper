@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+
 using Monocle;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
@@ -8,20 +9,18 @@ public class CollectableCoin : Entity
 {
     private bool collected = false;
     private Sprite spr;
-    private string group;
     private int id;
 
     private BloomPoint bloom;
 
     public CollectableCoin(EntityData data, Vector2 offset)
-        : this(data.Position + offset, data.Attr("group", "default"), data.ID)
+        : this(data.Position + offset, data.ID)
     {
 
     }
 
-    public CollectableCoin(Vector2 pos, string group, int id)
+    public CollectableCoin(Vector2 pos, int id)
     {
-        this.group = group;
         this.id = id;
         Position = pos;
         // add some awesome bloom!
@@ -40,9 +39,6 @@ public class CollectableCoin : Entity
     public override void Added(Scene scene)
     {
         base.Added(scene);
-        //collected = ModuleSession.CollectedCoins.Contains(new EntityID(SceneAs<Level>().Session.Level, id));
-        if (collected)
-            RemoveSelf();
     }
 
     public void OnPlayer(Player p)
@@ -65,13 +61,14 @@ public class CollectableCoin : Entity
     {
         if (collected) return;
         Audio.Play("event:/game/general/touchswitch_any", Center);
-        var dic = ModuleSession.GroupToCoinsMap;
-        if (!dic.ContainsKey(group))
-            dic[group] = 0;
-        dic[group]++;
-        ModuleSession.CollectedCoins.Add(new EntityID(SceneAs<Level>().Session.Level, id));
+
+        var session = SceneAs<Level>().Session;
+        var entityId = new EntityID(session.Level, id);
+        ModuleSession.CollectedCoins.Add(entityId);
+        session.DoNotLoad.Add(entityId);
+
         PlayAnim();
-        DisplayDisplayerIf();
+        CoinDisplayer.Display(Scene);
     }
 
     private void PlayAnim()
@@ -98,7 +95,7 @@ public class CollectableCoin : Entity
             }
 
             p = 0.95f;
-            if(t.Eased>=p)
+            if (t.Eased >= p)
             {
                 float thisEased = (t.Eased - p) / (1f - p);
                 spr.Scale.X = Calc.LerpClamp(1.0f, 0.0f, thisEased);
@@ -110,22 +107,5 @@ public class CollectableCoin : Entity
         };
         Add(tw);
         tw.Start();
-    }
-
-    public void DisplayDisplayerIf()
-    {
-        var cur = ModuleSession.CurrentCoinDisplayer;
-        if (cur is null || cur?.Scene != Scene)
-        {
-            cur = new();
-            ModuleSession.CurrentCoinDisplayer = cur;
-            Scene.Add(cur);
-        }
-        cur.Group = group;
-    }
-
-    public override void Render()
-    {
-        base.Render();
     }
 }
