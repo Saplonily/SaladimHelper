@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+
 using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
@@ -27,6 +28,7 @@ public class BitsMomentumRefill : Entity
 
     private bool recordX;
     private bool recordY;
+    private bool isBlooming;
 
     static BitsMomentumRefill() => GlobalHooks.LoadParticles();
 
@@ -77,12 +79,13 @@ public class BitsMomentumRefill : Entity
         }
     }
 
-    public BitsMomentumRefill(Vector2 position, bool oneUse, bool recordX, bool recordY)
+    public BitsMomentumRefill(Vector2 position, bool oneUse, bool recordX, bool recordY, bool isBlooming)
         : base(position)
     {
         this.oneUse = oneUse;
         this.recordX = recordX;
         this.recordY = recordY;
+        this.isBlooming = isBlooming;
 
         Collider = new Hitbox(16f, 16f, -8f, -8f);
         Add(new PlayerCollider(new Action<Player>(OnPlayer)));
@@ -103,8 +106,11 @@ public class BitsMomentumRefill : Entity
         Add(wiggler = Wiggler.Create(1f, 4f, v => sprite.Scale = flash.Scale = Vector2.One * (1f + v * 0.2f)));
 
         Add(new MirrorReflection());
-        Add(bloom = new BloomPoint(0.8f, 16f));
-        Add(light = new VertexLight(Color.White, 1f, 16, 48));
+        if (isBlooming)
+        {
+            Add(bloom = new BloomPoint(0.8f, 16f));
+            Add(light = new VertexLight(Color.White, 1f, 16, 48));
+        }
         Add(sine = new SineWave(0.6f));
         sine.Randomize();
 
@@ -113,7 +119,9 @@ public class BitsMomentumRefill : Entity
     }
 
     public BitsMomentumRefill(EntityData data, Vector2 offset)
-        : this(data.Position + offset, data.Bool("oneUse", false), data.Bool("recordX", true), data.Bool("recordY", true))
+        : this(data.Position + offset, data.Bool("oneUse", false),
+              data.Bool("recordX", true), data.Bool("recordY", true),
+              data.Bool("isBlooming", true))
     {
     }
 
@@ -148,13 +156,16 @@ public class BitsMomentumRefill : Entity
                 Respawn();
             }
         }
-        else if (Scene.OnInterval(0.1f))
+        else if (Scene.OnInterval(0.1f) && isBlooming)
         {
             level.ParticlesFG.Emit(P_Glow, 1, Position, Vector2.One * 5f);
         }
         UpdateY();
-        light.Alpha = Calc.Approach(light.Alpha, sprite.Visible ? 1f : 0f, 4f * Engine.DeltaTime);
-        bloom.Alpha = light.Alpha * 0.8f;
+        if (isBlooming)
+        {
+            light.Alpha = Calc.Approach(light.Alpha, sprite.Visible ? 1f : 0f, 4f * Engine.DeltaTime);
+            bloom.Alpha = light.Alpha * 0.8f;
+        }
         if (Scene.OnInterval(2f) && sprite.Visible)
         {
             flash.Play("flash", true, false);
@@ -178,7 +189,10 @@ public class BitsMomentumRefill : Entity
 
     private void UpdateY()
     {
-        flash.Y = sprite.Y = bloom.Y = sine.Value * 2f;
+        var v = sine.Value * 2f;
+        sprite.Y = v;
+        if (isBlooming)
+            bloom.Y = sine.Value * 2f;
     }
 
     public override void Render()
