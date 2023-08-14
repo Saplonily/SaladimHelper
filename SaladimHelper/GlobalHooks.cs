@@ -1,6 +1,11 @@
 ﻿using System.Reflection;
+
 using Celeste.Mod.SaladimHelper.Entities;
+
+using Mono.Cecil.Cil;
+
 using MonoMod.RuntimeDetour;
+using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper;
 
@@ -33,23 +38,52 @@ public static class GlobalHooks
     public static void OnFrostHelperDreamBlockHook(ILContext il)
     {
         ILCursor cur = new(il);
-        if (cur.TryGotoNext(
-            MoveType.After,
-            ins => ins.MatchCall("Celeste.Audio", "Play")
-            ))
+        if (cur.TryGotoNext(ins => ins.MatchCallvirt<Player>("get_CanDash")))
         {
-            Logger.Log(LogLevel.Info, ModuleName, "Hooked CustomDreamBlockV2.DreamDashUpdate.");
-            cur.Index++;
-            cur.EmitDelegate(() =>
+            cur.Index += 2;
+            cur.Emit(OpCodes.Ldloc_0);
+            cur.Emit(OpCodes.Ldarg_1);
+            cur.EmitDelegate((Entity obj, Player p) =>
             {
-                if (!ModuleSession.EnabledFrostFreeze && !ModuleSettings.AlwaysEnableFrostFreeze) return;
+                if (!ModuleSession.EnabledFrostFreeze && !ModuleSettings.AlwaysEnableFrostFreeze)
+                    return;
+                DynamicData data = DynamicData.For(obj);
+                Input.Dash.ConsumePress();
+                Input.CrouchDash.ConsumePress();
                 if (Engine.TimeRate > 0.25f)
-                {
                     Celeste.Freeze(0.05f);
-                }
+                var co = MakeCoroutine(p, data);
+                obj.Add(new Coroutine(co));
             });
+            cur.Emit(OpCodes.Ldarg_0);
+            cur.Emit(OpCodes.Ldarg_1);
+            cur.Emit(OpCodes.Callvirt, typeof(On.Celeste.Player.orig_DreamDashUpdate).GetMethod("Invoke"));
+            cur.Emit(OpCodes.Ret);
+        }
+        static IEnumerator MakeCoroutine(Player self, DynamicData data)
+        {
+
+            yield return null;
+            Vector2 aimVector = Input.GetAimVector(self.Facing);
+            bool flag = aimVector == self.DashDir;
+            if (!flag || data.Get<bool>("AllowRedirectsInSameDir"))
+            {
+                self.DashDir = aimVector;
+                self.Speed = self.DashDir * self.Speed.Length();
+                self.Dashes = Math.Max(0, self.Dashes - 1);
+                Audio.Play("event:/char/madeline/dreamblock_enter");
+                if (flag)
+                {
+                    self.Speed *= data.Get<float>("SameDirectionSpeedMultiplier");
+                    self.DashDir *= (float)Math.Sign(data.Get<float>("SameDirectionSpeedMultiplier"));
+                }
+                if (self.Speed.X != 0f)
+                    self.Facing = (Facings)Math.Sign(self.Speed.X);
+            }
+            yield break;
         }
     }
+
 
     public static void Unload()
     {
