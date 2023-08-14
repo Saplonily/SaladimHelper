@@ -34,12 +34,20 @@ public class BitsMomentumRefill : Entity
     {
         On.Celeste.Player.CallDashEvents += Player_CallDashEvents;
         On.Celeste.Player.Render += Player_Render;
+        On.Celeste.Player.ctor += Player_ctor;
+    }
+
+    private static void Player_ctor(On.Celeste.Player.orig_ctor orig, Player self, Vector2 position, PlayerSpriteMode spriteMode)
+    {
+        orig(self, position, spriteMode);
+        ModuleSession.MomentumRefillSpeedKept = null;
     }
 
     public static void Unload()
     {
         On.Celeste.Player.CallDashEvents -= Player_CallDashEvents;
         On.Celeste.Player.Render -= Player_Render;
+        On.Celeste.Player.ctor -= Player_ctor;
     }
 
     private static void Player_CallDashEvents(On.Celeste.Player.orig_CallDashEvents orig, Player self)

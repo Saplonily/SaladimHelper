@@ -11,7 +11,6 @@ public class SaladimHelperSession : EverestModuleSession
 
     [YamlIgnore] public int CollectedCoinsAmount => CollectedCoins.Count;
 
-    // TODO: reset after death
     public Vector2? MomentumRefillSpeedKept = null;
 
     [YamlIgnore] public CoinDisplayer CurrentCoinDisplayer = null;
