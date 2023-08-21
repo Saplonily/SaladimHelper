@@ -93,17 +93,16 @@ public static class GlobalHooks
 
         BitsMomentumRefill.P_SpeedField = new(Refill.P_Regen)
         {
-            DirectionRange = 0f,
+            DirectionRange = 5f / 180f * MathHelper.Pi,
             Direction = 0f,
             SpeedMax = 0f,
             SpeedMin = 0f,
             Color = Calc.HexToColor("FFD500"),
-            //Color2 = Calc.HexToColor("FFEF9E"),
             Color2 = Calc.HexToColor("FFFFFF"),
             ColorMode = ParticleType.ColorModes.Fade,
             LifeMin = 0.3f,
             LifeMax = 0.5f,
-
+            Friction = 30f,
         };
     }
 

@@ -129,11 +129,11 @@ public class BitsMomentumRefill : Entity
     {
         Random r = Calc.Random;
         float length = speed.Length();
-        int amount = (int)MathHelper.Min(length * 0.1f, 50f);
+        int amount = (int)MathHelper.Min(length * 0.1f, 60f);
         for (int i = 0; i < amount; i++)
         {
             P_SpeedField.SpeedMax = MathHelper.Min(length * 0.6f, 300f);
-            P_SpeedField.SpeedMin = MathHelper.Min(length * 0.6f, 280f);
+            P_SpeedField.SpeedMin = MathHelper.Min(length * 0.6f, 200f);
             var spn = speed / length;
             ps.Emit(P_SpeedField, center + new Vector2(r.NextFloat(16f) - 8f, r.NextFloat(20f) - 10f) - spn * length / 60f, speed.Angle());
         }
