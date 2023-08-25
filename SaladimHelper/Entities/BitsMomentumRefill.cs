@@ -182,7 +182,7 @@ public class BitsMomentumRefill : Entity
             outline.Visible = false;
             Depth = -100;
             wiggler.Start();
-            Audio.Play("event:/game/general/diamond_return", Position);
+            Audio.Play("event:/momentum_refill/momentum_refill_return", Position);
             level.ParticlesFG.Emit(P_Regen, 16, Position, Vector2.One * 2f);
         }
     }
@@ -214,7 +214,7 @@ public class BitsMomentumRefill : Entity
             ModuleSession.MomentumRefillSpeedKept = sp;
             MakeSpeedField(SceneAs<Level>().Particles, Position, sp);
             // and do effects
-            Audio.Play("event:/game/general/diamond_touch", Position);
+            Audio.Play("event:/momentum_refill/momentum_refill_touch", Position);
             Input.Rumble(RumbleStrength.Medium, RumbleLength.Medium);
             Collidable = false;
             Add(new Coroutine(RefillRoutine(player)));
