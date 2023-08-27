@@ -16,7 +16,7 @@
 	<PropertyGroup>
 		<EverestCoreVersion Condition="Exists('$(CelesteRootPath)/Celeste.dll')">true</EverestCoreVersion>
 		<CelesteAssemblyPath>$(CelesteRootPath)</CelesteAssemblyPath>
-		<CelesteAssemblyPath Condition="'$(EverestCoreVersion)' == 'true'">$(CelesteRootPath)\legacyRef</CelesteAssemblyPath>
+		<CelesteAssemblyPath Condition="'$(EverestCoreVersion)' == 'true'">$(CelesteRootPath)/legacyRef</CelesteAssemblyPath>
 	</PropertyGroup>
 
 	<!--常用Usings-->
