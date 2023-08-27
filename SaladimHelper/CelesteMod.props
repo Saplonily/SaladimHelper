@@ -6,10 +6,17 @@
 		<Platforms>x86</Platforms>
 
 		<CommonCelesteUsings>false</CommonCelesteUsings>
-		<CommonCelesteUsingsIncludeSystems>true</CommonCelesteUsingsIncludeSystems>
-
+		<EverestCoreVersion>false</EverestCoreVersion>
 		<CelesteRootPath/>
 		<ModAssetsFolderName>ModFolder</ModAssetsFolderName>
+	</PropertyGroup>
+
+	<Import Project="Common.props"/>
+
+	<PropertyGroup>
+		<EverestCoreVersion Condition="Exists('$(CelesteRootPath)/Celeste.dll')">true</EverestCoreVersion>
+		<CelesteAssemblyPath>$(CelesteRootPath)</CelesteAssemblyPath>
+		<CelesteAssemblyPath Condition="'$(EverestCoreVersion)' == 'true'">$(CelesteRootPath)\legacyRef</CelesteAssemblyPath>
 	</PropertyGroup>
 
 	<!--常用Usings-->
@@ -21,37 +28,32 @@
 		<Using Include="MonoMod.Cil"/>
 	</ItemGroup>
 
-	<!--常用System系列Usings-->
-	<ItemGroup Condition="'$(CommonCelesteUsingsIncludeSystems)|$(CommonCelesteUsings)' == 'true|true'">
-		<Using Include="System"/>
-		<Using Include="System.Collections.Generic"/>
-		<Using Include="System.IO"/>
-		<Using Include="System.Linq"/>
-		<Using Include="System.Threading"/>
-		<Using Include="System.Threading.Tasks"/>
-	</ItemGroup>
-
 	<!--常见蔚蓝程序集引用-->
 	<ItemGroup Condition="'$(CommonCelesteReferences)' == 'true'">
 		<Reference Include="Celeste">
-			<HintPath>$(CelesteRootPath)\Celeste.exe</HintPath>
+			<HintPath>$(CelesteAssemblyPath)/Celeste.exe</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="FNA">
-			<HintPath>$(CelesteRootPath)\FNA.dll</HintPath>
+			<HintPath>$(CelesteAssemblyPath)/FNA.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="MMHOOK_Celeste">
-			<HintPath>$(CelesteRootPath)\MMHOOK_Celeste.dll</HintPath>
+			<HintPath>$(CelesteAssemblyPath)/MMHOOK_Celeste.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="YamlDotNet">
-			<HintPath>$(CelesteRootPath)\YamlDotNet.dll</HintPath>
+			<HintPath>$(CelesteAssemblyPath)/YamlDotNet.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="MonoMod.Utils">
-			<HintPath>$(CelesteRootPath)\MonoMod.Utils.dll</HintPath>
+			<HintPath>$(CelesteAssemblyPath)/MonoMod.Utils.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Mono.Cecil">
+			<HintPath>$(CelesteAssemblyPath)/Mono.Cecil.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
+
 </Project>

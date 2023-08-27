@@ -1,11 +1,8 @@
 <Project>
-	<PropertyGroup>
-		<!--I used core versions everest so there's legacyRef-->
-		<CelesteRootPath>C:\Program Files (x86)\Steam\steamapps\common\Celeste\legacyRef</CelesteRootPath>
-		<CommonCelesteUsings>true</CommonCelesteUsings>
-		<CommonCelesteReferences>true</CommonCelesteReferences>
-		<ModAssetsFolderName>ModFolder</ModAssetsFolderName>
-		
-		<EverestCoreVersion>true</EverestCoreVersion>
-	</PropertyGroup>
+    <PropertyGroup>
+        <CelesteRootPath>C:/Program Files (x86)/Steam/steamapps/common/Celeste</CelesteRootPath>
+        <CommonCelesteUsings>true</CommonCelesteUsings>
+        <CommonCelesteReferences>true</CommonCelesteReferences>
+        <ModAssetsFolderName>ModFolder</ModAssetsFolderName>
+    </PropertyGroup>
 </Project>
