@@ -24,7 +24,7 @@ public class ShopBoughtLeader : Entity
         };
         tween.OnComplete = _ =>
         {
-            Scene.Add(entityToAdd);
+            Scene.Add(this.entityToAdd);
             for (int i = 0; i < 20; i++)
                 SceneAs<Level>().ParticlesFG.Emit(Player.P_SummitLandB, Position);
             RemoveSelf();
