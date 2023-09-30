@@ -2,6 +2,7 @@
 
 using Celeste.Mod.SaladimHelper.Entities;
 
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 
 using MonoMod.RuntimeDetour;
@@ -31,11 +32,11 @@ public static class GlobalHooks
             Assembly asm = module.GetType().Assembly;
             Type dreamBlockType = asm.GetType("FrostHelper.CustomDreamBlockV2");
             MethodInfo dreamDashUpdate = dreamBlockType.GetMethod("Player_DreamDashUpdate", BindingFlags.NonPublic | BindingFlags.Static);
-            FrostHelperDreamBlockHook = new ILHook(dreamDashUpdate, OnFrostHelperDreamBlockHook);
+            FrostHelperDreamBlockHook = new ILHook(dreamDashUpdate, OnFrostHelperDreamDashUpdateHook);
         }
     }
 
-    public static void OnFrostHelperDreamBlockHook(ILContext il)
+    public static void OnFrostHelperDreamDashUpdateHook(ILContext il)
     {
         ILCursor cur = new(il);
         if (cur.TryGotoNext(ins => ins.MatchCallvirt<Player>("get_CanDash")))
@@ -46,7 +47,7 @@ public static class GlobalHooks
             cur.EmitDelegate((Entity obj, Player p) =>
             {
                 if (!ModuleSession.EnabledFrostFreeze && !ModuleSettings.AlwaysEnableFrostFreeze)
-                    return;
+                    return false;
                 DynamicData data = DynamicData.For(obj);
                 Input.Dash.ConsumePress();
                 Input.CrouchDash.ConsumePress();
@@ -54,11 +55,15 @@ public static class GlobalHooks
                     Celeste.Freeze(0.05f);
                 var co = MakeCoroutine(p, data);
                 obj.Add(new Coroutine(co));
+                return true;
             });
+            var label = cur.DefineLabel();
+            cur.Emit(OpCodes.Brfalse, label);
             cur.Emit(OpCodes.Ldarg_0);
             cur.Emit(OpCodes.Ldarg_1);
             cur.Emit(OpCodes.Callvirt, typeof(On.Celeste.Player.orig_DreamDashUpdate).GetMethod("Invoke"));
             cur.Emit(OpCodes.Ret);
+            cur.MarkLabel(label);
         }
         static IEnumerator MakeCoroutine(Player self, DynamicData data)
         {
