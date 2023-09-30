@@ -1,11 +1,20 @@
-﻿namespace Celeste.Mod.SaladimHelper.Entities;
+﻿using FMOD;
+
+using Microsoft.Xna.Framework;
+
+using System;
+
+namespace Celeste.Mod.SaladimHelper.Entities;
 
 // 我知道这坨代码写的很烂但是你先别急整体都写完了再整理
 
 public class MaybeAShopUI : Entity
 {
-    public const float CenterOffsetX = 182f;
-    public const float CenterOffsetY = 190f;
+    public const float CenterOffsetInX = 160f / 320f;
+    public const float CenterOffsetInY = 166f / 466f;
+
+    public const float TextOffsetInX = 105f / 320f;
+    public const float TextOffsetInY = 353f / 466f;
     public readonly static Color BgColor = Calc.HexToColor("040345");
 
     private int lineMax;
@@ -17,7 +26,7 @@ public class MaybeAShopUI : Entity
     private Action<MaybeAShopUI, int> bought;
 
     private string[] texs;
-    private float[] costs;
+    private int[] costs;
 
     private MTexture t;
     private MTexture b;
@@ -26,8 +35,9 @@ public class MaybeAShopUI : Entity
     private Vector2 itemSize;
     private (int columns, int rows) itemRowColumn;
 
-    public MaybeAShopUI(Action<MaybeAShopUI, int> bought, Action<MaybeAShopUI> ended, string[] texs, float[] costs, int lineMax)
+    public MaybeAShopUI(Action<MaybeAShopUI, int> bought, Action<MaybeAShopUI> ended, string[] texs, int[] costs, int lineMax)
     {
+        //lineMax = 114514;
         this.ended = ended;
         // don't ask me why i am doing these
         this.ended += _ =>
@@ -78,10 +88,17 @@ public class MaybeAShopUI : Entity
                 bottomRightFramePos.X = framePos.X;
 
             // 物品贴图
-            var itemImg = new Image(GFX.Gui[texs[i]]);
-            itemImg.Position = framePos + new Vector2(CenterOffsetX, CenterOffsetY);
+            var texItem = GFX.Gui[texs[i]];
+            var itemImg = new Image(texItem);
+            itemImg.Position = framePos + new Vector2(CenterOffsetInX * frameImg.Width, CenterOffsetInY * frameImg.Height);
             itemImg.CenterOrigin();
             Add(itemImg);
+
+            //var coinTex = GFX.Gui["SaladimHelper/coin"];
+            //var coinImg = new Image(coinTex);
+            //coinImg.Position = framePos + new Vector2(CoinOffsetInX * frameImg.Width, CoinOffsetInY * frameImg.Height);
+            //coinImg.CenterOrigin();
+            //Add(coinImg);
 
             curColumn++;
             if (curColumn >= lineMax)
@@ -172,7 +189,8 @@ public class MaybeAShopUI : Entity
         else if (Input.MenuConfirm.Pressed)
         {
             Input.MenuConfirm.ConsumePress();
-            bought(this, selectedIndex);
+            if (TryBuy(selectedIndex))
+                bought(this, selectedIndex);
             ended(this);
             RemoveSelf();
         }
@@ -187,6 +205,17 @@ public class MaybeAShopUI : Entity
             ended(this);
             RemoveSelf();
         }
+    }
+
+    private bool TryBuy(int index)
+    {
+        var cost = costs[index];
+        if (ModuleSession.CollectedCoinsAmount >= cost)
+        {
+            ModuleSession.CollectedCoinsAmount -= cost;
+            return true;
+        }
+        return false;
     }
 
     public void UpdateSelection(int preIndex)
@@ -205,7 +234,28 @@ public class MaybeAShopUI : Entity
         float l = topLeft.X;
         float r = bottomRight.X;
         // 9 patching
-        // TODO
+        // TODO patching in Y direction
+        for (float x = l; x < r - itemSize.X; x += itemSize.X)
+        {
+            //Logger.Log(LogLevel.Info, ModuleName, $"x: {x}, y: {topLeft.Y}");
+            t.Draw(new(x, topLeft.Y));
+            b.Draw(new(x, bottomRight.Y - itemSize.Y));
+        }
+        t.Draw(new(r - itemSize.X, topLeft.Y));
+        b.Draw(new(r - itemSize.X, bottomRight.Y - itemSize.Y));
+
         base.Render();
+        for (int column = 0; column < itemRowColumn.columns; column++)
+            for (int row = 0; row < itemRowColumn.rows; row++)
+            {
+                int curIndex = column + row * lineMax;
+                if (itemsCount <= curIndex)
+                    goto @out;
+                var cardTopLeft = topLeft + new Vector2(column * itemSize.X, row * itemSize.Y);
+                var pos = cardTopLeft + new Vector2(TextOffsetInX * itemSize.X, TextOffsetInY * itemSize.Y);
+                ActiveFont.DrawOutline($"x{costs[curIndex]}", pos, new Vector2(0f, 0.5f), Vector2.One, Color.White, 1f, Color.Black);
+            }
+        @out:
+        return;
     }
 }

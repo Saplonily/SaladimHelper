@@ -65,6 +65,7 @@ public class CollectableCoin : Entity
         var session = SceneAs<Level>().Session;
         var entityId = new EntityID(session.Level, id);
         ModuleSession.CollectedCoins.Add(entityId);
+        ModuleSession.CollectedCoinsAmount++;
         session.DoNotLoad.Add(entityId);
 
         PlayAnim();

@@ -9,7 +9,7 @@ public class SaladimHelperSession : EverestModuleSession
     public HashSet<EntityID> CollectedCoins = new();
     public HashSet<int> ShopBoughtItems = new();
 
-    [YamlIgnore] public int CollectedCoinsAmount => CollectedCoins.Count;
+    [YamlIgnore] public int CollectedCoinsAmount = 114514;
 
     public Vector2? MomentumRefillSpeedKept = null;
 

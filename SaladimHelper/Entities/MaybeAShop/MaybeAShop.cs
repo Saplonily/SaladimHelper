@@ -6,7 +6,7 @@ namespace Celeste.Mod.SaladimHelper.Entities;
 public partial class MaybeAShop : Entity
 {
     public readonly EntityID ID;
-    private float[] costs;
+    private int[] costs;
     private Vector2[] nodes;
     private string[] itemTexs;
     private List<Entity>[] shopEntities;
@@ -25,7 +25,7 @@ public partial class MaybeAShop : Entity
 
     }
 
-    public MaybeAShop(Vector2 position, Vector2 size, EntityID id, int lineMax, string[] itemTexs, float[] costs, Vector2[] nodes)
+    public MaybeAShop(Vector2 position, Vector2 size, EntityID id, int lineMax, string[] itemTexs, int[] costs, Vector2[] nodes)
     {
         Position = position;
         shopEntities = new List<Entity>[nodes.Length];
@@ -68,11 +68,11 @@ public partial class MaybeAShop : Entity
         }
     }
 
-    public static float[] ParseSequence(string sequence, int expectedLength)
+    public static int[] ParseSequence(string sequence, int expectedLength)
     {
         try
         {
-            var result = sequence.Split(',').Select(float.Parse).ToArray();
+            var result = sequence.Split(',').Select(int.Parse).ToArray();
             if (result.Length != expectedLength)
                 throw new ArgumentException($"Expected {expectedLength} parts but got {result.Length}.");
             return result;
@@ -137,8 +137,14 @@ public partial class MaybeAShop : Entity
         void OnBought(MaybeAShopUI ui, int index)
         {
             ModuleSession.ShopBoughtItems.Add(index);
+            CoinDisplayer.Display(Scene, setAmountAgain: true);
             foreach (var item in shopEntities[index])
-                Scene.Add(item);
+            {
+                var from = Center;
+                var to = item.Center;
+                ShopBoughtLeader leader = new(from, to, item);
+                Scene.Add(leader);
+            }
         }
     }
 }

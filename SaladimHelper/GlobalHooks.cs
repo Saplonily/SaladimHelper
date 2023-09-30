@@ -1,6 +1,9 @@
 using System.Reflection;
+
 using Celeste.Mod.SaladimHelper.Entities;
+
 using Mono.Cecil.Cil;
+
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 
@@ -10,17 +13,14 @@ namespace Celeste.Mod.SaladimHelper;
 public static class GlobalHooks
 {
     public static bool FrostHelperLoaded;
+    public static bool DeathTrackerLoaded;
     public static ILHook FrostHelperDreamBlockHook = null;
 
     public static void Load()
     {
         On.Celeste.ParticleTypes.Load += OnLoadParticles;
 
-        EverestModuleMetadata frostHelper = new()
-        {
-            Name = "FrostHelper",
-            Version = new Version(1, 44, 0)
-        };
+        EverestModuleMetadata frostHelper = new() { Name = "FrostHelper", Version = new Version(1, 44, 0) };
         if (Everest.Loader.TryGetDependency(frostHelper, out var module))
         {
             Logger.Log(LogLevel.Info, ModuleName, "Found FrostHelper, hooking CustomDreamBlockV2.DreamDashUpdate...");
@@ -30,6 +30,10 @@ public static class GlobalHooks
             MethodInfo dreamDashUpdate = dreamBlockType.GetMethod("Player_DreamDashUpdate", BindingFlags.NonPublic | BindingFlags.Static);
             FrostHelperDreamBlockHook = new ILHook(dreamDashUpdate, OnFrostHelperDreamBlockHook);
         }
+
+        EverestModuleMetadata deathTracker = new() { Name = "DeathTracker", Version = new Version(1, 0, 0) };
+        if (Everest.Loader.DependencyLoaded(deathTracker))
+            DeathTrackerLoaded = true;
     }
 
     public static void OnFrostHelperDreamBlockHook(ILContext il)

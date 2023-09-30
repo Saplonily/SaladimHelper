@@ -5,7 +5,7 @@ public class CoinDisplayer : TotalCustomDisplay
     public bool AlwaysDisplay;
 
     public CoinDisplayer(bool silence)
-        : base(MakeCoinCounter(silence), 202f)
+        : base(MakeCoinCounter(silence), GlobalHooks.DeathTrackerLoaded ? 277f : 202f)
     {
     }
 
@@ -18,10 +18,10 @@ public class CoinDisplayer : TotalCustomDisplay
     public override bool GetNeedLerpIn()
         => base.GetNeedLerpIn() || AlwaysDisplay;
 
-    public static CoinDisplayer Display(Scene scene, bool silence = false)
+    public static CoinDisplayer Display(Scene scene, bool silence = false, bool setAmountAgain = false)
     {
         var cur = ModuleSession.CurrentCoinDisplayer;
-        
+
         // 如果当前没有一个 coin displayer 才去new
         // 注意 new 完 Add Scene 后这一帧是没有这个实体的
         // 所以得同时检查是否 ToAdd 有这个实体
@@ -32,6 +32,8 @@ public class CoinDisplayer : TotalCustomDisplay
             ModuleSession.CurrentCoinDisplayer = cur;
             scene.Add(cur);
         }
+        if (setAmountAgain)
+            cur.counter.Amount = ModuleSession.CollectedCoinsAmount;
         return cur;
     }
 }
