@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿#if DEBUG
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
@@ -13,7 +14,6 @@ public class TestEntity : Entity
     public override void Awake(Scene scene)
     {
         base.Awake(scene);
-
     }
 
     public override void Render()
@@ -21,3 +21,4 @@ public class TestEntity : Entity
         base.Render();
     }
 }
+#endif

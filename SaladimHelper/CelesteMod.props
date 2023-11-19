@@ -1,5 +1,4 @@
 <Project>
-	<!--Windows only for now-->
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<TargetFramework>net452</TargetFramework>
@@ -7,8 +6,9 @@
 
 		<CommonCelesteUsings>false</CommonCelesteUsings>
 		<EverestCoreVersion>false</EverestCoreVersion>
-		<CelesteRootPath/>
 		<ModAssetsFolderName>ModFolder</ModAssetsFolderName>
+    <ModAssetsCopyType>copy</ModAssetsCopyType>
+		<CelesteRootPath/>
 	</PropertyGroup>
 
 	<Import Project="Common.props"/>
@@ -19,16 +19,16 @@
 		<CelesteAssemblyPath Condition="'$(EverestCoreVersion)' == 'true'">$(CelesteRootPath)/legacyRef</CelesteAssemblyPath>
 	</PropertyGroup>
 
-	<!--常用Usings-->
+	<!--common usings-->
 	<ItemGroup Condition="'$(CommonCelesteUsings)' == 'true'">
-		<Using Include="Celeste.Mod" />
-		<Using Include="Celeste" />
-		<Using Include="Monocle" />
-		<Using Include="Microsoft.Xna.Framework" />
+		<Using Include="Microsoft.Xna.Framework"/>
+		<Using Include="Monocle"/>
+		<Using Include="Celeste"/>
+		<Using Include="Celeste.Mod"/>
 		<Using Include="MonoMod.Cil"/>
 	</ItemGroup>
 
-	<!--常见蔚蓝程序集引用-->
+	<!--common assembly references-->
 	<ItemGroup Condition="'$(CommonCelesteReferences)' == 'true'">
 		<Reference Include="Celeste">
 			<HintPath>$(CelesteAssemblyPath)/Celeste.exe</HintPath>
