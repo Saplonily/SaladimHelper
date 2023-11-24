@@ -9,7 +9,19 @@ t.placements = {
         strength_to = 100.0,
         duration = 5.0,
         effect_path = "SaladimHelper/Blur",
-        index = 0.0
+        index = 0.0,
+        easing = "SineIn"
+    }
+}
+
+t.fieldInformation = {
+    easing = {
+        options = require("mods").requireFromPlugin("libraries.easing_enums"),
+        editable = false
+    },
+    effect_path = {
+        options = require("mods").requireFromPlugin("libraries.filters"),
+        editable = true
     }
 }
 

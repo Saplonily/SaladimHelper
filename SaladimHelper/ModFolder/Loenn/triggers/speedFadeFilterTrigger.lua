@@ -14,4 +14,11 @@ t.placements = {
     }
 }
 
+t.fieldInformation = {
+    effect_path = {
+        options = require("mods").requireFromPlugin("libraries.filters"),
+        editable = true
+    }
+}
+
 return t
