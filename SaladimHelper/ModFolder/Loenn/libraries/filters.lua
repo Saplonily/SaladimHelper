@@ -1,4 +1,5 @@
 return {
 	"SaladimHelper/Blur",
-	"SaladimHelper/Invert"
+	"SaladimHelper/Invert",
+	"SaladimHelper/Gray"
 }
