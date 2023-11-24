@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
+using YamlDotNet.Serialization;
+
 namespace Celeste.Mod.SaladimHelper;
 
 [NeedModuleInit]
@@ -8,8 +10,12 @@ public sealed class FilterEntry
     public string EffectPath { get; private set; }
     public float Index { get; private set; }
 
+    [YamlIgnore]
     public Effect Effect { get; private set; }
     public float Strength { get; set; }
+
+    // for yaml deserialization
+    public FilterEntry() { }
 
     public FilterEntry(string effectPath, float index)
     {
@@ -18,8 +24,14 @@ public sealed class FilterEntry
 
         Strength = 0.0f;
         // load our Effect
-        Effect effect = null;
-        if (Everest.Content.TryGet($"Effects/{effectPath}.xnb", out var modAsset))
+        Effect = LoadEffect($"Effects/{effectPath}.xnb");
+        if (Effect is null)
+            EffectPath = null;
+    }
+
+    public static Effect LoadEffect(string path)
+    {
+        if (Everest.Content.TryGet(path, out var modAsset))
         {
             // FIXME it's a magic number
             int headLength = 168;
@@ -27,9 +39,9 @@ public sealed class FilterEntry
             s.Seek(headLength, SeekOrigin.Begin);
             byte[] code = new byte[s.Length - headLength];
             s.Read(code, 0, (int)s.Length - headLength);
-            effect = new(Engine.Graphics.GraphicsDevice, code);
+            return new(Engine.Graphics.GraphicsDevice, code);
         }
-        Effect = effect;
+        return null;
     }
 
     public static Ease.Easer GetEaserWithName(string name)
@@ -85,8 +97,11 @@ public sealed class FilterEntry
     {
         foreach (var entry in ModuleSession.FilterEntries)
         {
-            if (entry.Effect is null) continue;
+            if (entry.EffectPath is null) continue;
             if (entry.Strength <= 0.0f) continue;
+
+            entry.Effect ??= LoadEffect($"Effects/{entry.EffectPath}.xnb");
+
             var device = Engine.Instance.GraphicsDevice;
             var batch = Draw.SpriteBatch;
 
