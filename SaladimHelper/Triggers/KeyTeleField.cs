@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Celeste.Mod.SaladimHelper.Triggers;
 
-[CustomEntity($"{ModuleName}/KeyTeleField"), Tracked]
+[CustomEntity("SaladimHelper/KeyTeleField"), Tracked]
 public class KeyTeleField : Trigger
 {
     public const float TeleportCorrectValue = 4f;

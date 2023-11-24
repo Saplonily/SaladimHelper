@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[NeedModuleInit, CustomEntity($"{ModuleName}/RustyZipMover")]
+[NeedModuleInit, CustomEntity("SaladimHelper/RustyZipMover")]
 public sealed class RustyZipMover : ZipMover
 {
     public static ILHook hook;

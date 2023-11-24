@@ -2,7 +2,7 @@
 
 namespace Celeste.Mod.SaladimHelper;
 
-[CustomEntity($"{ModuleName}/EnableFrostFreezeTrigger")]
+[CustomEntity("SaladimHelper/EnableFrostFreezeTrigger")]
 public class EnableFrostFreezeTrigger : Trigger
 {
     public bool isEnable = true;

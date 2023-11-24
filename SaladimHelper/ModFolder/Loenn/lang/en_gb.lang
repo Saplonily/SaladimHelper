@@ -3,7 +3,12 @@ entities.SaladimHelper/ReelCamera.placements.name.reelCamera_normal=Reel Camera
 entities.SaladimHelper/KeyTeleField.placements.name.keyTeleField_normal=Key Tele Field
 
 entities.SaladimHelper/DelayedFallingBlock.placements.name.normal=Delayed Falling Block
-entities.SaladimHelper/RustyZipMover.placements.name.normal=RustyZipMover (normal)
-entities.SaladimHelper/RustyZipMover.placements.name.moon=RustyZipMover (moon)
+entities.SaladimHelper/RustyZipMover.placements.name.normal=Rusty Zip Mover (normal)
 
-triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=EnableFrostFreezeTrigger
+triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=Enable Frost Freeze Trigger
+triggers.SaladimHelper/FadeFilterTrigger.placements.name.normal=Fade Filter Trigger
+triggers.SaladimHelper/StaticFilterTrigger.placements.name.normal=Static Filter Trigger
+triggers.SaladimHelper/SpeedFadeFilterTrigger.placements.name.normal=Speed Fade Filter Trigger
+triggers.SaladimHelper/SpeedOneshotFilterTrigger.placements.name.normal=Speed Oneshot Filter Trigger
+triggers.SaladimHelper/OneshotFilterTrigger.placements.name.normal=Oneshot Filter Trigger
+triggers.SaladimHelper/KeyTeleField.placements.name.normal=Key To Teleport Field

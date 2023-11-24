@@ -6,7 +6,7 @@ using YamlDotNet.Core.Tokens;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity($"{ModuleName}/ReelCamera"), Tracked]
+[CustomEntity("SaladimHelper/ReelCamera"), Tracked]
 public partial class ReelCamera : Entity
 {
     public Vector2[] Nodes;
