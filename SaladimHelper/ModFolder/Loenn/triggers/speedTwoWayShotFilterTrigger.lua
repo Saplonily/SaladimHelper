@@ -1,5 +1,5 @@
 ﻿local t = {}
-t.name = "SaladimHelper/OneshotFilterTrigger"
+t.name = "SaladimHelper/SpeedTwoWayShotFilterTrigger"
 t.placements = {
     name = "normal",
     data = {
@@ -7,6 +7,8 @@ t.placements = {
         height = 16,
         strength_from = 0.0,
         strength_to = 100.0,
+        speed_threshold = 500.0,
+        speed_fall_threshold = 200.0,
         duration = 2.0,
         effect_path = "SaladimHelper/Blur",
         index = 0.0,

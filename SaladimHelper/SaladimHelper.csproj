@@ -9,14 +9,6 @@
 	<ItemGroup>
 		<Using Include="System.Collections" />
 		<Using Include="Celeste.Mod.SaladimHelper.SaladimHelperModule" Static="true" />
-		<Reference Include="Mono.Cecil">
-			<HintPath>$(CelesteAssemblyPath)/Mono.Cecil.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="MonoMod.RuntimeDetour">
-			<HintPath>$(CelesteAssemblyPath)/MonoMod.RuntimeDetour.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
 		<Reference Include="System.ValueTuple">
 			<HintPath>$(CelesteAssemblyPath)/System.ValueTuple.dll</HintPath>
 			<Private>False</Private>

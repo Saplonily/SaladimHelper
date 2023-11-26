@@ -10,5 +10,6 @@ triggers.SaladimHelper/FadeFilterTrigger.placements.name.normal=Fade Filter Trig
 triggers.SaladimHelper/StaticFilterTrigger.placements.name.normal=Static Filter Trigger
 triggers.SaladimHelper/SpeedFadeFilterTrigger.placements.name.normal=Speed Fade Filter Trigger
 triggers.SaladimHelper/SpeedOneshotFilterTrigger.placements.name.normal=Speed Oneshot Filter Trigger
+triggers.SaladimHelper/SpeedTwoWayShotFilterTrigger.placements.name.normal=Speed Two Way Shot Filter Trigger
 triggers.SaladimHelper/OneshotFilterTrigger.placements.name.normal=Oneshot Filter Trigger
 triggers.SaladimHelper/KeyTeleField.placements.name.normal=Key To Teleport Field
