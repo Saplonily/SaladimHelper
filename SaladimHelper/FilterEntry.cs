@@ -29,6 +29,9 @@ public sealed class FilterEntry
             EffectPath = null;
     }
 
+
+    // TODO move the following
+
     public static Effect LoadEffect(string path)
     {
         if (Everest.Content.TryGet(path, out var modAsset))
@@ -89,11 +92,11 @@ public sealed class FilterEntry
         if (cur.TryGotoNext(MoveType.After, ins => ins.MatchCall("Celeste.Glitch", "Apply")))
         {
             Logger.Log(LogLevel.Info, ModuleName, $"Applying Filter applying hook at {cur.Index}.");
-            cur.EmitDelegate(ApplyInvertColor);
+            cur.EmitDelegate(ApplyFilters);
         }
     }
 
-    private static void ApplyInvertColor()
+    private static void ApplyFilters()
     {
         foreach (var entry in ModuleSession.FilterEntries)
         {
@@ -108,22 +111,26 @@ public sealed class FilterEntry
             entry.Effect.Parameters["Strength"].SetValue(entry.Strength / 100.0f);
             device.SetRenderTarget(GameplayBuffers.TempA);
             device.Clear(Color.Transparent);
-            batch.Begin(
-                SpriteSortMode.Deferred, BlendState.AlphaBlend,
-                SamplerState.PointClamp, DepthStencilState.Default,
-                RasterizerState.CullNone, entry.Effect
-                );
-            batch.Draw(GameplayBuffers.Level, Vector2.Zero, Color.White);
-            batch.End();
+            {
+                batch.Begin(
+                    SpriteSortMode.Deferred, BlendState.AlphaBlend,
+                    SamplerState.PointClamp, DepthStencilState.Default,
+                    RasterizerState.CullNone, entry.Effect
+                    );
+                batch.Draw(GameplayBuffers.Level, Vector2.Zero, Color.White);
+                batch.End();
+            }
             device.SetRenderTarget(GameplayBuffers.Level);
-            device.Clear(Color.Transparent);
-            batch.Begin(
-                SpriteSortMode.Deferred, BlendState.AlphaBlend,
-                SamplerState.PointClamp, DepthStencilState.Default,
-                RasterizerState.CullNone, null
-                );
-            batch.Draw(GameplayBuffers.TempA, Vector2.Zero, Color.White);
-            batch.End();
+            {
+                device.Clear(Color.Transparent);
+                batch.Begin(
+                    SpriteSortMode.Deferred, BlendState.AlphaBlend,
+                    SamplerState.PointClamp, DepthStencilState.Default,
+                    RasterizerState.CullNone, null
+                    );
+                batch.Draw(GameplayBuffers.TempA, Vector2.Zero, Color.White);
+                batch.End();
+            }
         }
     }
 
