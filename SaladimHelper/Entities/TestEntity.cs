@@ -1,7 +1,5 @@
 ﻿#if DEBUG
-using Microsoft.Xna.Framework.Graphics;
-
-namespace Celeste.Mod.SaladimHelper.Entities;
+namespace Celeste.Mod.SaladimHelper;
 
 public class TestEntity : Entity
 {

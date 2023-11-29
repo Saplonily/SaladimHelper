@@ -1,8 +1,5 @@
 ﻿using System.Reflection;
 
-using Celeste.Mod.SaladimHelper.Entities;
-
-using Mono.Cecil;
 using Mono.Cecil.Cil;
 
 using MonoMod.RuntimeDetour;

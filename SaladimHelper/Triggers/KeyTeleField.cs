@@ -1,8 +1,8 @@
-﻿using Celeste.Mod.Entities;
-using MonoMod.Utils;
-using System.Reflection;
+﻿using System.Reflection;
 
-namespace Celeste.Mod.SaladimHelper.Triggers;
+using Celeste.Mod.Entities;
+
+namespace Celeste.Mod.SaladimHelper;
 
 [CustomEntity("SaladimHelper/KeyTeleField"), Tracked]
 public class KeyTeleField : Trigger

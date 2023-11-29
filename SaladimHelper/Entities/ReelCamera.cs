@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Linq;
-using System.Text;
-using Celeste.Mod.Entities;
-using YamlDotNet.Core.Tokens;
+﻿using System.Text;
 
-namespace Celeste.Mod.SaladimHelper.Entities;
+using Celeste.Mod.Entities;
+
+namespace Celeste.Mod.SaladimHelper;
 
 [CustomEntity("SaladimHelper/ReelCamera"), Tracked]
 public partial class ReelCamera : Entity

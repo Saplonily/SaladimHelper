@@ -1,7 +1,6 @@
 ﻿using Celeste.Mod.Entities;
-using FMOD;
 
-namespace Celeste.Mod.SaladimHelper.Entities;
+namespace Celeste.Mod.SaladimHelper;
 
 [CustomEntity("SaladimHelper/DirtBounceBlock")]
 public class DirtBounceBlock : Solid
