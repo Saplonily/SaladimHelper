@@ -5,6 +5,7 @@ t.placements = {
     data = {
         width = 16,
         height = 16,
+        strength_from_current = false,
         strength_from = 0.0,
         strength_to = 100.0,
         speed_threshold = 500.0,

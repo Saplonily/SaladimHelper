@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 
+using Microsoft.Xna.Framework.Input;
+
 using Mono.Cecil.Cil;
 
 using MonoMod.RuntimeDetour;
@@ -8,7 +10,7 @@ using MonoMod.Utils;
 namespace Celeste.Mod.SaladimHelper;
 
 [NeedModuleInit]
-public static class GlobalHooks
+public static class CommonModule
 {
     public static bool FrostHelperLoaded;
     public static ILHook FrostHelperDreamBlockHook = null;
@@ -16,7 +18,7 @@ public static class GlobalHooks
     public static void Load()
     {
         On.Celeste.ParticleTypes.Load += OnLoadParticles;
-
+        
         EverestModuleMetadata frostHelper = new()
         {
             Name = "FrostHelper",
@@ -31,6 +33,17 @@ public static class GlobalHooks
             MethodInfo dreamDashUpdate = dreamBlockType.GetMethod("Player_DreamDashUpdate", BindingFlags.NonPublic | BindingFlags.Static);
             FrostHelperDreamBlockHook = new ILHook(dreamDashUpdate, OnFrostHelperDreamDashUpdateHook);
         }
+        // it's magically that unpacked mods need this
+#if DEBUG
+        Everest.LuaLoader.Precache(typeof(SaladimHelperModule).Assembly);
+#endif
+    }
+
+    public static void Unload()
+    {
+        On.Celeste.ParticleTypes.Load -= OnLoadParticles;
+        if (FrostHelperLoaded)
+            FrostHelperDreamBlockHook.Dispose();
     }
 
     public static void OnFrostHelperDreamDashUpdateHook(ILContext il)
@@ -83,16 +96,6 @@ public static class GlobalHooks
                     self.Facing = (Facings)Math.Sign(self.Speed.X);
             }
             yield break;
-        }
-    }
-
-
-    public static void Unload()
-    {
-        On.Celeste.ParticleTypes.Load -= OnLoadParticles;
-        if (FrostHelperLoaded)
-        {
-            FrostHelperDreamBlockHook.Dispose();
         }
     }
 

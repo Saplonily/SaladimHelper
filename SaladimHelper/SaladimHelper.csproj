@@ -13,6 +13,10 @@
 			<HintPath>$(CelesteAssemblyPath)/System.ValueTuple.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+    <Reference Include="NLua">
+      <HintPath>$(CelesteAssemblyPath)/NLua.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
 	</ItemGroup>
 
 	<ItemGroup>

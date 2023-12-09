@@ -21,7 +21,7 @@ public sealed class SpeedTwoWayShotFilterTrigger : Trigger
         strengthFrom = data.Float("strength_from", 0.0f);
         strengthTo = data.Float("strength_to", 100.0f);
         duration = data.Float("duration", 5.0f);
-        easer = FilterEntry.GetEaserWithName(data.Attr("easing"));
+        easer = Mapper.GetEaser(data.Attr("easing"));
         entry = ModuleSession.GetFilterEntry(data.Attr("effect_path"), data.Float("index", 0.0f));
     }
 
