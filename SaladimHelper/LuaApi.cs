@@ -1,7 +1,7 @@
 ﻿namespace Celeste.Mod.SaladimHelper;
 
 // contains methods that usually called from lua codes
-public static class LuaCutsceneHelper
+public static class LuaApi
 {
     public static Tween TweenCamera(Player player, float x, float y, float duration, string easer, string tweenMode)
     {
