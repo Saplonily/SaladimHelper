@@ -1,1 +1,1 @@
-msbuild SaladimHelper.csproj -t:PostModBuild
+dotnet msbuild SaladimHelper.csproj -t:PostModBuild
