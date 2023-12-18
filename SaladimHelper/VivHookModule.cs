@@ -39,7 +39,6 @@ public static class VivHookModule
 
     public static void Unload()
     {
-        if (!ModuleSettings.AlwaysShowVivHiddenRooms) return;
         VivHelperHideRoomHook?.Dispose();
     }
 
