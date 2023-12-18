@@ -10,10 +10,6 @@
 	<ItemGroup>
 		<Using Include="System.Collections" />
 		<Using Include="Celeste.Mod.SaladimHelper.SaladimHelperModule" Static="true" />
-		<Reference Include="System.ValueTuple">
-			<HintPath>$(CelesteAssemblyPath)/System.ValueTuple.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
     <Reference Include="NLua">
       <HintPath>$(CelesteAssemblyPath)/NLua.dll</HintPath>
       <Private>False</Private>
@@ -21,11 +17,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="System" />
-		<Reference Include="System.Core" />
-		<Reference Include="System.Xml.Linq" />
-		<Reference Include="System.Xml" />
-
 		<Using Include="System" />
 		<Using Include="System.Collections.Generic" />
 		<Using Include="System.IO" />

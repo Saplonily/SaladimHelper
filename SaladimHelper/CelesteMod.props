@@ -1,8 +1,7 @@
 <Project>
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<TargetFramework>net452</TargetFramework>
-		<Platforms>x86</Platforms>
+		<TargetFramework>net7</TargetFramework>
 
 		<CommonCelesteUsings>false</CommonCelesteUsings>
 		<EverestCoreVersion>false</EverestCoreVersion>
@@ -16,7 +15,6 @@
 	<PropertyGroup>
 		<EverestCoreVersion Condition="Exists('$(CelesteRootPath)/Celeste.dll')">true</EverestCoreVersion>
 		<CelesteAssemblyPath>$(CelesteRootPath)</CelesteAssemblyPath>
-		<CelesteAssemblyPath Condition="'$(EverestCoreVersion)' == 'true'">$(CelesteRootPath)/legacyRef</CelesteAssemblyPath>
 	</PropertyGroup>
 
 	<!--common usings-->
@@ -31,7 +29,7 @@
 	<!--common assembly references-->
 	<ItemGroup Condition="'$(CommonCelesteReferences)' == 'true'">
 		<Reference Include="Celeste">
-			<HintPath>$(CelesteAssemblyPath)/Celeste.exe</HintPath>
+			<HintPath>$(CelesteAssemblyPath)/Celeste.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="FNA">
