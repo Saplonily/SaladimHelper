@@ -1,5 +1,5 @@
 - Name: SaladimHelper
-  Version: 0.1.1
+  Version: 0.1.2
   DLL: SaladimHelper.dll
   
   Dependencies:
@@ -8,3 +8,5 @@
   OptionalDependencies:
     - Name: FrostHelper
       Version: 1.44.0
+    - Name: VivHelper
+      Version: 1.12.0
