@@ -1,9 +1,8 @@
 entities.SaladimHelper/DirtBounceBlock.placements.name.dirtBounceBlock_normal=Dirt Bounce Block
 entities.SaladimHelper/ReelCamera.placements.name.reelCamera_normal=Reel Camera
-entities.SaladimHelper/KeyTeleField.placements.name.keyTeleField_normal=Key Tele Field
-
 entities.SaladimHelper/DelayedFallingBlock.placements.name.normal=Delayed Falling Block
 entities.SaladimHelper/RustyZipMover.placements.name.normal=Rusty Zip Mover (normal)
+entities.SaladimHelper/CustomAscendManager.placements.name.normal=Custom Ascend Manager
 
 triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=Enable Frost Freeze Trigger
 triggers.SaladimHelper/FadeFilterTrigger.placements.name.normal=Fade Filter Trigger
