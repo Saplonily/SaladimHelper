@@ -4,6 +4,7 @@ using Celeste.Mod.Entities;
 
 namespace Celeste.Mod.SaladimHelper;
 
+// obsolute
 [CustomEntity("SaladimHelper/KeyTeleField"), Tracked]
 public class KeyTeleField : Trigger
 {
@@ -31,7 +32,7 @@ public class KeyTeleField : Trigger
     public override void OnStay(Player player)
     {
         base.OnStay(player);
-        var key = SaladimHelperModule.ModuleSettings.DoTeleport;
+        var key = ModuleSettings.DoTeleport;
         if (key.Pressed)
         {
             key.ConsumePress();

@@ -4,6 +4,7 @@ using Celeste.Mod.Entities;
 
 namespace Celeste.Mod.SaladimHelper;
 
+// obsolute
 [CustomEntity("SaladimHelper/ReelCamera"), Tracked]
 public partial class ReelCamera : Entity
 {
