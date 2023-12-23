@@ -2,6 +2,7 @@
 
 namespace Celeste.Mod.SaladimHelper;
 
+[NeedModuleInit]
 public static class FilterModule
 {
     public static void Load()
