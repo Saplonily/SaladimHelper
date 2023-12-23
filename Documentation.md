@@ -1,7 +1,9 @@
 # Index
 
 Hi! Thanks for using this small personal celeste helper. If you have encoutered any problems or found some bugs with it, always be free to ping me in the celescord (Saplonily#8059)!  
-Also, here is the source code repository : [Github](https://github.com/Saplonily/SaladimHelper), you can raise issues and pull requests there too.
+Also, here is the source code repository : [Github](https://github.com/Saplonily/SaladimHelper), you can raise issues and pull requests there too.  
+
+English version at [Section English](#english).
 
 ## Chinese
 
@@ -111,7 +113,7 @@ Trigger, 在此区域内玩家可以按下按键(默认为 A 键)来进行传送
 
 ## English
 
-> Sorry for my poor English, thanks for correcting the following if possible!
+> Sorry for my poor English, will be thankful for correcting the following!
 
 ### DirtBounceBlock
 
