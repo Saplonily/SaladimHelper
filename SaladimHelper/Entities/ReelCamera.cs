@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
+
 using Celeste.Mod.Entities;
-using YamlDotNet.Core.Tokens;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity($"{ModuleName}/ReelCamera"), Tracked]
+// obsolute
+[CustomEntity("SaladimHelper/ReelCamera"), Tracked]
 public partial class ReelCamera : Entity
 {
     public Vector2[] Nodes;

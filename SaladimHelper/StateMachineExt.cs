@@ -5,7 +5,7 @@ namespace Celeste.Mod.SaladimHelper;
 public static class StateMachineExt
 {
     public static int AddState(this StateMachine machine,
-        Func<int> onUpdate, 
+        Func<int> onUpdate,
         Func<IEnumerator> coroutine = null,
         Action begin = null,
         Action end = null
@@ -30,11 +30,11 @@ public static class StateMachineExt
         return statesCounts;
     }
 
-    public static readonly FieldInfo StateMachine_begins 
+    public static readonly FieldInfo StateMachine_begins
         = typeof(StateMachine).GetField("begins", BindingFlags.Instance | BindingFlags.NonPublic);
     public static readonly FieldInfo StateMachine_updates
         = typeof(StateMachine).GetField("updates", BindingFlags.Instance | BindingFlags.NonPublic);
-    public static readonly FieldInfo StateMachine_ends 
+    public static readonly FieldInfo StateMachine_ends
         = typeof(StateMachine).GetField("ends", BindingFlags.Instance | BindingFlags.NonPublic);
     public static readonly FieldInfo StateMachine_coroutines
         = typeof(StateMachine).GetField("coroutines", BindingFlags.Instance | BindingFlags.NonPublic);

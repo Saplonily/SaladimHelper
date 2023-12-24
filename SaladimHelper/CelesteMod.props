@@ -1,14 +1,13 @@
 <Project>
-	<!--Windows only for now-->
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<TargetFramework>net452</TargetFramework>
-		<Platforms>x86</Platforms>
+		<TargetFramework>net7.0</TargetFramework>
 
 		<CommonCelesteUsings>false</CommonCelesteUsings>
 		<EverestCoreVersion>false</EverestCoreVersion>
-		<CelesteRootPath/>
 		<ModAssetsFolderName>ModFolder</ModAssetsFolderName>
+    <ModAssetsCopyType>copy</ModAssetsCopyType>
+		<CelesteRootPath/>
 	</PropertyGroup>
 
 	<Import Project="Common.props"/>
@@ -16,22 +15,21 @@
 	<PropertyGroup>
 		<EverestCoreVersion Condition="Exists('$(CelesteRootPath)/Celeste.dll')">true</EverestCoreVersion>
 		<CelesteAssemblyPath>$(CelesteRootPath)</CelesteAssemblyPath>
-		<CelesteAssemblyPath Condition="'$(EverestCoreVersion)' == 'true'">$(CelesteRootPath)/legacyRef</CelesteAssemblyPath>
 	</PropertyGroup>
 
-	<!--常用Usings-->
+	<!--common usings-->
 	<ItemGroup Condition="'$(CommonCelesteUsings)' == 'true'">
-		<Using Include="Celeste.Mod" />
-		<Using Include="Celeste" />
-		<Using Include="Monocle" />
-		<Using Include="Microsoft.Xna.Framework" />
+		<Using Include="Microsoft.Xna.Framework"/>
+		<Using Include="Monocle"/>
+		<Using Include="Celeste"/>
+		<Using Include="Celeste.Mod"/>
 		<Using Include="MonoMod.Cil"/>
 	</ItemGroup>
 
-	<!--常见蔚蓝程序集引用-->
+	<!--common assembly references-->
 	<ItemGroup Condition="'$(CommonCelesteReferences)' == 'true'">
 		<Reference Include="Celeste">
-			<HintPath>$(CelesteAssemblyPath)/Celeste.exe</HintPath>
+			<HintPath>$(CelesteAssemblyPath)/Celeste.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="FNA">
@@ -54,6 +52,10 @@
 			<HintPath>$(CelesteAssemblyPath)/Mono.Cecil.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+    <Reference Include="MonoMod.RuntimeDetour">
+      <HintPath>$(CelesteAssemblyPath)/MonoMod.RuntimeDetour.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
 	</ItemGroup>
 
 </Project>

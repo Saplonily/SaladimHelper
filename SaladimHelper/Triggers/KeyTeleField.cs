@@ -1,10 +1,11 @@
-﻿using Celeste.Mod.Entities;
-using MonoMod.Utils;
-using System.Reflection;
+﻿using System.Reflection;
+
+using Celeste.Mod.Entities;
 
 namespace Celeste.Mod.SaladimHelper.Triggers;
 
-[CustomEntity($"{ModuleName}/KeyTeleField"), Tracked]
+// obsolute
+[CustomEntity("SaladimHelper/KeyTeleField"), Tracked]
 public class KeyTeleField : Trigger
 {
     public const float TeleportCorrectValue = 4f;
@@ -31,7 +32,7 @@ public class KeyTeleField : Trigger
     public override void OnStay(Player player)
     {
         base.OnStay(player);
-        var key = SaladimHelperModule.ModuleSettings.DoTeleport;
+        var key = ModuleSettings.DoTeleport;
         if (key.Pressed)
         {
             key.ConsumePress();

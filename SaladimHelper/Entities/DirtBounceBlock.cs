@@ -1,9 +1,8 @@
 ﻿using Celeste.Mod.Entities;
-using FMOD;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity($"{ModuleName}/DirtBounceBlock")]
+[CustomEntity("SaladimHelper/DirtBounceBlock")]
 public class DirtBounceBlock : Solid
 {
     public enum State

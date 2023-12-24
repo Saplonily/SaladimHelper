@@ -1,10 +1,10 @@
 local keyTeleField = {}
 keyTeleField.name = "SaladimHelper/KeyTeleField"
 keyTeleField.placements = {
-    name = "keyTeleField_normal",
+    name = "normal",
     data = {
-        width = 80,
-        height = 80,
+        width = 16,
+        height = 16,
         vector_x = 0,
         vector_y = 0,
         absolute = false,

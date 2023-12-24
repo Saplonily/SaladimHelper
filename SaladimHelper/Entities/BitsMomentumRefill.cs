@@ -4,7 +4,7 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity($"{ModuleName}/BitsMomentumRefill"), NeedModuleInit]
+[CustomEntity($"SaladimHelper/BitsMomentumRefill"), NeedModuleInit]
 public class BitsMomentumRefill : Entity
 {
     // lets do happy copying
@@ -30,7 +30,7 @@ public class BitsMomentumRefill : Entity
     private bool recordY;
     private bool isBlooming;
 
-    static BitsMomentumRefill() => GlobalHooks.LoadParticles();
+    static BitsMomentumRefill() => CommonModule.LoadParticles();
 
     public static void Load()
     {

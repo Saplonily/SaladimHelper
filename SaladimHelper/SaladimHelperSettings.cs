@@ -4,11 +4,23 @@ namespace Celeste.Mod.SaladimHelper;
 
 public class SaladimHelperSettings : EverestModuleSettings
 {
-    [DefaultButtonBinding(Buttons.RightShoulder, Keys.X)]
-    public ButtonBinding DoTeleport { get; set; } = new(); 
-    
-    [DefaultButtonBinding(Buttons.RightShoulder, Keys.X)]
-    public ButtonBinding DoLightSwitch { get; set; } = new();
+    private bool alwaysShowVivHiddenRooms = false;
 
-    public bool AlwaysEnableFrostFreeze { get; set; }
+    [DefaultButtonBinding(Buttons.RightShoulder, Keys.A)]
+    public ButtonBinding DoTeleport { get; set; } = new();
+
+    public bool AlwaysEnableFrostFreeze { get; set; } = false;
+
+    public bool AlwaysShowVivHiddenRooms
+    {
+        get => alwaysShowVivHiddenRooms;
+        set
+        {
+            alwaysShowVivHiddenRooms = value;
+            if (value)
+                VivHookModule.Load();
+            else
+                VivHookModule.Unload();
+        }
+    }
 }

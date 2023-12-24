@@ -33,7 +33,7 @@ local centerColor = {0, 0, 0}
 local ropeColor = {102 / 255, 57 / 255, 49 / 255}
 
 local themes = {
-    "Normal", "Moon"
+    "Normal"
 }
 
 zipMover.name = "SaladimHelper/RustyZipMover"

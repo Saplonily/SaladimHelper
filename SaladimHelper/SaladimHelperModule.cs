@@ -12,7 +12,7 @@ public class SaladimHelperModule : EverestModule
 
     public SaladimHelperModule() => ModuleInstance = this;
 
-    public const string ModuleName = "SaladimHelper";
+    public const string ModuleName = nameof(SaladimHelper);
 
     public static void CallInitMethods(string methodName)
     {

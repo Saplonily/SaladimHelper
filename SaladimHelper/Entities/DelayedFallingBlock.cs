@@ -1,12 +1,15 @@
-﻿using Celeste.Mod.Entities;
+﻿using System.Reflection;
+
+using Celeste.Mod.Entities;
+
 using Mono.Cecil.Cil;
+
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
-using System.Reflection;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity($"{ModuleName}/DelayedFallingBlock"), NeedModuleInit]
+[CustomEntity("SaladimHelper/DelayedFallingBlock"), NeedModuleInit]
 public class DelayedFallingBlock : FallingBlock
 {
     public float preDelay = 0.2f;

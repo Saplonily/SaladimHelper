@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace Celeste.Mod.SaladimHelper.Entities;
+﻿namespace Celeste.Mod.SaladimHelper.Entities;
 
 [NeedModuleInit]
 public partial class ReelCamera
