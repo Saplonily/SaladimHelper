@@ -6,17 +6,14 @@ namespace Celeste.Mod.SaladimHelper;
 
 public class SaladimHelperSession : EverestModuleSession
 {
-    public HashSet<EntityID> CollectedCoins = new();
-    public HashSet<int> ShopBoughtItems = new();
-
-    [YamlIgnore] public int CollectedCoinsAmount = 114514;
+    public bool EnabledFrostFreeze = false;
+    public List<FilterEntry> FilterEntries = new();
 
     public Vector2? MomentumRefillSpeedKept = null;
-
+    public HashSet<EntityID> CollectedCoins = new();
+    public HashSet<int> ShopBoughtItems = new();
+    [YamlIgnore] public int CollectedCoinsAmount = 200;
     [YamlIgnore] public CoinDisplayer CurrentCoinDisplayer = null;
-    public bool EnabledFrostFreeze = false;
-
-    public List<FilterEntry> FilterEntries = new();
 
     public FilterEntry GetFilterEntry(string effectPath, float index)
     {

@@ -52,7 +52,6 @@ public partial class MaybeAShop : Entity
     {
         base.Update();
 
-
         var displayer = ModuleSession.CurrentCoinDisplayer;
         if (displayer is not null && displayer.Scene != Scene)
             displayer = null;
@@ -108,6 +107,7 @@ public partial class MaybeAShop : Entity
         }
     }
 
+#if DEBUG
     public override void Render()
     {
         base.Render();
@@ -116,6 +116,7 @@ public partial class MaybeAShop : Entity
             Draw.Point(node, Color.Red);
         }
     }
+#endif
 
     private void OnTalk(Player p)
     {
@@ -136,6 +137,8 @@ public partial class MaybeAShop : Entity
         }
         void OnBought(MaybeAShopUI ui, int index)
         {
+            if (ModuleSession.ShopBoughtItems.Contains(index))
+                return;
             ModuleSession.ShopBoughtItems.Add(index);
             CoinDisplayer.Display(Scene, setAmountAgain: true);
             foreach (var item in shopEntities[index])

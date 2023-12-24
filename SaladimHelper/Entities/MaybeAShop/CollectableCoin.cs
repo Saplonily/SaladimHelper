@@ -1,7 +1,5 @@
 ﻿using Celeste.Mod.Entities;
 
-using Monocle;
-
 namespace Celeste.Mod.SaladimHelper.Entities;
 
 [CustomEntity($"{ModuleName}/CollectableCoin")]

@@ -1,12 +1,6 @@
-﻿using FMOD;
-
-using Microsoft.Xna.Framework;
-
-using System;
-
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-// 我知道这坨代码写的很烂但是你先别急整体都写完了再整理
+// 我知道这坨代码写的很烂但是你先别急
 
 public class MaybeAShopUI : Entity
 {
@@ -15,6 +9,9 @@ public class MaybeAShopUI : Entity
 
     public const float TextOffsetInX = 105f / 320f;
     public const float TextOffsetInY = 353f / 466f;
+
+    public const float CoinOffsetInX = 195f / 320f;
+    public const float CoinOffsetInY = 353f / 466f;
     public readonly static Color BgColor = Calc.HexToColor("040345");
 
     private int lineMax;
@@ -88,17 +85,18 @@ public class MaybeAShopUI : Entity
                 bottomRightFramePos.X = framePos.X;
 
             // 物品贴图
-            var texItem = GFX.Gui[texs[i]];
+            var texItem = GFX.Gui[this.texs[i]];
             var itemImg = new Image(texItem);
             itemImg.Position = framePos + new Vector2(CenterOffsetInX * frameImg.Width, CenterOffsetInY * frameImg.Height);
             itemImg.CenterOrigin();
             Add(itemImg);
 
-            //var coinTex = GFX.Gui["SaladimHelper/coin"];
-            //var coinImg = new Image(coinTex);
-            //coinImg.Position = framePos + new Vector2(CoinOffsetInX * frameImg.Width, CoinOffsetInY * frameImg.Height);
-            //coinImg.CenterOrigin();
-            //Add(coinImg);
+            var coinTex = GFX.Gui["SaladimHelper/coin"];
+            var coinImg = new Image(coinTex);
+            coinImg.Position = framePos + new Vector2(CoinOffsetInX * frameImg.Width, CoinOffsetInY * frameImg.Height);
+            coinImg.Scale = Vector2.One * 0.8f;
+            coinImg.CenterOrigin();
+            Add(coinImg);
 
             curColumn++;
             if (curColumn >= lineMax)
