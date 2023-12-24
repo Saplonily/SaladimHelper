@@ -1,3 +1,5 @@
+using System;
+
 namespace Celeste.Mod.SaladimHelper.Entities;
 
 // 我知道这坨代码写的很烂但是你先别急
@@ -10,8 +12,10 @@ public class MaybeAShopUI : Entity
     public const float TextOffsetInX = 105f / 320f;
     public const float TextOffsetInY = 353f / 466f;
 
-    public const float CoinOffsetInX = 195f / 320f;
+    public const float CoinOffsetInX = 200f / 320f;
     public const float CoinOffsetInY = 353f / 466f;
+
+    public readonly static Color BoughtColor = new Color(150, 150, 150);
     public readonly static Color BgColor = Calc.HexToColor("040345");
 
     private int lineMax;
@@ -68,6 +72,7 @@ public class MaybeAShopUI : Entity
         int curColumn = 0;
         for (int i = 0; i < itemsCount; i++)
         {
+            bool boughtThis = ModuleSession.ShopBoughtItems.Contains(i);
             var tex = ChooseTexture(i, false);
             var texl = ChooseTexture(i, true);
             // 物品框贴图
@@ -77,6 +82,8 @@ public class MaybeAShopUI : Entity
             Vector2 framePos = screenCenter + new Vector2(-totalWidth / 2 + curColumn * itemSize.X, -totalHeight / 2 + curRow * itemSize.Y);
             frameImg.Position = framePos;
             Add(frameImg);
+            if (boughtThis)
+                frameImg.Color = BoughtColor;
 
             if (i == 0)
                 topLeftFramePos = framePos;
@@ -91,6 +98,8 @@ public class MaybeAShopUI : Entity
             itemImg.Position = framePos + new Vector2(CenterOffsetInX * frameImg.Width, CenterOffsetInY * frameImg.Height);
             itemImg.CenterOrigin();
             Add(itemImg);
+            if (boughtThis)
+                itemImg.Color = BoughtColor;
 
             var coinTex = GFX.Gui["SaladimHelper/coin"];
             var coinImg = new Image(coinTex);
@@ -98,6 +107,8 @@ public class MaybeAShopUI : Entity
             coinImg.Scale = Vector2.One * 0.8f;
             coinImg.CenterOrigin();
             Add(coinImg);
+            if (boughtThis)
+                coinImg.Color = BoughtColor;
 
             curColumn++;
             if (curColumn >= lineMax)
@@ -189,9 +200,11 @@ public class MaybeAShopUI : Entity
         {
             Input.MenuConfirm.ConsumePress();
             if (TryBuy(selectedIndex))
+            {
                 bought(this, selectedIndex);
-            ended(this);
-            RemoveSelf();
+                ended(this);
+                RemoveSelf();
+            }
         }
         else if (Input.MenuCancel.Pressed)
         {
@@ -209,11 +222,10 @@ public class MaybeAShopUI : Entity
     private bool TryBuy(int index)
     {
         var cost = costs[index];
+        if (ModuleSession.ShopBoughtItems.Contains(index))
+            return false;
         if (ModuleSession.CollectedCoinsAmount >= cost)
-        {
-            ModuleSession.CollectedCoinsAmount -= cost;
             return true;
-        }
         return false;
     }
 
@@ -248,11 +260,13 @@ public class MaybeAShopUI : Entity
             for (int row = 0; row < itemRowColumn.rows; row++)
             {
                 int curIndex = column + row * lineMax;
+                bool bought = ModuleSession.ShopBoughtItems.Contains(curIndex);
                 if (itemsCount <= curIndex)
                     goto @out;
                 var cardTopLeft = topLeft + new Vector2(column * itemSize.X, row * itemSize.Y);
                 var pos = cardTopLeft + new Vector2(TextOffsetInX * itemSize.X, TextOffsetInY * itemSize.Y);
-                ActiveFont.DrawOutline($"x{costs[curIndex]}", pos, new Vector2(0f, 0.5f), Vector2.One, Color.White, 1f, Color.Black);
+                Color color = bought ? BoughtColor : Color.White;
+                ActiveFont.DrawOutline($"x{costs[curIndex]}", pos, new Vector2(0f, 0.5f), Vector2.One, color, 1f, Color.Black);
             }
         @out:
         return;

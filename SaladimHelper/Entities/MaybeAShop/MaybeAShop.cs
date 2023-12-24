@@ -1,8 +1,10 @@
-﻿using Celeste.Mod.Entities;
+﻿using System.Reflection;
+using Celeste.Mod.Entities;
+using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity($"{ModuleName}/MaybeAShop")]
+[CustomEntity($"{ModuleName}/MaybeAShop"), NeedModuleInit]
 public partial class MaybeAShop : Entity
 {
     public readonly EntityID ID;
@@ -94,8 +96,15 @@ public partial class MaybeAShop : Entity
             var allEntities = Scene.Entities;
             foreach (var e in allEntities)
             {
-                if (Collide.CheckPoint(e, pos))
+                if (Collide.CheckPoint(e, pos) && e is not Trigger && e is not SolidTiles)
+                {
                     shopEntities[i].Add(e);
+                    if (e is Strawberry berry)
+                    {
+                        DynamicData data = DynamicData.For(berry);
+                        data.Set("sh_from_shop", true);
+                    }
+                }
             }
         }
 
@@ -137,8 +146,7 @@ public partial class MaybeAShop : Entity
         }
         void OnBought(MaybeAShopUI ui, int index)
         {
-            if (ModuleSession.ShopBoughtItems.Contains(index))
-                return;
+            ModuleSession.CollectedCoinsAmount -= costs[index];
             ModuleSession.ShopBoughtItems.Add(index);
             CoinDisplayer.Display(Scene, setAmountAgain: true);
             foreach (var item in shopEntities[index])
@@ -149,5 +157,39 @@ public partial class MaybeAShop : Entity
                 Scene.Add(leader);
             }
         }
+    }
+
+    // blame the dev, why did they add components in Added
+
+    public static void Load()
+    {
+        On.Celeste.Strawberry.Added += Strawberry_Added;
+    }
+
+    private static void Strawberry_Added(On.Celeste.Strawberry.orig_Added orig, Strawberry self, Scene scene)
+    {
+        DynamicData data = DynamicData.For(self);
+        if ((bool?)data.Get("sh_from_shop") == true)
+        {
+            // repeat the Entity.Added()
+            data.Set("Scene", scene);
+            var list = data.Get<ComponentList>("Components");
+            if (list != null)
+            {
+                foreach (Component component in list)
+                {
+                    component.EntityAdded(scene);
+                }
+            }
+            DynamicData sceneData = DynamicData.For(self.Scene);
+            sceneData.Invoke("SetActualDepth", self);
+            return;
+        }
+        orig(self, scene);
+    }
+
+    public static void Unload()
+    {
+        On.Celeste.Strawberry.Added += Strawberry_Added;
     }
 }

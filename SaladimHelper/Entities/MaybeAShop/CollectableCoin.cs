@@ -2,24 +2,25 @@
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity($"{ModuleName}/CollectableCoin")]
+[CustomEntity($"SaladimHelper/CollectableCoin")]
 public class CollectableCoin : Entity
 {
     private bool collected = false;
     private Sprite spr;
     private int id;
+    private Vector2[] nodes;
 
     private BloomPoint bloom;
 
     public CollectableCoin(EntityData data, Vector2 offset)
-        : this(data.Position + offset, data.ID)
+        : this(data.Position + offset, data.ID, data.NodesOffset(offset))
     {
-
     }
 
-    public CollectableCoin(Vector2 pos, int id)
+    public CollectableCoin(Vector2 pos, int id, Vector2[] nodes)
     {
         this.id = id;
+        this.nodes = nodes;
         Position = pos;
         // add some awesome bloom!
         Add(bloom = new BloomPoint(0f, 16f));
@@ -68,6 +69,22 @@ public class CollectableCoin : Entity
 
         PlayAnim();
         CoinDisplayer.Display(Scene);
+
+        Player player = Scene.Tracker.GetEntity<Player>();
+        if (player != null && nodes != null && nodes.Length >= 2)
+        {
+            player.Add(new Coroutine(NodeRoutine(player, nodes[1], nodes[0])));
+        }
+        static IEnumerator NodeRoutine(Player player, Vector2 node1, Vector2 node0)
+        {
+            yield return 0.3f;
+            if (!player.Dead)
+            {
+                Audio.Play("event:/game/general/cassette_bubblereturn", player.SceneAs<Level>().Camera.Position + new Vector2(160f, 90f));
+                player.StartCassetteFly(node1, node0);
+            }
+            yield break;
+        }
     }
 
     private void PlayAnim()
