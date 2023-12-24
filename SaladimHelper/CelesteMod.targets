@@ -5,8 +5,7 @@
     <Message Importance="high" Text="Is core version: $(EverestCoreVersion), assembly path: $(CelesteAssemblyPath), root path: $(CelesteRootPath)"/>
 
     <!--.dll and .pdb copying-->
-    <Copy SourceFiles="$(OutputPath)/$(AssemblyName).dll;" DestinationFolder="$(ModAssetsFolderName)"/>
-    <Copy SourceFiles="$(OutputPath)/$(AssemblyName).pdb;" DestinationFolder="$(ModAssetsFolderName)"/>
+    <Copy SourceFiles="$(OutputPath)/$(AssemblyName).dll;$(OutputPath)/$(AssemblyName).pdb" DestinationFolder="$(ModAssetsFolderName)"/>
 
     <CallTarget Condition="$(ModAssetsCopyType) == 'link'" Targets="CheckAndCreateSymbolicLink"/>
     <CallTarget Condition="$(ModAssetsCopyType) == 'copy'" Targets="CopyModFolder"/>
@@ -46,5 +45,11 @@
     <!--Core versions assembly checking-->
     <Error Condition="!Exists('$(CelesteAssemblyPath)/Celeste.exe') And '$(EverestCoreVersion)' == 'true'" Code="SMT01"
 			   Text="You have used core versions Everest but without setting up legacyRef. Go to run 'setup legacyRef' in mod settings menu in game."/>
+  </Target>
+
+  <Target Name="CleanRemoteFolder" BeforeTargets="Clean">
+    <RemoveDir Directories="$(CelesteRootPath)/Mods/$(AssemblyName)_link" Condition="Exists('$(CelesteRootPath)/Mods/$(AssemblyName)_link')"/>
+    <RemoveDir Directories="$(CelesteRootPath)/Mods/$(AssemblyName)_copy" Condition="Exists('$(CelesteRootPath)/Mods/$(AssemblyName)_copy')"/>
+    <Delete Files="$(ModAssetsFolderName)\$(AssemblyName).dll;$(ModAssetsFolderName)\$(AssemblyName).pdb"/>
   </Target>
 </Project>
