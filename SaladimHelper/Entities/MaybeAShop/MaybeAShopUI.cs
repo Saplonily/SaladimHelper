@@ -77,12 +77,13 @@ public class MaybeAShopUI : Entity
             Vector2 framePos = screenCenter + new Vector2(-totalWidth / 2 + curColumn * itemSize.X, -totalHeight / 2 + curRow * itemSize.Y);
             frameImg.Position = framePos;
             Add(frameImg);
+
             if (i == 0)
                 topLeftFramePos = framePos;
-            else if (curRow == totalRows - 1)
-                bottomRightFramePos.Y = framePos.Y;
-            else if (curColumn == totalColumns - 1)
+            if (bottomRightFramePos.X < framePos.X)
                 bottomRightFramePos.X = framePos.X;
+            if (bottomRightFramePos.Y < framePos.Y)
+                bottomRightFramePos.Y = framePos.Y;
 
             // 物品贴图
             var texItem = GFX.Gui[this.texs[i]];
