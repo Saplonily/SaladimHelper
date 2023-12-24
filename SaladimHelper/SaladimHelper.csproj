@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MonoMod" Version="22.7.31.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="System.Collections" />
     <Using Include="Celeste.Mod.SaladimHelper.SaladimHelperModule" Static="true" />
     <Reference Include="Mono.Cecil">
