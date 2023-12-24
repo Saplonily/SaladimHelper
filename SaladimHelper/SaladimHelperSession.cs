@@ -12,7 +12,12 @@ public class SaladimHelperSession : EverestModuleSession
     public Vector2? MomentumRefillSpeedKept = null;
     public HashSet<EntityID> CollectedCoins = new();
     public HashSet<int> ShopBoughtItems = new();
+#if DEBUG
     [YamlIgnore] public int CollectedCoinsAmount = 200;
+#else
+
+    [YamlIgnore] public int CollectedCoinsAmount = 0;
+#endif
     [YamlIgnore] public CoinDisplayer CurrentCoinDisplayer = null;
 
     public FilterEntry GetFilterEntry(string effectPath, float index)
