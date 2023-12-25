@@ -29,6 +29,7 @@ public class BitsMomentumRefill : Entity
     private bool recordX;
     private bool recordY;
     private bool isBlooming;
+    private float mul;
 
     static BitsMomentumRefill() => CommonModule.LoadParticles();
 
@@ -42,7 +43,7 @@ public class BitsMomentumRefill : Entity
     private static void Player_ctor(On.Celeste.Player.orig_ctor orig, Player self, Vector2 position, PlayerSpriteMode spriteMode)
     {
         orig(self, position, spriteMode);
-        ModuleSession.MomentumRefillSpeedKept = null;
+        ModuleSession.MomentumRefillSpeedKept = (null, 1.0f);
     }
 
     public static void Unload()
@@ -58,11 +59,11 @@ public class BitsMomentumRefill : Entity
         if (!(bool)d["calledDashEvents"])
         {
             var s = ModuleSession.MomentumRefillSpeedKept;
-            if (s is not null)
+            if (s.speed is not null)
             {
-                self.Speed += s.Value;
-                MakeSpeedField(self.SceneAs<Level>().Particles, self.Center, s.Value);
-                ModuleSession.MomentumRefillSpeedKept = null;
+                self.Speed += s.speed.Value * s.mul;
+                MakeSpeedField(self.SceneAs<Level>().Particles, self.Center, s.speed.Value);
+                ModuleSession.MomentumRefillSpeedKept = (null, 1.0f);
                 Celeste.Freeze(1 / 60f);
             }
         }
@@ -72,20 +73,21 @@ public class BitsMomentumRefill : Entity
     private static void Player_Render(On.Celeste.Player.orig_Render orig, Player self)
     {
         orig(self);
-        if (ModuleSession.MomentumRefillSpeedKept is not null && self.Scene.OnInterval(0.1f))
+        if (ModuleSession.MomentumRefillSpeedKept.speed is not null && self.Scene.OnInterval(0.1f))
         {
             Vector2 vector = new(Math.Abs(self.Sprite.Scale.X) * (float)self.Facing, self.Sprite.Scale.Y);
             TrailManager.Add(self, vector, MainColor, 1f);
         }
     }
 
-    public BitsMomentumRefill(Vector2 position, bool oneUse, bool recordX, bool recordY, bool isBlooming)
+    public BitsMomentumRefill(Vector2 position, bool oneUse, bool recordX, bool recordY, bool isBlooming, float mul)
         : base(position)
     {
         this.oneUse = oneUse;
         this.recordX = recordX;
         this.recordY = recordY;
         this.isBlooming = isBlooming;
+        this.mul = mul;
 
         Collider = new Hitbox(16f, 16f, -8f, -8f);
         Add(new PlayerCollider(new Action<Player>(OnPlayer)));
@@ -121,7 +123,7 @@ public class BitsMomentumRefill : Entity
     public BitsMomentumRefill(EntityData data, Vector2 offset)
         : this(data.Position + offset, data.Bool("oneUse", false),
               data.Bool("recordX", true), data.Bool("recordY", true),
-              data.Bool("isBlooming", true))
+              data.Bool("isBlooming", true), data.Float("mul", 1.0f))
     {
     }
 
@@ -205,13 +207,13 @@ public class BitsMomentumRefill : Entity
     private void OnPlayer(Player player)
     {
         // no speed kept
-        if (ModuleSession.MomentumRefillSpeedKept is null)
+        if (ModuleSession.MomentumRefillSpeedKept.speed is null)
         {
             var sp = player.Speed;
             if (!recordX) sp.X = 0;
             if (!recordY) sp.Y = 0;
             // do speed keeping
-            ModuleSession.MomentumRefillSpeedKept = sp;
+            ModuleSession.MomentumRefillSpeedKept = (sp, mul);
             MakeSpeedField(SceneAs<Level>().Particles, Position, sp);
             // and do effects
             Audio.Play("event:/momentum_refill/momentum_refill_touch", Position);

@@ -2,6 +2,7 @@
 using Celeste.Mod.Entities;
 using MonoMod.Utils;
 using MonoMod;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
@@ -15,20 +16,22 @@ public partial class MaybeAShop : Entity
     private List<Entity>[] shopEntities;
     private TalkComponent tc;
     private int lineMax;
+    private EntityID entityID;
 
-    public MaybeAShop(EntityData data, Vector2 offset)
+    public MaybeAShop(EntityData data, Vector2 offset, EntityID entityID)
         : this(data.Position + offset,
               new(data.Width, data.Height),
               new EntityID(data.Level.Name, data.ID),
               data.Int("line_max", 4),
               data.Attr("tex_sequence").Split(','),
               ParseSequence(data.Attr("cost_sequence"), data.Nodes.Length),
-              data.NodesOffset(offset))
+              data.NodesOffset(offset),
+              entityID)
     {
 
     }
 
-    public MaybeAShop(Vector2 position, Vector2 size, EntityID id, int lineMax, string[] itemTexs, int[] costs, Vector2[] nodes)
+    public MaybeAShop(Vector2 position, Vector2 size, EntityID id, int lineMax, string[] itemTexs, int[] costs, Vector2[] nodes, EntityID entityID)
     {
         Position = position;
         shopEntities = new List<Entity>[nodes.Length];
@@ -37,6 +40,7 @@ public partial class MaybeAShop : Entity
         this.itemTexs = itemTexs;
         this.nodes = nodes;
         this.lineMax = lineMax;
+        this.entityID = entityID;
         if (itemTexs.Length != costs.Length)
             throw new Exception("itemTexs.Length != costs.Length");
         if (costs.Length != nodes.Length)
@@ -156,6 +160,7 @@ public partial class MaybeAShop : Entity
                 var to = item.Center;
                 ShopBoughtLeader leader = new(from, to, item);
                 Scene.Add(leader);
+                SceneAs<Level>().Session.Flags.Add($"sh_shop_{entityID}_{index}");
             }
         }
     }
@@ -167,8 +172,10 @@ public partial class MaybeAShop : Entity
         On.Celeste.Strawberry.Added += Strawberry_Added;
     }
 
+#pragma warning disable IDE0060
     [MonoModLinkTo("Monocle.Entity", "System.Void Added(Monocle.Scene)")]
     private static void Added(Entity entity, Scene scene) { }
+#pragma warning restore IDE0060
 
     private static void Strawberry_Added(On.Celeste.Strawberry.orig_Added orig, Strawberry self, Scene scene)
     {

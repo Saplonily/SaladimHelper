@@ -9,7 +9,7 @@ public class SaladimHelperSession : EverestModuleSession
     public bool EnabledFrostFreeze = false;
     public List<FilterEntry> FilterEntries = new();
 
-    public Vector2? MomentumRefillSpeedKept = null;
+    public (Vector2? speed, float mul) MomentumRefillSpeedKept = (null, 1.0f);
     public HashSet<EntityID> CollectedCoins = new();
     public HashSet<int> ShopBoughtItems = new();
 #if DEBUG

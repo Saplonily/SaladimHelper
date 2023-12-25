@@ -8,7 +8,8 @@ refill.placements = {
         oneUse = false,
         recordX = true,
         recordY = true,
-        isBlooming = true
+        isBlooming = true,
+        mul = 1.0
     }
 }
 
