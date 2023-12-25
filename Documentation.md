@@ -16,7 +16,7 @@ English version at [Section English](#english).
 
 ### ReelCamera
 
-一个很复杂的实体, 用于移动摄像机. **已过时**
+一个很复杂的实体, 用于移动摄像机. **不太稳定**
 
 - `Delay Sequence`: 延迟序列, 以逗号分隔, 个数需要为 节点数-1
 - `Move Time Sequence`: 移动时间序列, 以逗号分隔, 个人需要为 节点数-1
@@ -111,6 +111,15 @@ Trigger, 在此区域内玩家可以按下按键(默认为 A 键)来进行传送
 
 从 草莓酱 2021 Collab 复制而来.
 
+### DelayedFallingBlock
+
+可调控时间信息的掉落块.
+
+- `preDelay`: 玩家触摸后的固有等待, 默认 0.2s
+- `playerWaitDelay`: 玩家触摸后的可通过离开掉落块而取消的等待, 默认 0.4s
+- `noSfx`: 抖动时是否取消音效的播放
+- `autoFall`: 是否自动掉落, 通常需要配合 `noSfx` 开启
+
 ## English
 
 > Sorry for my poor English, will be thankful for correcting the following!
@@ -124,7 +133,7 @@ Takes a dash to shatter.
 
 ### ReelCamera
 
-A complex entity, used to move the camera. **Obsoleted**
+A complex entity, used to move the camera. **Unstable**
 
 - `Delay Sequence`: Delay sequence, separated by commas, needs to have (nodes count - 1) numbers.
 - `Move Time Sequence`: Move time sequence, separated by commas, needs to have (nodes count - 1) numbers.
@@ -218,3 +227,12 @@ Static filter trigger, change the strength when the player enters.
 ### CustomAscendManager
 
 Copied from Strawberry Jam 2021 Collab.
+
+### DelayedFallingBlock
+
+A falling block with adjustable time parameters.
+
+- `preDelay`: Fixed wait time after player touched, default to 0.2s.
+- `playerWaitDelay`: Wait time after player touched that can be canceled by leaving the falling block, default to 0.4s.
+- `noSfx`: Whether to disable sound effects during shaking. Usually true with `autoFall` set to true.
+- `autoFall`: Whether to fall automatically.
