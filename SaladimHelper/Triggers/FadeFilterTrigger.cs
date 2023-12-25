@@ -20,7 +20,7 @@ public sealed class FadeFilterTrigger : Trigger
         easer = Mapper.GetEaser(data.Attr("easing"));
         entry = ModuleSession.GetFilterEntry(data.Attr("effect_path"), data.Float("index", 0.0f));
     }
-
+    
     public override void OnStay(Player player)
     {
         base.OnStay(player);

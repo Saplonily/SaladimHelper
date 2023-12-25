@@ -5,8 +5,8 @@
     <Message Importance="high" Text="Is core version: $(EverestCoreVersion), assembly path: $(CelesteAssemblyPath), root path: $(CelesteRootPath)"/>
 
     <!--.dll and .pdb copying-->
-    <Copy SourceFiles="$(OutputPath)/$(AssemblyName).dll;$(OutputPath)/$(AssemblyName).pdb" DestinationFolder="$(ModAssetsFolderName)"/>
-
+    <Copy SourceFiles="$(OutputPath)/$(AssemblyName).dll;" DestinationFolder="$(ModAssetsFolderName)"/>
+    <Copy SourceFiles="$(OutputPath)/$(AssemblyName).pdb;" DestinationFolder="$(ModAssetsFolderName)"/>
     <CallTarget Condition="$(ModAssetsCopyType) == 'link'" Targets="CheckAndCreateSymbolicLink"/>
     <CallTarget Condition="$(ModAssetsCopyType) == 'copy'" Targets="CopyModFolder"/>
   </Target>

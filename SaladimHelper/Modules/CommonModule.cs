@@ -1,4 +1,4 @@
-﻿using Celeste.Mod.SaladimHelper.Entities;
+using Celeste.Mod.SaladimHelper.Entities;
 
 namespace Celeste.Mod.SaladimHelper;
 

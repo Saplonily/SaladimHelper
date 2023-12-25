@@ -8,6 +8,7 @@ entities.SaladimHelper/CollectableCoin.placements.name.normal=Collectable Coin
 entities.SaladimHelper/CollectableCoin.placements.name.with_return=Collectable Coin (With Return)
 entities.SaladimHelper/MaybeAShop.placements.name.normal=MaybeAShop
 entities.SaladimHelper/DummyImage.placements.name.normal=Dummy Image
+entities.SaladimHelper/CustomAscendManager.placements.name.normal=Custom Ascend Manager
 
 triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=Enable Frost Freeze Trigger
 triggers.SaladimHelper/FadeFilterTrigger.placements.name.normal=Fade Filter Trigger
