@@ -3,8 +3,8 @@
   DLL: SaladimHelper.dll
   
   Dependencies:
-    - Name: EverestCore
-      Version: 1.4465.0
+    - Name: Everest
+      Version: 1.3847.0
   OptionalDependencies:
     - Name: FrostHelper
       Version: 1.44.0
