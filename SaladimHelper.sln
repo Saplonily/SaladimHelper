@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaladimHelper", "SaladimHelper\SaladimHelper.csproj", "{80A9F767-78DF-4303-9DF0-CEEC38810E64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaladimHelper", "SaladimHelper\SaladimHelper.csproj", "{ACE974C3-F427-4157-89BC-286970DB0BD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{80A9F767-78DF-4303-9DF0-CEEC38810E64}.Debug|x86.ActiveCfg = Debug|x86
-		{80A9F767-78DF-4303-9DF0-CEEC38810E64}.Debug|x86.Build.0 = Debug|x86
-		{80A9F767-78DF-4303-9DF0-CEEC38810E64}.Release|x86.ActiveCfg = Release|x86
-		{80A9F767-78DF-4303-9DF0-CEEC38810E64}.Release|x86.Build.0 = Release|x86
+		{ACE974C3-F427-4157-89BC-286970DB0BD9}.Debug|x86.ActiveCfg = Debug|x86
+		{ACE974C3-F427-4157-89BC-286970DB0BD9}.Debug|x86.Build.0 = Debug|x86
+		{ACE974C3-F427-4157-89BC-286970DB0BD9}.Release|x86.ActiveCfg = Release|x86
+		{ACE974C3-F427-4157-89BC-286970DB0BD9}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {657C11EF-C416-445C-A078-63231319B1C7}
+		SolutionGuid = {B8A8AE55-6257-465A-BCA2-AD066ED294A9}
 	EndGlobalSection
 EndGlobal
