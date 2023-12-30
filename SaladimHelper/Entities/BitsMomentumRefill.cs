@@ -59,18 +59,30 @@ public class BitsMomentumRefill : Entity
         if (cur.TryGotoNext(MoveType.After, ins => ins.MatchStfld<SaveData>("TotalDashes")))
         {
             cur.Emit(OpCodes.Ldarg_0);
-            cur.EmitDelegate((Player self) =>
+            cur.EmitDelegate(TryAddingMomentum);
+        }
+        if (cur.TryGotoNext(MoveType.Before, ins => ins.MatchCallvirt<Booster>("PlayerBoosted")))
+        {
+            cur.Emit(OpCodes.Ldarg_0);
+            cur.Emit(OpCodes.Ldfld, typeof(Player).GetField("CurrentBooster"));
+            cur.Emit(OpCodes.Ldarg_0);
+            cur.EmitDelegate((Booster booster, Player player) =>
             {
-                var sn = ModuleSession.MomentumRefillSpeedKept;
-                if (sn is not null)
-                {
-                    var s = sn.Value;
-                    self.Speed += s.speed * s.mul;
-                    MakeSpeedField(self.SceneAs<Level>().Particles, self.Center, s.speed);
-                    ModuleSession.MomentumRefillSpeedKept = null;
-                    Celeste.Freeze(1 / 60f);
-                }
+                if (booster.GetType() == typeof(Booster))
+                    TryAddingMomentum(player);
             });
+        }
+        static void TryAddingMomentum(Player player)
+        {
+            var sn = ModuleSession.MomentumRefillSpeedKept;
+            if (sn is not null)
+            {
+                var s = sn.Value;
+                player.Speed += s.speed * s.mul;
+                MakeSpeedField(player.SceneAs<Level>().Particles, player.Center, s.speed);
+                ModuleSession.MomentumRefillSpeedKept = null;
+                Celeste.Freeze(1 / 60f);
+            }
         }
     }
 
