@@ -43,7 +43,7 @@ public class BitsMomentumRefill : Entity
     private static void Player_ctor(On.Celeste.Player.orig_ctor orig, Player self, Vector2 position, PlayerSpriteMode spriteMode)
     {
         orig(self, position, spriteMode);
-        ModuleSession.MomentumRefillSpeedKept = (null, 1.0f);
+        ModuleSession.MomentumRefillSpeedKept = null;
     }
 
     public static void Unload()
@@ -58,12 +58,13 @@ public class BitsMomentumRefill : Entity
         DynData<Player> d = new(self);
         if (!(bool)d["calledDashEvents"])
         {
-            var s = ModuleSession.MomentumRefillSpeedKept;
-            if (s.speed is not null)
+            var sn = ModuleSession.MomentumRefillSpeedKept;
+            if (sn is not null)
             {
-                self.Speed += s.speed.Value * s.mul;
-                MakeSpeedField(self.SceneAs<Level>().Particles, self.Center, s.speed.Value);
-                ModuleSession.MomentumRefillSpeedKept = (null, 1.0f);
+                var s = sn.Value;
+                self.Speed += s.speed * s.mul;
+                MakeSpeedField(self.SceneAs<Level>().Particles, self.Center, s.speed);
+                ModuleSession.MomentumRefillSpeedKept = null;
                 Celeste.Freeze(1 / 60f);
             }
         }
@@ -73,7 +74,7 @@ public class BitsMomentumRefill : Entity
     private static void Player_Render(On.Celeste.Player.orig_Render orig, Player self)
     {
         orig(self);
-        if (ModuleSession.MomentumRefillSpeedKept.speed is not null && self.Scene.OnInterval(0.1f))
+        if (ModuleSession.MomentumRefillSpeedKept is not null && self.Scene.OnInterval(0.1f))
         {
             Vector2 vector = new(Math.Abs(self.Sprite.Scale.X) * (float)self.Facing, self.Sprite.Scale.Y);
             TrailManager.Add(self, vector, MainColor, 1f);
@@ -207,7 +208,7 @@ public class BitsMomentumRefill : Entity
     private void OnPlayer(Player player)
     {
         // no speed kept
-        if (ModuleSession.MomentumRefillSpeedKept.speed is null)
+        if (ModuleSession.MomentumRefillSpeedKept is null)
         {
             var sp = player.Speed;
             if (!recordX) sp.X = 0;

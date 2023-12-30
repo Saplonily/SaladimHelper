@@ -15,7 +15,11 @@ public static class CommonModule
         Everest.LuaLoader.Precache(typeof(SaladimHelperModule).Assembly);
 #endif
 
-        EverestModuleMetadata deathTracker = new() { Name = "DeathTracker", Version = new Version(1, 0, 0) };
+        EverestModuleMetadata deathTracker = new() 
+        { 
+            Name = "DeathTracker", 
+            Version = new Version(1, 0, 0)
+        };
         if (Everest.Loader.DependencyLoaded(deathTracker))
             DeathTrackerLoaded = true;
     }
