@@ -1,5 +1,5 @@
 ﻿using Celeste.Mod.Entities;
-
+using Mono.Cecil.Cil;
 using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
@@ -35,7 +35,7 @@ public class BitsMomentumRefill : Entity
 
     public static void Load()
     {
-        On.Celeste.Player.CallDashEvents += Player_CallDashEvents;
+        IL.Celeste.Player.CallDashEvents += Player_CallDashEvents;
         On.Celeste.Player.Render += Player_Render;
         On.Celeste.Player.ctor += Player_ctor;
     }
@@ -48,27 +48,30 @@ public class BitsMomentumRefill : Entity
 
     public static void Unload()
     {
-        On.Celeste.Player.CallDashEvents -= Player_CallDashEvents;
+        IL.Celeste.Player.CallDashEvents -= Player_CallDashEvents;
         On.Celeste.Player.Render -= Player_Render;
         On.Celeste.Player.ctor -= Player_ctor;
     }
 
-    private static void Player_CallDashEvents(On.Celeste.Player.orig_CallDashEvents orig, Player self)
+    private static void Player_CallDashEvents(ILContext il)
     {
-        DynData<Player> d = new(self);
-        if (!(bool)d["calledDashEvents"])
+        ILCursor cur = new(il);
+        if (cur.TryGotoNext(MoveType.After, ins => ins.MatchStfld<SaveData>("TotalDashes")))
         {
-            var sn = ModuleSession.MomentumRefillSpeedKept;
-            if (sn is not null)
+            cur.Emit(OpCodes.Ldarg_0);
+            cur.EmitDelegate((Player self) =>
             {
-                var s = sn.Value;
-                self.Speed += s.speed * s.mul;
-                MakeSpeedField(self.SceneAs<Level>().Particles, self.Center, s.speed);
-                ModuleSession.MomentumRefillSpeedKept = null;
-                Celeste.Freeze(1 / 60f);
-            }
+                var sn = ModuleSession.MomentumRefillSpeedKept;
+                if (sn is not null)
+                {
+                    var s = sn.Value;
+                    self.Speed += s.speed * s.mul;
+                    MakeSpeedField(self.SceneAs<Level>().Particles, self.Center, s.speed);
+                    ModuleSession.MomentumRefillSpeedKept = null;
+                    Celeste.Freeze(1 / 60f);
+                }
+            });
         }
-        orig(self);
     }
 
     private static void Player_Render(On.Celeste.Player.orig_Render orig, Player self)
