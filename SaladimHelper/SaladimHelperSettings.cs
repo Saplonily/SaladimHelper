@@ -11,6 +11,8 @@ public class SaladimHelperSettings : EverestModuleSettings
 
     public bool AlwaysEnableFrostFreeze { get; set; } = false;
 
+    public bool AlwaysEnablePandorasBoxDreamDashBetterFreeze { get; set; } = false;
+
     public bool AlwaysShowVivHiddenRooms
     {
         get => alwaysShowVivHiddenRooms;
