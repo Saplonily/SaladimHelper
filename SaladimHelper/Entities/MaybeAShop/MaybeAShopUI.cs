@@ -1,5 +1,3 @@
-using System;
-
 namespace Celeste.Mod.SaladimHelper.Entities;
 
 // 我知道这坨代码写的很烂但是你先别急
@@ -29,6 +27,7 @@ public class MaybeAShopUI : Entity
     private string[] texs;
     private int[] costs;
 
+    private Tween tweenOutTween;
     private MTexture t;
     private MTexture b;
     private MTexture l;
@@ -129,6 +128,32 @@ public class MaybeAShopUI : Entity
         Add(new Image(bl) { Position = new(topLeftFramePos.X, bottomRightFramePos.Y) });
 
         UpdateSelection(0);
+        TweenIn();
+    }
+
+    public void TweenIn()
+    {
+        float yFrom = Y - 640;
+        float yTo = Y;
+        Tween.Set(this, Tween.TweenMode.Oneshot, 0.8f, Ease.QuintOut, t =>
+        {
+            Y = MathHelper.Lerp(yFrom, yTo, t.Eased);
+        });
+    }
+
+    public void TweenOutAndDestory()
+    {
+        if (tweenOutTween != null) return;
+        float yFrom = Y;
+        float yTo = Y - 840;
+        tweenOutTween = Tween.Set(this, Tween.TweenMode.Oneshot, 0.4f, Ease.QuadIn, t =>
+        {
+            Y = MathHelper.Lerp(yFrom, yTo, t.Eased);
+        }, t =>
+        {
+            ended(this);
+            RemoveSelf();
+        });
     }
 
     public MTexture ChooseTexture(int index, bool light)
@@ -202,20 +227,14 @@ public class MaybeAShopUI : Entity
             if (TryBuy(selectedIndex))
             {
                 bought(this, selectedIndex);
-                ended(this);
-                RemoveSelf();
+                TweenOutAndDestory();
             }
         }
         else if (Input.MenuCancel.Pressed)
         {
             Input.MenuCancel.ConsumePress();
-            ended(this);
-            RemoveSelf();
-        }
-        else if (SceneAs<Level>().Paused)
-        {
-            ended(this);
-            RemoveSelf();
+            TweenOutAndDestory();
+
         }
     }
 
@@ -240,7 +259,7 @@ public class MaybeAShopUI : Entity
         Vector2 size = itemSize * new Vector2(itemRowColumn.columns, itemRowColumn.rows);
         var topLeft = items[0].img.Position;
         var bottomRight = topLeft + size;
-        Draw.Rect(items[0].img.Position, size.X, size.Y, BgColor);
+        Draw.Rect(items[0].img.Position + Position, size.X, size.Y, BgColor);
 
         float l = topLeft.X;
         float r = bottomRight.X;
@@ -249,11 +268,11 @@ public class MaybeAShopUI : Entity
         for (float x = l; x < r - itemSize.X; x += itemSize.X)
         {
             //Logger.Log(LogLevel.Info, ModuleName, $"x: {x}, y: {topLeft.Y}");
-            t.Draw(new(x, topLeft.Y));
-            b.Draw(new(x, bottomRight.Y - itemSize.Y));
+            t.Draw(new Vector2(x, topLeft.Y) + Position);
+            b.Draw(new Vector2(x, bottomRight.Y - itemSize.Y) + Position);
         }
-        t.Draw(new(r - itemSize.X, topLeft.Y));
-        b.Draw(new(r - itemSize.X, bottomRight.Y - itemSize.Y));
+        t.Draw(new Vector2(r - itemSize.X, topLeft.Y) + Position);
+        b.Draw(new Vector2(r - itemSize.X, bottomRight.Y - itemSize.Y) + Position);
 
         base.Render();
         for (int column = 0; column < itemRowColumn.columns; column++)
@@ -266,7 +285,7 @@ public class MaybeAShopUI : Entity
                 var cardTopLeft = topLeft + new Vector2(column * itemSize.X, row * itemSize.Y);
                 var pos = cardTopLeft + new Vector2(TextOffsetInX * itemSize.X, TextOffsetInY * itemSize.Y);
                 Color color = bought ? BoughtColor : Color.White;
-                ActiveFont.DrawOutline($"x{costs[curIndex]}", pos, new Vector2(0f, 0.5f), Vector2.One, color, 1f, Color.Black);
+                ActiveFont.DrawOutline($"x{costs[curIndex]}", pos + Position, new Vector2(0f, 0.5f), Vector2.One, color, 1f, Color.Black);
             }
         @out:
         return;

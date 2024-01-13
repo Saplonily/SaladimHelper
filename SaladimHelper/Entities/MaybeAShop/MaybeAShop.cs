@@ -1,12 +1,10 @@
-﻿using System.Reflection;
-using Celeste.Mod.Entities;
+﻿using Celeste.Mod.Entities;
 using MonoMod.Utils;
 using MonoMod;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity($"{ModuleName}/MaybeAShop"), NeedModuleInit]
+[CustomEntity($"SaladimHelper/MaybeAShop"), NeedModuleInit]
 public partial class MaybeAShop : Entity
 {
     public readonly EntityID ID;
