@@ -1,0 +1,5 @@
+modname_saladimhelper=Saladim Helper
+modoptions_saladimhelper_title=Saladim Helper, Saplonily 的奇妙小玩意
+modoptions_saladimhelper_doteleport=传送
+modoptions_saladimhelper_alwaysenablefrostfreeze=总是开启 FrostHelper 的果冻的冻结帧
+modoptions_saladimhelper_alwaysshowvivhiddenrooms=总是显示 VivHelper 隐藏的房间
