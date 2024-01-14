@@ -55,7 +55,7 @@ public static class PandorasBoxHookModule
                 DynamicData data = DynamicData.For(dreamBlock);
 
                 if (ModuleSettings.AlwaysEnablePandorasBoxDreamDashBetterFreeze)
-                    player.SceneAs<Level>().OnEndOfFrame += () => DoRealRedirect(dreamBlock, player, flag);
+                    player.Add(new Coroutine(MakeDoRealRedirectRoutine(dreamBlock, player, flag)));
                 else
                     DoRealRedirect(dreamBlock, player, flag);
                 return true;
@@ -74,6 +74,13 @@ public static class PandorasBoxHookModule
                         player.Speed = player.DashDir * player.Speed.Length();
                     }
                     Input.Dash.ConsumeBuffer();
+                }
+
+                IEnumerator MakeDoRealRedirectRoutine(DreamBlock dreamBlock, Player player, bool flag)
+                {
+                    yield return null;
+                    DoRealRedirect(dreamBlock, player, flag);
+                    yield break;
                 }
             });
             cur.Emit(OpCodes.Ret);
