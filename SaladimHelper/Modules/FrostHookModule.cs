@@ -12,6 +12,7 @@ public static class FrostHookModule
 
     public static void Load()
     {
+        // System.Int32 FrostHelper.CustomDreamBlockV2::Player_DreamDashUpdate(On.Celeste.Player/orig_DreamDashUpdate,Celeste.Player)
         try
         {
             EverestModuleMetadata frostHelper = new()
@@ -22,7 +23,7 @@ public static class FrostHookModule
             if (Everest.Loader.TryGetDependency(frostHelper, out var module))
             {
                 ThirdPartyHelpers.FrostHelperInstalled = true;
-                Logger.Log(LogLevel.Info, ModuleName, "Found FrostHelper, hooking CustomDreamBlockV2.DreamDashUpdate...");
+                Logger.Log(LogLevel.Info, ModuleName, "Found FrostHelper, hooking CustomDreamBlockV2.Player_DreamDashUpdate...");
                 Assembly asm = module.GetType().Assembly;
                 Type dreamBlockType = asm.GetType("FrostHelper.CustomDreamBlockV2");
                 MethodInfo dreamDashUpdate = dreamBlockType.GetMethod("Player_DreamDashUpdate", BindingFlags.NonPublic | BindingFlags.Static);
@@ -73,7 +74,6 @@ public static class FrostHookModule
         }
         static IEnumerator MakeCoroutine(Player self, DynamicData data)
         {
-
             yield return null;
             Vector2 aimVector = Input.GetAimVector(self.Facing);
             bool flag = aimVector == self.DashDir;
@@ -85,8 +85,9 @@ public static class FrostHookModule
                 Audio.Play("event:/char/madeline/dreamblock_enter");
                 if (flag)
                 {
-                    self.Speed *= data.Get<float>("SameDirectionSpeedMultiplier");
-                    self.DashDir *= (float)Math.Sign(data.Get<float>("SameDirectionSpeedMultiplier"));
+                    float sameDirectionSpeedMultiplier = data.Get<float>("SameDirectionSpeedMultiplier");
+                    self.Speed *= sameDirectionSpeedMultiplier;
+                    self.DashDir *= Math.Sign(sameDirectionSpeedMultiplier);
                 }
                 if (self.Speed.X != 0f)
                     self.Facing = (Facings)Math.Sign(self.Speed.X);

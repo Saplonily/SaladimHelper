@@ -3,3 +3,4 @@ modoptions_saladimhelper_title=Saladim Helper, Saplonily's interesting stuffs
 modoptions_saladimhelper_doteleport=Teleport
 modoptions_saladimhelper_alwaysenablefrostfreeze=Always Enable FrostHelper DreamBlock Freeze Frames
 modoptions_saladimhelper_alwaysshowvivhiddenrooms=Always Show VivHelper Hidden Rooms
+modoptions_saladimhelper_alwaysenablepandorasboxdreamdashbetterfreeze=Always Enable PandorasBox Dream Dash Better Freeze Frames

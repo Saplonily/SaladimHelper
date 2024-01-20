@@ -1,5 +1,5 @@
 - Name: SaladimHelper
-  Version: 0.1.6-cny2024-10
+  Version: 0.1.8-cny2024-10
   DLL: SaladimHelper.dll
   
   Dependencies:
@@ -14,3 +14,5 @@
       Version: 1.0.0
     - Name: ChronoHelper
       Version: 1.1.4
+    - Name: PandorasBox
+      Version: 1.0.47
