@@ -9,12 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MonoMod" Version="22.7.31.1">
-      <IncludeAssets>compile</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Using Include="System.Collections" />
     <Using Include="Celeste.Mod.SaladimHelper.SaladimHelperModule" Static="true" />
     
@@ -28,6 +22,18 @@
     </Reference>
     <Reference Include="NLua">
       <HintPath>$(CelesteAssemblyPath)/NLua.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ChronoHelper">
+      <HintPath>$(CelesteAssemblyPath)/Mods/Cache/ChronoHelper.ChronoHelper.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MonoMod" Condition="'$(CoreOnlyMod)' == 'false'">
+      <HintPath>$(CelesteAssemblyPath)/MonoMod.exe</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MonoMod" Condition="'$(CoreOnlyMod)' == 'true'">
+      <HintPath>$(CelesteAssemblyPath)/MonoMod.Patcher.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.ValueTuple" Condition="'$(CoreOnlyMod)' == 'false'">

@@ -22,6 +22,7 @@ public static class VivHookModule
             };
             if (Everest.Loader.TryGetDependency(vivHelper, out var vmodule))
             {
+                ThirdPartyHelpers.VivHelperInstalled = true;
                 Logger.Log(LogLevel.Info, ModuleName, "Found VivHelper, hooking MapEditor_ctor...");
                 Assembly asm = vmodule.GetType().Assembly;
                 Type type = asm.GetType("VivHelper.Entities.SpawnPointHooks");

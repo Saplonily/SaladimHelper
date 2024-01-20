@@ -21,6 +21,7 @@ public static class FrostHookModule
             };
             if (Everest.Loader.TryGetDependency(frostHelper, out var module))
             {
+                ThirdPartyHelpers.FrostHelperInstalled = true;
                 Logger.Log(LogLevel.Info, ModuleName, "Found FrostHelper, hooking CustomDreamBlockV2.DreamDashUpdate...");
                 Assembly asm = module.GetType().Assembly;
                 Type dreamBlockType = asm.GetType("FrostHelper.CustomDreamBlockV2");

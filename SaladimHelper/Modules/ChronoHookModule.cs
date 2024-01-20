@@ -20,6 +20,7 @@ public static class ChronoHookModule
         };
         if (Everest.Loader.TryGetDependency(chronoHelper, out var module))
         {
+            ThirdPartyHelpers.ChronoHelperInstalled = true;
             try
             {
                 Type type = module.GetType().Assembly.GetType("Celeste.Mod.ChronoHelper.Entities.GravityFallingBlock");

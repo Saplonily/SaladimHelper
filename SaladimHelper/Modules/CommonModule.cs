@@ -5,8 +5,6 @@ namespace Celeste.Mod.SaladimHelper;
 [NeedModuleInit]
 public static class CommonModule
 {
-    public static bool DeathTrackerLoaded;
-
     public static void Load()
     {
         On.Celeste.ParticleTypes.Load += OnLoadParticles;
@@ -14,14 +12,6 @@ public static class CommonModule
 #if DEBUG
         Everest.LuaLoader.Precache(typeof(SaladimHelperModule).Assembly);
 #endif
-
-        EverestModuleMetadata deathTracker = new() 
-        { 
-            Name = "DeathTracker", 
-            Version = new Version(1, 0, 0)
-        };
-        if (Everest.Loader.DependencyLoaded(deathTracker))
-            DeathTrackerLoaded = true;
     }
 
     public static void Unload()

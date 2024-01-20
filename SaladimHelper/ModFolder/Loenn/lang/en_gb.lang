@@ -1,3 +1,5 @@
+style.effects.SaladimHelper/GravityWindSnowFG.name=Gravity Wind Snow FG
+
 entities.SaladimHelper/DirtBounceBlock.placements.name.dirtBounceBlock_normal=Dirt Bounce Block
 entities.SaladimHelper/ReelCamera.placements.name.reelCamera_normal=Reel Camera
 entities.SaladimHelper/DelayedFallingBlock.placements.name.normal=Delayed Falling Block

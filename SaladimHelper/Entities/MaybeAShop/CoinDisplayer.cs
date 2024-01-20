@@ -5,7 +5,7 @@ public class CoinDisplayer : TotalCustomDisplay
     public bool AlwaysDisplay;
 
     public CoinDisplayer(bool silence)
-        : base(MakeCoinCounter(silence), CommonModule.DeathTrackerLoaded ? 277f : 202f)
+        : base(MakeCoinCounter(silence), ThirdPartyHelpers.DeathTrackerInstalled ? 277f : 202f)
     {
     }
 
