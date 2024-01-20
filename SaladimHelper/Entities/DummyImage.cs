@@ -3,20 +3,28 @@
 namespace Celeste.Mod.SaladimHelper.Entities;
 
 // yes, just these, cuz it's dummy!
-[CustomEntity($"{ModuleName}/DummyImage")]
+[CustomEntity($"SaladimHelper/DummyImage")]
 public class DummyImage : Entity
 {
     public DummyImage(EntityData data, Vector2 offset)
-        : this(data.Position + offset, data.Width, data.Height, data.Attr("texture"))
+        : this(
+              data.Position + offset,
+              new(data.Width, data.Height),
+              new(data.Int("offset_x"), data.Int("offset_y")),
+              data.Attr("texture"),
+              data.Int("depth")
+              )
     {
-
     }
 
-    public DummyImage(Vector2 position, float width, float height, string gpTex)
+    public DummyImage(Vector2 position, Vector2 size, Vector2 offset, string gpTex, int depth)
     {
+        Depth = depth;
         Position = position;
-        Collider = new Hitbox(width, height);
+        Collider = new Hitbox(size.X, size.Y);
 
-        Add(new Image(GFX.Game[gpTex]));
+        var img = new Image(GFX.Game[gpTex]);
+        img.Position += offset;
+        Add(img);
     }
 }
