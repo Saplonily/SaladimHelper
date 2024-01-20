@@ -119,16 +119,21 @@ public partial class MaybeAShop : Entity
         }
     }
 
-#if DEBUG
-    public override void Render()
+    public override void DebugRender(Camera camera)
     {
-        base.Render();
-        foreach (var node in nodes)
+        base.DebugRender(camera);
+        Player p = Scene.Tracker.GetEntity<Player>();
+        if (p is not null && p.CollideCheck(this))
         {
-            Draw.Point(node, Color.Red);
+            int ind = 0;
+            foreach (var node in nodes)
+            {
+                Draw.Line(Center, node, Color.Red with { A = 0 });
+                ActiveFont.Draw(ind.ToString(), node, Vector2.One / 2f, Vector2.One * 0.2f, Color.Red with { A = 0 });
+                ind++;
+            }
         }
     }
-#endif
 
     private void OnTalk(Player p)
     {
@@ -158,8 +163,8 @@ public partial class MaybeAShop : Entity
                 var to = item.Center;
                 ShopBoughtLeader leader = new(from, to, item);
                 Scene.Add(leader);
-                SceneAs<Level>().Session.Flags.Add($"sh_shop_{entityID}_{index}");
             }
+            SceneAs<Level>().Session.Flags.Add($"sh_shop_{entityID}_{index}");
         }
     }
 
