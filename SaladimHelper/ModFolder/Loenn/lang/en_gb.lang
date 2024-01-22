@@ -8,7 +8,7 @@ entities.SaladimHelper/CustomAscendManager.placements.name.normal=Custom Ascend 
 entities.SaladimHelper/BitsMomentumRefill.placements.name.normal=Bits Momentum Refill
 entities.SaladimHelper/CollectableCoin.placements.name.normal=Collectable Coin
 entities.SaladimHelper/CollectableCoin.placements.name.with_return=Collectable Coin (With Return)
-entities.SaladimHelper/MaybeAShop.placements.name.normal=MaybeAShop
+entities.SaladimHelper/GDDShop.placements.name.normal=GDD Shop
 entities.SaladimHelper/DummyImage.placements.name.normal=Dummy Image
 entities.SaladimHelper/CustomAscendManager.placements.name.normal=Custom Ascend Manager
 

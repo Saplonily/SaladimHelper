@@ -4,8 +4,8 @@ using MonoMod;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity($"SaladimHelper/MaybeAShop"), NeedModuleInit]
-public partial class MaybeAShop : Entity
+[CustomEntity("SaladimHelper/MaybeAShop", "SaladimHelper/GDDShop"), NeedModuleInit]
+public partial class GDDShop : Entity
 {
     public readonly EntityID ID;
     private int[] costs;
@@ -16,7 +16,7 @@ public partial class MaybeAShop : Entity
     private int lineMax;
     private EntityID entityID;
 
-    public MaybeAShop(EntityData data, Vector2 offset, EntityID entityID)
+    public GDDShop(EntityData data, Vector2 offset, EntityID entityID)
         : this(data.Position + offset,
               new(data.Width, data.Height),
               new EntityID(data.Level.Name, data.ID),
@@ -29,7 +29,7 @@ public partial class MaybeAShop : Entity
 
     }
 
-    public MaybeAShop(Vector2 position, Vector2 size, EntityID id, int lineMax, string[] itemTexs, int[] costs, Vector2[] nodes, EntityID entityID)
+    public GDDShop(Vector2 position, Vector2 size, EntityID id, int lineMax, string[] itemTexs, int[] costs, Vector2[] nodes, EntityID entityID)
     {
         Position = position;
         shopEntities = new List<Entity>[nodes.Length];
@@ -144,15 +144,15 @@ public partial class MaybeAShop : Entity
 
     private void ShowUI(Player p)
     {
-        MaybeAShopUI ui = new(OnBought, OnFinish, itemTexs, costs, lineMax);
+        GDDShopUI ui = new(OnBought, OnFinish, itemTexs, costs, lineMax);
         Scene.Add(ui);
         p.StateMachine.State = Player.StDummy;
-        void OnFinish(MaybeAShopUI ui)
+        void OnFinish(GDDShopUI ui)
         {
             tc.Enabled = true;
             p.StateMachine.State = Player.StNormal;
         }
-        void OnBought(MaybeAShopUI ui, int index)
+        void OnBought(GDDShopUI ui, int index)
         {
             ModuleSession.CollectedCoinsAmount -= costs[index];
             ModuleSession.ShopBoughtItems.Add(index);

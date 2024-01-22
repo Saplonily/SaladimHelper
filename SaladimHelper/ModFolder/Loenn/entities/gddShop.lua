@@ -2,7 +2,7 @@ local utils = require("utils")
 
 local shop = {}
 
-shop.name = "SaladimHelper/MaybeAShop"
+shop.name = "SaladimHelper/GDDShop"
 shop.depth = -100
 shop.nodeLimits = { 1, 50 }
 shop.nodeLineRenderType = "fan"

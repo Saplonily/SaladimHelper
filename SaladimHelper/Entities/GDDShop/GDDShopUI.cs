@@ -2,7 +2,7 @@ namespace Celeste.Mod.SaladimHelper.Entities;
 
 // 我知道这坨代码写的很烂但是你先别急
 
-public class MaybeAShopUI : Entity
+public class GDDShopUI : Entity
 {
     public const float CenterOffsetInX = 160f / 320f;
     public const float CenterOffsetInY = 166f / 466f;
@@ -21,8 +21,8 @@ public class MaybeAShopUI : Entity
     private int selectedIndex = 0;
     private List<(Image img, MTexture tex, MTexture texl)> items;
 
-    private Action<MaybeAShopUI> ended;
-    private Action<MaybeAShopUI, int> bought;
+    private Action<GDDShopUI> ended;
+    private Action<GDDShopUI, int> bought;
 
     private string[] texs;
     private int[] costs;
@@ -35,7 +35,7 @@ public class MaybeAShopUI : Entity
     private Vector2 itemSize;
     private (int columns, int rows) itemRowColumn;
 
-    public MaybeAShopUI(Action<MaybeAShopUI, int> bought, Action<MaybeAShopUI> ended, string[] texs, int[] costs, int lineMax)
+    public GDDShopUI(Action<GDDShopUI, int> bought, Action<GDDShopUI> ended, string[] texs, int[] costs, int lineMax)
     {
         //lineMax = 114514;
         this.ended = ended;
@@ -54,10 +54,10 @@ public class MaybeAShopUI : Entity
         itemsCount = costs.Length;
 
         // 9patch
-        t = GFX.Gui["SaladimHelper/MaybeAShop/t"];
-        b = GFX.Gui["SaladimHelper/MaybeAShop/b"];
-        l = GFX.Gui["SaladimHelper/MaybeAShop/l"];
-        r = GFX.Gui["SaladimHelper/MaybeAShop/r"];
+        t = GFX.Gui["SaladimHelper/GDDShop/t"];
+        b = GFX.Gui["SaladimHelper/GDDShop/b"];
+        l = GFX.Gui["SaladimHelper/GDDShop/l"];
+        r = GFX.Gui["SaladimHelper/GDDShop/r"];
         itemSize = new(t.Width, t.Height);
 
         Vector2 topLeftFramePos = new();
@@ -118,10 +118,10 @@ public class MaybeAShopUI : Entity
         }
 
         // bound textures
-        MTexture tl = GFX.Gui["SaladimHelper/MaybeAShop/tl"];
-        MTexture br = GFX.Gui["SaladimHelper/MaybeAShop/br"];
-        MTexture tr = GFX.Gui["SaladimHelper/MaybeAShop/tr"];
-        MTexture bl = GFX.Gui["SaladimHelper/MaybeAShop/bl"];
+        MTexture tl = GFX.Gui["SaladimHelper/GDDShop/tl"];
+        MTexture br = GFX.Gui["SaladimHelper/GDDShop/br"];
+        MTexture tr = GFX.Gui["SaladimHelper/GDDShop/tr"];
+        MTexture bl = GFX.Gui["SaladimHelper/GDDShop/bl"];
         Add(new Image(tl) { Position = topLeftFramePos });
         Add(new Image(br) { Position = bottomRightFramePos });
         Add(new Image(tr) { Position = new(bottomRightFramePos.X, topLeftFramePos.Y) });
@@ -159,17 +159,17 @@ public class MaybeAShopUI : Entity
     public MTexture ChooseTexture(int index, bool light)
         => !light ? GFX.Gui[(index % 4) switch
         {
-            0 => "SaladimHelper/MaybeAShop/sa",
-            1 => "SaladimHelper/MaybeAShop/sb",
-            2 => "SaladimHelper/MaybeAShop/sc",
-            3 => "SaladimHelper/MaybeAShop/sd",
+            0 => "SaladimHelper/GDDShop/sa",
+            1 => "SaladimHelper/GDDShop/sb",
+            2 => "SaladimHelper/GDDShop/sc",
+            3 => "SaladimHelper/GDDShop/sd",
             _ => null
         }] : GFX.Gui[(index % 4) switch
         {
-            0 => "SaladimHelper/MaybeAShop/sal",
-            1 => "SaladimHelper/MaybeAShop/sbl",
-            2 => "SaladimHelper/MaybeAShop/scl",
-            3 => "SaladimHelper/MaybeAShop/sdl",
+            0 => "SaladimHelper/GDDShop/sal",
+            1 => "SaladimHelper/GDDShop/sbl",
+            2 => "SaladimHelper/GDDShop/scl",
+            3 => "SaladimHelper/GDDShop/sdl",
             _ => null
         }];
 

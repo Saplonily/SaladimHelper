@@ -1,3 +1,0 @@
-{41ce6e06-6c0b-4446-b1bb-63f874f56cef} event:/momentum_refill/momentum_refill_return
-{b2ee8ec6-1f52-40e5-bde3-927c2d0ef981} event:/momentum_refill/momentum_refill_touch
-{7b9259c3-6ccf-4e3a-8d28-cbb07ce3c2c9} bank:/momentum_refill

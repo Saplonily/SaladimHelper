@@ -4,7 +4,7 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity($"SaladimHelper/BitsMomentumRefill"), NeedModuleInit]
+[CustomEntity("SaladimHelper/BitsMomentumRefill"), NeedModuleInit]
 public class BitsMomentumRefill : Entity
 {
     // lets do happy copying

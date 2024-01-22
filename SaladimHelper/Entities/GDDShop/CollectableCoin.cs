@@ -2,24 +2,24 @@
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity($"SaladimHelper/CollectableCoin")]
+[CustomEntity("SaladimHelper/CollectableCoin")]
 public class CollectableCoin : Entity
 {
     private bool collected = false;
+    private EntityID entityID;
     private Sprite spr;
-    private int id;
     private Vector2[] nodes;
 
     private BloomPoint bloom;
 
-    public CollectableCoin(EntityData data, Vector2 offset)
-        : this(data.Position + offset, data.ID, data.NodesOffset(offset))
+    public CollectableCoin(EntityData data, Vector2 offset, EntityID entityID)
+        : this(data.Position + offset, data.NodesOffset(offset), entityID)
     {
     }
 
-    public CollectableCoin(Vector2 pos, int id, Vector2[] nodes)
+    public CollectableCoin(Vector2 pos, Vector2[] nodes, EntityID entityID)
     {
-        this.id = id;
+        this.entityID = entityID;
         this.nodes = nodes;
         Position = pos;
         // add some awesome bloom!
@@ -59,22 +59,21 @@ public class CollectableCoin : Entity
     public void Collect()
     {
         if (collected) return;
-        Audio.Play("event:/game/general/touchswitch_any", Center);
+        Audio.Play("event:/gddcoin/key_get", Center);
 
         var session = SceneAs<Level>().Session;
-        var entityId = new EntityID(session.Level, id);
-        ModuleSession.CollectedCoins.Add(entityId);
         ModuleSession.CollectedCoinsAmount++;
-        session.DoNotLoad.Add(entityId);
+        session.DoNotLoad.Add(entityID);
 
         PlayAnim();
         CoinDisplayer.Display(Scene);
 
-        Player player = Scene.Tracker.GetEntity<Player>();
-        if (player != null && nodes != null && nodes.Length >= 2)
+        if (nodes != null && nodes.Length >= 2)
         {
-            player.Add(new Coroutine(NodeRoutine(player, nodes[1], nodes[0])));
+            Player player = Scene.Tracker.GetEntity<Player>();
+            player?.Add(new Coroutine(NodeRoutine(player, nodes[1], nodes[0])));
         }
+
         static IEnumerator NodeRoutine(Player player, Vector2 node1, Vector2 node0)
         {
             yield return 0.3f;
@@ -117,10 +116,7 @@ public class CollectableCoin : Entity
                 spr.Scale.X = Calc.LerpClamp(1.0f, 0.0f, thisEased);
             }
         };
-        tw.OnComplete = t =>
-        {
-            RemoveSelf();
-        };
+        tw.OnComplete = t => RemoveSelf();
         Add(tw);
         tw.Start();
     }
