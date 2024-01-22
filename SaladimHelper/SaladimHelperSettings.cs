@@ -9,10 +9,13 @@ public class SaladimHelperSettings : EverestModuleSettings
     [DefaultButtonBinding(Buttons.RightShoulder, Keys.A)]
     public ButtonBinding DoTeleport { get; set; } = new();
 
+    [SettingSubText("modoptions_saladimhelper_alwaysenablefrostfreeze_subtext")]
     public bool AlwaysEnableFrostFreeze { get; set; } = false;
 
+    [SettingSubText("modoptions_saladimhelper_alwaysenablepandorasboxdreamdashbetterfreeze_subtext")]
     public bool AlwaysEnablePandorasBoxDreamDashBetterFreeze { get; set; } = false;
 
+    [SettingSubText("modoptions_saladimhelper_alwaysshowvivhiddenrooms_subtext")]
     public bool AlwaysShowVivHiddenRooms
     {
         get => alwaysShowVivHiddenRooms;
