@@ -1,6 +1,6 @@
 ﻿using Celeste.Mod.Entities;
-using MonoMod.Utils;
 using MonoMod;
+using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 

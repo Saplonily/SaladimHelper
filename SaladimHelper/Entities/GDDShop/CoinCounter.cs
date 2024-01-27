@@ -1,20 +1,13 @@
 ﻿using Mono.Cecil.Cil;
 
-using MonoMod.RuntimeDetour;
-
 namespace Celeste.Mod.SaladimHelper.Entities;
 
 [NeedModuleInit]
 public class CoinCounter : StrawberriesCounter
 {
-    public const string SfxIncrementStrawBerry = "event:/ui/game/increment_strawberry";
-
-    public string Sfx;
-
-    public CoinCounter(bool centeredX, int amount, string sfx)
-        : base(centeredX, amount, 0, false) 
-        => Sfx = sfx;
-
+    public CoinCounter(bool centeredX, int amount)
+        : base(centeredX, amount, 0, false)
+    { }
 
     public static void Load()
     {

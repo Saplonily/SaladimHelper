@@ -1,6 +1,5 @@
 ﻿using Celeste.Mod.Entities;
 using Mono.Cecil.Cil;
-using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 

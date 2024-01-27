@@ -1,5 +1,4 @@
-﻿using System;
-using Celeste.Mod.Backdrops;
+﻿using Celeste.Mod.Backdrops;
 
 namespace Celeste.Mod.SaladimHelper.Backdrops;
 
