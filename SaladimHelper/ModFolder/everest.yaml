@@ -1,5 +1,5 @@
 - Name: SaladimHelper
-  Version: 0.1.8
+  Version: 0.1.9-dev
   DLL: SaladimHelper.dll
   
   Dependencies:

@@ -3,6 +3,7 @@ entities.SaladimHelper/ReelCamera.placements.name.reelCamera_normal=Reel Camera
 entities.SaladimHelper/DelayedFallingBlock.placements.name.normal=Delayed Falling Block
 entities.SaladimHelper/RustyZipMover.placements.name.normal=Rusty Zip Mover (normal)
 entities.SaladimHelper/CustomAscendManager.placements.name.normal=Custom Ascend Manager
+entities.SaladimHelper/FlagRefill.placements.name.normal=Flag Custom Refill
 
 triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=Enable Frost Freeze Trigger
 triggers.SaladimHelper/FadeFilterTrigger.placements.name.normal=Fade Filter Trigger
