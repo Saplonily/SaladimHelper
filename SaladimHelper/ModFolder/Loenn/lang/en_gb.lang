@@ -11,6 +11,9 @@ entities.SaladimHelper/CollectableCoin.placements.name.with_return=Collectable C
 entities.SaladimHelper/GDDShop.placements.name.normal=GDD Shop
 entities.SaladimHelper/DummyImage.placements.name.normal=Dummy Image
 entities.SaladimHelper/CustomAscendManager.placements.name.normal=Custom Ascend Manager
+entities.SaladimHelper/FallTeleportMirror.placements.name.roomTeleport=Fall Teleport Mirror (Room Teleport)
+entities.SaladimHelper/FallTeleportMirror.placements.name.endLevel=Fall Teleport Mirror (End Level)
+entities.SaladimHelper/FallTeleportMirror.placements.name.chapterChange=Fall Teleport Mirror (Chapter Change)
 
 triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=Enable Frost Freeze Trigger
 triggers.SaladimHelper/FadeFilterTrigger.placements.name.normal=Fade Filter Trigger

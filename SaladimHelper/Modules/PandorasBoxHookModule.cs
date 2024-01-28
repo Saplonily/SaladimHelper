@@ -10,7 +10,7 @@ public static class PandorasBoxHookModule
 {
     public static ILHook DreamDashRedirectILHook;
 
-    public static void Load()
+    public static void Initialize()
     {
         // System.Boolean Celeste.Mod.PandorasBox.DreamDashController::dreamDashRedirect(Celeste.Player)
         try

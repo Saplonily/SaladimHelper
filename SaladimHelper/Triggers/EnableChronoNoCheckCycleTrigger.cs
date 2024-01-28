@@ -16,6 +16,6 @@ public class EnableChronoNoCheckCycleTrigger : Trigger
     public override void OnEnter(Player player)
     {
         base.OnEnter(player);
-        ModuleSession.NoChronoCheckCycle = isEnable;
+        ModuleSession.SessionFlags.NoChronoCheckCycle = isEnable;
     }
 }

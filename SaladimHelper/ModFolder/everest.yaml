@@ -5,14 +5,15 @@
   Dependencies:
     - Name: Everest
       Version: 1.3876.0
-  OptionalDependencies:
-    - Name: FrostHelper
-      Version: 1.44.0
-    - Name: VivHelper
-      Version: 1.12.0
-    - Name: DeathTracker
-      Version: 1.0.0
-    - Name: ChronoHelper
-      Version: 1.1.4
-    - Name: PandorasBox
-      Version: 1.0.47
+# Actually they're truly "optionaly depended" but not as "optionaly dependencies"
+# OptionalDependencies:
+#   - Name: FrostHelper
+#     Version: 1.44.0
+#   - Name: VivHelper
+#     Version: 1.12.0
+#   - Name: DeathTracker
+#     Version: 1.0.0
+#   - Name: ChronoHelper
+#     Version: 1.1.4
+#   - Name: PandorasBox
+#     Version: 1.0.47

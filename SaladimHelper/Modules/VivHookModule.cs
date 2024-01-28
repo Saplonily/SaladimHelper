@@ -10,7 +10,7 @@ public static class VivHookModule
 {
     public static ILHook VivHelperHideRoomHook = null;
 
-    public static void Load()
+    public static void Initialize()
     {
         if (!ModuleSettings.AlwaysShowVivHiddenRooms) return;
         try

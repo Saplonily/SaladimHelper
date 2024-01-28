@@ -9,7 +9,7 @@ public static class ThirdPartyHelpers
     public static bool VivHelperInstalled { get; set; }
     public static bool DeathTrackerInstalled { get; set; }
 
-    public static void Load()
+    public static void Initialize()
     {
         EverestModuleMetadata deathTracker = new()
         {

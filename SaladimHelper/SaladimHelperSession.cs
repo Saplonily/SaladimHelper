@@ -6,20 +6,19 @@ namespace Celeste.Mod.SaladimHelper;
 
 public class SaladimHelperSession : EverestModuleSession
 {
-    public bool EnabledFrostFreeze = false;
-    public bool NoChronoCheckCycle = false;
+    public SessionFlags SessionFlags;
 
     public List<FilterEntry> FilterEntries = new();
 
     public (Vector2 speed, float mul)? MomentumRefillSpeedKept = null;
     public HashSet<int> ShopBoughtItems = new();
-#if DEBUG
-    public int CollectedCoinsAmount = 200;
-#else
-
     public int CollectedCoinsAmount = 0;
-#endif
     [YamlIgnore] public CoinDisplayer CurrentCoinDisplayer = null;
+
+    public SaladimHelperSession()
+    {
+        SessionFlags = new();
+    }
 
     public FilterEntry GetFilterEntry(string effectPath, float index)
     {

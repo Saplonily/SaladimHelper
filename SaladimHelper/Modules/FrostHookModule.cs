@@ -10,7 +10,7 @@ public static class FrostHookModule
 {
     public static ILHook FrostHelperDreamBlockHook = null;
 
-    public static void Load()
+    public static void Initialize()
     {
         // System.Int32 FrostHelper.CustomDreamBlockV2::Player_DreamDashUpdate(On.Celeste.Player/orig_DreamDashUpdate,Celeste.Player)
         try
@@ -53,7 +53,7 @@ public static class FrostHookModule
             cur.Emit(OpCodes.Ldarg_1);
             cur.EmitDelegate((Entity obj, Player p) =>
             {
-                if (!ModuleSession.EnabledFrostFreeze && !ModuleSettings.AlwaysEnableFrostFreeze)
+                if (!ModuleSession.SessionFlags.EnabledFrostFreeze && !ModuleSettings.AlwaysEnableFrostFreeze)
                     return false;
                 DynamicData data = DynamicData.For(obj);
                 Input.Dash.ConsumePress();

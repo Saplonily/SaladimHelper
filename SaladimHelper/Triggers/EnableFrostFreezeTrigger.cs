@@ -16,6 +16,6 @@ public class EnableFrostFreezeTrigger : Trigger
     public override void OnEnter(Player player)
     {
         base.OnEnter(player);
-        ModuleSession.EnabledFrostFreeze = isEnable;
+        ModuleSession.SessionFlags.EnabledFrostFreeze = isEnable;
     }
 }

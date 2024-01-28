@@ -10,7 +10,7 @@ public static class ChronoHookModule
     private static ILHook GravityBlockSequenceHook;
     private static Hook GravityBlockSwitchOnPlayerHook;
 
-    public static void Load()
+    public static void Initialize()
     {
         EverestModuleMetadata chronoHelper = new()
         {
@@ -20,6 +20,7 @@ public static class ChronoHookModule
         if (Everest.Loader.TryGetDependency(chronoHelper, out var module))
         {
             ThirdPartyHelpers.ChronoHelperInstalled = true;
+            Logger.Log(LogLevel.Info, ModuleName, "Found ChronoHelper, hooking GravityFallingBlock and Switch...");
             try
             {
                 Type type = module.GetType().Assembly.GetType("Celeste.Mod.ChronoHelper.Entities.GravityFallingBlock");
@@ -46,7 +47,7 @@ public static class ChronoHookModule
     private delegate void orig_OnPlayer(Entity self, Player player);
     private static void OnPlayerHook(orig_OnPlayer orig, Entity self, Player player)
     {
-        if (ModuleSession.NoChronoCheckCycle)
+        if (ModuleSession.SessionFlags.NoChronoCheckCycle)
             self.SceneAs<Level>().OnEndOfFrame += () => orig(self, player);
         else
             orig(self, player);
@@ -56,11 +57,11 @@ public static class ChronoHookModule
     {
         ILCursor cur = new(context);
         if (cur.TryGotoNext(MoveType.After, ins => ins.MatchLdcR4(0.1f), ins => ins.MatchBox<float>()))
-            _ = cur.EmitDelegate<Func<object, object>>(f => ModuleSession.NoChronoCheckCycle ? null : f);
+            _ = cur.EmitDelegate<Func<object, object>>(f => ModuleSession.SessionFlags.NoChronoCheckCycle ? null : f);
         cur.Index = 0;
         if (cur.TryGotoNext(MoveType.After, ins => ins.MatchLdcR4(0.2f), ins => ins.MatchBox<float>())
             && cur.TryGotoNext(MoveType.After, ins => ins.MatchLdcR4(0.2f), ins => ins.MatchBox<float>()))
-            cur.EmitDelegate<Func<object, object>>(f => ModuleSession.NoChronoCheckCycle ? null : f);
+            cur.EmitDelegate<Func<object, object>>(f => ModuleSession.SessionFlags.NoChronoCheckCycle ? null : f);
     }
 
     public static void Unload()
