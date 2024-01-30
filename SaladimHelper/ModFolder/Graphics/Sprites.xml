@@ -1,9 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Sprites>
 
-  <sal_bumpBlockCenterDirt path="SaladimHelper/Entities/more_bounce_block/" start="idle">
+  <sal_bumpBlockCenterDirt path="SaladimHelper/entities/moreBounceBlock/" start="idle">
     <Center/>
     <Loop id="idle" path="rock_center" delay="0.1"/>
   </sal_bumpBlockCenterDirt>
 
+  <sal_bitsMagicLanternLight path="SaladimHelper/entities/bitsMagicLantern/">
+    <Center/>
+    <Anim id="holdable" path="holdable" frames="0-0" />
+    <Loop id="static" delay="0.03" path="static" frames="0-6" />
+  </sal_bitsMagicLanternLight>
 </Sprites>

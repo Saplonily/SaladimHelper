@@ -36,20 +36,19 @@ public class BitsMomentumRefill : Entity
     {
         IL.Celeste.Player.CallDashEvents += Player_CallDashEvents;
         On.Celeste.Player.Render += Player_Render;
-        On.Celeste.Player.ctor += Player_ctor;
-    }
-
-    private static void Player_ctor(On.Celeste.Player.orig_ctor orig, Player self, Vector2 position, PlayerSpriteMode spriteMode)
-    {
-        orig(self, position, spriteMode);
-        ModuleSession.MomentumRefillSpeedKept = null;
+        Everest.Events.Player.OnSpawn += Player_OnSpawn;
     }
 
     public static void Unload()
     {
         IL.Celeste.Player.CallDashEvents -= Player_CallDashEvents;
         On.Celeste.Player.Render -= Player_Render;
-        On.Celeste.Player.ctor -= Player_ctor;
+        Everest.Events.Player.OnSpawn -= Player_OnSpawn;
+    }
+
+    private static void Player_OnSpawn(Player obj)
+    {
+        ModuleSession.MomentumRefillSpeedKept = null;
     }
 
     private static void Player_CallDashEvents(ILContext il)
@@ -106,16 +105,16 @@ public class BitsMomentumRefill : Entity
 
         Collider = new Hitbox(16f, 16f, -8f, -8f);
         Add(new PlayerCollider(new Action<Player>(OnPlayer)));
-        Add(outline = new Image(GFX.Game["SaladimHelper/Entities/momentum_refill/outline"]));
+        Add(outline = new Image(GFX.Game["SaladimHelper/entities/momentumRefill/outline"]));
         outline.CenterOrigin();
         outline.Visible = false;
 
-        Add(sprite = new Sprite(GFX.Game, "SaladimHelper/Entities/momentum_refill/idle"));
+        Add(sprite = new Sprite(GFX.Game, "SaladimHelper/entities/momentumRefill/idle"));
         sprite.AddLoop("idle", "", 0.1f);
         sprite.Play("idle", false, false);
         sprite.CenterOrigin();
 
-        Add(flash = new Sprite(GFX.Game, "SaladimHelper/Entities/momentum_refill/flash"));
+        Add(flash = new Sprite(GFX.Game, "SaladimHelper/entities/momentumRefill/flash"));
         flash.Add("flash", "", 0.05f);
         flash.OnFinish = _ => flash.Visible = false;
         flash.CenterOrigin();
@@ -229,8 +228,8 @@ public class BitsMomentumRefill : Entity
             if (!recordY) sp.Y = 0;
             // do speed keeping
             ModuleSession.MomentumRefillSpeedKept = (sp, mul);
-            MakeSpeedField(SceneAs<Level>().Particles, Position, sp);
             // and do effects
+            MakeSpeedField(SceneAs<Level>().Particles, Position, sp);
             Audio.Play("event:/momentum_refill/momentum_refill_touch", Position);
             Input.Rumble(RumbleStrength.Medium, RumbleLength.Medium);
             Collidable = false;

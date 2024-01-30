@@ -4,7 +4,7 @@ local coin = {}
 
 coin.name = "SaladimHelper/CollectableCoin"
 coin.nodeLineRenderType = "line"
-coin.texture = "SaladimHelper/Entities/collectable_coin/idle00"
+coin.texture = "SaladimHelper/entities/collectableCoin/idle00"
 
 coin.placements = {
     {

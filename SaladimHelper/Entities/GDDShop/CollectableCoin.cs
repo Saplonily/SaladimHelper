@@ -27,7 +27,7 @@ public class CollectableCoin : Entity
         bloom.Alpha = 0.5f;
 
         Collider = new Hitbox(16, 16, -8, -8);
-        Add(spr = new Sprite(GFX.Game, "SaladimHelper/Entities/collectable_coin/idle"));
+        Add(spr = new Sprite(GFX.Game, "SaladimHelper/entities/collectableCoin/idle"));
         Add(new PlayerCollider(OnPlayer));
 
         spr.Add("idle", "", 0.1f, new Chooser<string>("idle", 1f), 0, 0, 1, 2, 3, 4, 5, 6, 6, 7, 8, 9, 10, 11);

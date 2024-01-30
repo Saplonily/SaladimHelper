@@ -13,6 +13,6 @@ refill.placements = {
     }
 }
 
-refill.texture = "SaladimHelper/Entities/momentum_refill/idle00"
+refill.texture = "SaladimHelper/entities/momentumRefill/idle00"
 
 return refill

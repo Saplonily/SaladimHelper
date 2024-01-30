@@ -63,6 +63,11 @@ public static class CommonModule
             LifeMax = 0.5f,
             Friction = 30f,
         };
+
+        BitsMagicLantern.P_Impact = new ParticleType(TheoCrystal.P_Impact)
+        {
+            Color = Calc.HexToColor("eccc15"),
+        };
     }
 
     public static void OnLoadParticles(On.Celeste.ParticleTypes.orig_Load orig)
