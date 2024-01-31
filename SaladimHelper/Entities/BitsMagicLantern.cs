@@ -62,7 +62,7 @@ public class BitsMagicLantern : Actor
         }
 
         Depth = Depths.TheoCrystal;
-        Add(vertexLight = new VertexLight(Collider.Center, Color.White, 1f, 32, 64));
+        Add(vertexLight = new VertexLight(Collider.Center, Color.White, 0.92f, 32, 64));
         Add(new BloomPoint(0.2f, 24f));
         Add(new MirrorReflection());
     }
@@ -80,8 +80,17 @@ public class BitsMagicLantern : Actor
         {
             prevLiftSpeed = Vector2.Zero;
             vertexLight.Visible = true;
-            if (CollideCheck<Solid>())
-                vertexLight.Visible = false;
+            var solids = Scene.Tracker.GetEntities<Solid>().Cast<Solid>();
+            bool any = false;
+            foreach (var solid in solids)
+            {
+                if (solid.CollideRect(new Rectangle(-5, -5, 10, 10)))
+                {
+                    any = true;
+                    break;
+                }
+            }
+            vertexLight.Visible = !any;
         }
         else
         {
@@ -173,6 +182,12 @@ public class BitsMagicLantern : Actor
         Holdable.CheckAgainstColliders();
         if (hitSeeker != null && swatTimer <= 0f && !hitSeeker.Check(Holdable))
             hitSeeker = null;
+    }
+
+    public override void DebugRender(Camera camera)
+    {
+        base.DebugRender(camera);
+        Draw.Circle(Center, Radius, Color.Red, 24);
     }
 
     public void Swat(HoldableCollider hc, int dir)

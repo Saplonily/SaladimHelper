@@ -40,7 +40,7 @@ public class BitsMagicLanternController : Entity
         bool inDark = true;
         foreach (BitsMagicLantern lantern in Scene.Tracker.GetEntities<BitsMagicLantern>().Cast<BitsMagicLantern>())
         {
-            if (Vector2.DistanceSquared(lantern.Position + new Vector2(0, 5), player.Position) <= lantern.Radius * lantern.Radius)
+            if (Vector2.DistanceSquared(lantern.Center, player.Center) <= lantern.Radius * lantern.Radius)
                 inDark = false;
         }
 
@@ -76,7 +76,7 @@ public class BitsMagicLanternController : Entity
         {
             float scale = lantern.Radius / 100f;
             lightTex.Draw(
-                lantern.Position + new Vector2(0, -8) - new Vector2(lightTex.Width, lightTex.Height) * scale / 2f,
+                lantern.Center - new Vector2(lightTex.Width, lightTex.Height) * scale / 2f,
                 Vector2.Zero,
                 Color.White * 0.4f,
                 new Vector2(scale)
