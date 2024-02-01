@@ -1,5 +1,5 @@
 local entity = {}
-entity.name = "SaladimHelper/BitsMagicLanternController",
+entity.name = "SaladimHelper/BitsMagicLanternController"
 entity.placements =
 {
     name = "normal",
