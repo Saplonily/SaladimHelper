@@ -13,7 +13,7 @@ entity.placements =
 function entity.texture(room, entity)
     local holdable = entity.holdable or false
 
-    return holdable and "SaladimHelper/entities/bitsMagicLantern/holdable0" or "SaladimHelper/entities/bitsMagicLantern/static0"
+    return holdable and "SaladimHelper/entities/bitsMagicLantern/holdable" or "SaladimHelper/entities/bitsMagicLantern/static0"
 end
 
 return entity
