@@ -4,7 +4,8 @@ entity.placements =
 {
     name = "normal",
     data = {
-        maxDarkDuration = 20.0
+        maxDarkDuration = 20.0,
+        gfxOnly = false
     }
 }
 

@@ -1,6 +1,6 @@
 ﻿using Celeste.Mod.Entities;
 
-// modified and refactored from CNY2024Helper by optimize-2
+// modified and refactored from ChineseNewYear2024Helper by optimize-2
 // https://github.com/optimize-2/ChineseNewYear2024Helper
 
 namespace Celeste.Mod.SaladimHelper.Entities;

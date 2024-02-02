@@ -1,6 +1,6 @@
 ﻿using Celeste.Mod.Entities;
 
-// modified and refactored from CNY2024Helper by optimize-2
+// modified and refactored from ChineseNewYear2024Helper by optimize-2
 // https://github.com/optimize-2/ChineseNewYear2024Helper
 
 namespace Celeste.Mod.SaladimHelper.Entities;
@@ -12,10 +12,12 @@ public class BitsMagicLanternController : Entity
     public float MaxDarkDuration;
     public bool Flashing;
     private MTexture lightTex;
+    private bool gfxOnly;
 
-    public BitsMagicLanternController(Vector2 position, float maxDarkDuration)
+    public BitsMagicLanternController(Vector2 position, float maxDarkDuration, bool gfxOnly)
         : base(position)
     {
+        this.gfxOnly = gfxOnly;
         MaxDarkDuration = maxDarkDuration;
         lightTex = GFX.Game["SaladimHelper/entities/bitsMagicLantern/light"];
         Depth = Depths.FakeWalls;
@@ -25,13 +27,15 @@ public class BitsMagicLanternController : Entity
     }
 
     public BitsMagicLanternController(EntityData data, Vector2 offset)
-        : this(data.Position + offset, data.Float("maxDarkDuration", 10f))
+        : this(data.Position + offset, data.Float("maxDarkDuration", 10f), data.Bool("gfxOnly"))
     {
     }
 
     public override void Update()
     {
         base.Update();
+        if (gfxOnly)
+            return;
         Player player = Scene.Tracker.GetEntity<Player>();
 
         if (player == null)
