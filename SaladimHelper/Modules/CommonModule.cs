@@ -14,10 +14,23 @@ public static class CommonModule
 #endif
     }
 
+    public static void OnLoadParticles(On.Celeste.ParticleTypes.orig_Load orig)
+    {
+        orig();
+        LoadParticles();
+    }
+
     public static void Unload()
     {
         On.Celeste.ParticleTypes.Load -= OnLoadParticles;
     }
+
+#if DEBUG
+    static CommonModule()
+    {
+        LoadParticles();
+    }
+#endif
 
     public static void LoadParticles()
     {
@@ -70,9 +83,4 @@ public static class CommonModule
         };
     }
 
-    public static void OnLoadParticles(On.Celeste.ParticleTypes.orig_Load orig)
-    {
-        orig();
-        LoadParticles();
-    }
 }

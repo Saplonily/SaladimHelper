@@ -30,8 +30,6 @@ public class BitsMomentumRefill : Entity
     private bool isBlooming;
     private float mul;
 
-    static BitsMomentumRefill() => CommonModule.LoadParticles();
-
     public static void Load()
     {
         IL.Celeste.Player.CallDashEvents += Player_CallDashEvents;
