@@ -10,7 +10,6 @@ public class BitsMagicLanternController : Entity
 {
     public float DarkDuration;
     public float MaxDarkDuration;
-    public bool Flashing;
     private MTexture lightTex;
     private bool gfxOnly;
 
@@ -55,22 +54,6 @@ public class BitsMagicLanternController : Entity
 
         if (inDark && DarkDuration >= MaxDarkDuration && !player.Dead)
             player.Die(Vector2.Zero);
-
-
-        float interval = 0f;
-
-        if (DarkDuration > MaxDarkDuration * 0.7)
-            interval = 0.6f;
-        else if (DarkDuration > MaxDarkDuration * 0.5)
-            interval = 1.0f;
-        else if (DarkDuration > MaxDarkDuration * 0.3)
-            interval = 1.4f;
-
-        if (interval > 0 && Scene.OnInterval(interval) && !player.Dead)
-        {
-            Input.Rumble(RumbleStrength.Climb, RumbleLength.Short);
-            Flashing = !Flashing;
-        }
     }
 
     public override void Render()
