@@ -14,6 +14,8 @@ entities.SaladimHelper/CustomAscendManager.placements.name.normal=Custom Ascend 
 entities.SaladimHelper/FallTeleportMirror.placements.name.roomTeleport=Fall Teleport Mirror (Room Teleport)
 entities.SaladimHelper/FallTeleportMirror.placements.name.endLevel=Fall Teleport Mirror (End Level)
 entities.SaladimHelper/FallTeleportMirror.placements.name.chapterChange=Fall Teleport Mirror (Chapter Change)
+entities.SaladimHelper/BitsMagicLantern.placements.name.normal=Bits Magic Lantern
+entities.SaladimHelper/BitsMagicLanternController.placements.name.normal=Bits Magic Lantern Controller
 
 triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=Enable Frost Freeze Trigger
 triggers.SaladimHelper/FadeFilterTrigger.placements.name.normal=Fade Filter Trigger
