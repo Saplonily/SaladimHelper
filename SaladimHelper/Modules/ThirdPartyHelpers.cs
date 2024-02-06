@@ -4,10 +4,10 @@
 [NeedModuleInit]
 public static class ThirdPartyHelpers
 {
-    public static bool ChronoHelperInstalled { get; set; }
-    public static bool FrostHelperInstalled { get; set; }
-    public static bool VivHelperInstalled { get; set; }
-    public static bool DeathTrackerInstalled { get; set; }
+    public static bool ChronoHelperInstalled { get; private set; }
+    public static bool FrostHelperInstalled { get; private set; }
+    public static bool VivHelperInstalled { get; private set; }
+    public static bool DeathTrackerInstalled { get; private set; }
 
     public static void Initialize()
     {

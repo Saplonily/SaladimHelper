@@ -195,7 +195,7 @@ public class FallTeleportMirror : Entity
         {
             canTrigger = false;
             Scene.Add(new CS_FallTeleport(
-                player, this, 
+                player, this,
                 toLevel, endLevel,
                 seamlessNextChapter, nextChapterSSID,
                 chapterAreaMode, stopMusic,
