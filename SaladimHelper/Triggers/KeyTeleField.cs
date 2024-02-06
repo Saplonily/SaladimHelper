@@ -2,7 +2,7 @@
 
 using Celeste.Mod.Entities;
 
-namespace Celeste.Mod.SaladimHelper;
+namespace Celeste.Mod.SaladimHelper.Triggers;
 
 // obsolute
 [CustomEntity("SaladimHelper/KeyTeleField"), Tracked]

@@ -1,6 +1,5 @@
 ﻿#if DEBUG
-namespace Celeste.Mod.SaladimHelper;
-
+namespace Celeste.Mod.SaladimHelper.Entities;
 public class TestEntity : Entity
 {
     public TestEntity(Vector2 position)

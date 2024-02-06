@@ -1,10 +1,24 @@
-﻿namespace Celeste.Mod.SaladimHelper;
+using Celeste.Mod.SaladimHelper.Entities;
+
+using YamlDotNet.Serialization;
+
+namespace Celeste.Mod.SaladimHelper;
 
 public class SaladimHelperSession : EverestModuleSession
 {
-    public bool EnabledFrostFreeze = false;
+    public SessionFlags SessionFlags;
 
     public List<FilterEntry> FilterEntries = new();
+
+    public (Vector2 speed, float mul)? MomentumRefillSpeedKept = null;
+    public HashSet<int> ShopBoughtItems = new();
+    public int CollectedCoinsAmount = 0;
+    [YamlIgnore] public CoinDisplayer CurrentCoinDisplayer = null;
+
+    public SaladimHelperSession()
+    {
+        SessionFlags = new();
+    }
 
     public FilterEntry GetFilterEntry(string effectPath, float index)
     {

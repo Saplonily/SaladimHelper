@@ -1,25 +1,25 @@
-﻿namespace Celeste.Mod.SaladimHelper;
+namespace Celeste.Mod.SaladimHelper.Entities;
 
 [NeedModuleInit]
 public partial class ReelCamera
 {
+    // TODO optimize
     public static void Load()
     {
         On.Celeste.Player.Update += Player_Update;
         On.Celeste.Level.TransitionTo += Level_TransitionTo;
-        On.Celeste.Player.ctor += Player_ctor;
+        Everest.Events.Player.OnSpawn += Player_OnSpawn;
     }
 
     public static void Unload()
     {
         On.Celeste.Player.Update -= Player_Update;
         On.Celeste.Level.TransitionTo -= Level_TransitionTo;
-        On.Celeste.Player.ctor -= Player_ctor;
+        Everest.Events.Player.OnSpawn -= Player_OnSpawn;
     }
 
-    private static void Player_ctor(On.Celeste.Player.orig_ctor orig, Player self, Vector2 position, PlayerSpriteMode spriteMode)
+    private static void Player_OnSpawn(Player player)
     {
-        orig(self, position, spriteMode);
         ResetReel();
     }
 

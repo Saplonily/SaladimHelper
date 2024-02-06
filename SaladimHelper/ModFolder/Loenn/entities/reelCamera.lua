@@ -11,8 +11,8 @@ reelCamera.placements = {
     data = {
         width = 80,
         height = 80,
-        move_time_sequence = "1,1,4,5,1,4",
-        delay_sequence = "19,1,9,8,1,0",
+        move_time_sequence = "1,2",
+        delay_sequence = "1,2",
         start_delay = 1.0,
         start_move_time = 1.0,
         squash_horizontal_area = true,
@@ -25,14 +25,14 @@ reelCamera.placements = {
 function reelCamera.draw(room, entity, viewport)
     love.graphics.setColor(124 / 255, 251 / 255, 171 / 255, 0.4)
     love.graphics.rectangle("fill", entity.x, entity.y, entity.width, entity.height)
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
 end
 
 function reelCamera.nodeDraw(room, entity, node, nodeIndex, viewport)
     love.graphics.setColor(124 / 255, 251 / 255, 171 / 255, 0.7)
     love.graphics.circle("fill", node.x + entity.width / 2, node.y + entity.height / 2, 5)
-    love.graphics.print(nodeIndex .. "", node.x + entity.width / 2, node.y + entity.height / 2)
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.print(tostring(nodeIndex), node.x + entity.width / 2, node.y + entity.height / 2)
+    love.graphics.setColor(1, 1, 1, 1)
 end
 
 function reelCamera.nodeRectangle(room, entity, node, nodeIndex, viewport)

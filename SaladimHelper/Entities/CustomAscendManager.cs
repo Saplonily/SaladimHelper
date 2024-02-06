@@ -4,7 +4,7 @@
 // repository at https://github.com/StrawberryJam2021/StrawberryJam2021
 // class file at https://github.com/StrawberryJam2021/StrawberryJam2021/blob/21079f1c2521aa704fc5ddc91f67ff3ebc95c317/Entities/CustomAscendManager.cs
 
-namespace Celeste.Mod.SaladimHelper;
+namespace Celeste.Mod.SaladimHelper.Entities;
 
 [Tracked]
 [CustomEntity("SaladimHelper/CustomAscendManager")]

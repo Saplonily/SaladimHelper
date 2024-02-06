@@ -1,9 +1,22 @@
+style.effects.SaladimHelper/GravityWindSnowFG.name=Gravity Wind Snow FG
+
 entities.SaladimHelper/DirtBounceBlock.placements.name.dirtBounceBlock_normal=Dirt Bounce Block
 entities.SaladimHelper/ReelCamera.placements.name.reelCamera_normal=Reel Camera
 entities.SaladimHelper/DelayedFallingBlock.placements.name.normal=Delayed Falling Block
-entities.SaladimHelper/RustyZipMover.placements.name.normal=Rusty Zip Mover (normal)
+entities.SaladimHelper/RustyZipMover.placements.name.normal=Rusty Zip Mover
 entities.SaladimHelper/CustomAscendManager.placements.name.normal=Custom Ascend Manager
 entities.SaladimHelper/FlagRefill.placements.name.normal=Flag Custom Refill
+entities.SaladimHelper/BitsMomentumRefill.placements.name.normal=Bits Momentum Refill
+entities.SaladimHelper/CollectableCoin.placements.name.normal=Collectable Coin
+entities.SaladimHelper/CollectableCoin.placements.name.with_return=Collectable Coin (With Return)
+entities.SaladimHelper/GDDShop.placements.name.normal=GDD Shop
+entities.SaladimHelper/DummyImage.placements.name.normal=Dummy Image
+entities.SaladimHelper/CustomAscendManager.placements.name.normal=Custom Ascend Manager
+entities.SaladimHelper/FallTeleportMirror.placements.name.roomTeleport=Fall Teleport Mirror (Room Teleport)
+entities.SaladimHelper/FallTeleportMirror.placements.name.endLevel=Fall Teleport Mirror (End Level)
+entities.SaladimHelper/FallTeleportMirror.placements.name.chapterChange=Fall Teleport Mirror (Chapter Change)
+entities.SaladimHelper/BitsMagicLantern.placements.name.normal=Bits Magic Lantern
+entities.SaladimHelper/BitsMagicLanternController.placements.name.normal=Bits Magic Lantern Controller
 
 triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=Enable Frost Freeze Trigger
 triggers.SaladimHelper/FadeFilterTrigger.placements.name.normal=Fade Filter Trigger
@@ -13,3 +26,4 @@ triggers.SaladimHelper/SpeedOneshotFilterTrigger.placements.name.normal=Speed On
 triggers.SaladimHelper/SpeedTwoWayShotFilterTrigger.placements.name.normal=Speed Two Way Shot Filter Trigger
 triggers.SaladimHelper/OneshotFilterTrigger.placements.name.normal=Oneshot Filter Trigger
 triggers.SaladimHelper/KeyTeleField.placements.name.normal=Key To Teleport Field
+triggers.SaladimHelper/EnableChronoNoCheckCycleTrigger.placements.name.normal=Enable Chrono No Check Cycle Trigger

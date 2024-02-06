@@ -23,7 +23,7 @@ public class SaladimHelperSettings : EverestModuleSettings
         {
             alwaysShowVivHiddenRooms = value;
             if (value)
-                VivHookModule.Load();
+                VivHookModule.Initialize();
             else
                 VivHookModule.Unload();
         }

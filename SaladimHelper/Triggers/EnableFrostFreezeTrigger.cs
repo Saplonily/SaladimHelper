@@ -1,6 +1,6 @@
 ﻿using Celeste.Mod.Entities;
 
-namespace Celeste.Mod.SaladimHelper;
+namespace Celeste.Mod.SaladimHelper.Triggers;
 
 [CustomEntity("SaladimHelper/EnableFrostFreezeTrigger")]
 public class EnableFrostFreezeTrigger : Trigger
@@ -16,6 +16,6 @@ public class EnableFrostFreezeTrigger : Trigger
     public override void OnEnter(Player player)
     {
         base.OnEnter(player);
-        ModuleSession.EnabledFrostFreeze = isEnable;
+        ModuleSession.SessionFlags.EnabledFrostFreeze = isEnable;
     }
 }

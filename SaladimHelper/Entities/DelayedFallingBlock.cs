@@ -7,7 +7,7 @@ using Mono.Cecil.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 
-namespace Celeste.Mod.SaladimHelper;
+namespace Celeste.Mod.SaladimHelper.Entities;
 
 [CustomEntity("SaladimHelper/DelayedFallingBlock"), NeedModuleInit]
 public class DelayedFallingBlock : FallingBlock

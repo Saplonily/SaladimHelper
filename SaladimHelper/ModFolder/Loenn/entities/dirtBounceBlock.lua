@@ -21,8 +21,8 @@ local ninePatchOptions = {
     fillMode = "repeat"
 }
 
-local dirtBounceBlockTexture = "SaladimHelper/Entities/more_bounce_block/rock_tiles"
-local dirtCrystalTexture = "SaladimHelper/Entities/more_bounce_block/rock_center00"
+local dirtBounceBlockTexture = "SaladimHelper/entities/moreBounceBlock/rock_tiles"
+local dirtCrystalTexture = "SaladimHelper/entities/moreBounceBlock/rock_center00"
 
 function dirtBounceBlock.sprite(room, entity)
     local x, y = entity.x or 0, entity.y or 0

@@ -2,9 +2,9 @@ $compilerPath = "D:\devbinlib\xnaEffectCompiler\XNBCompiler.exee"
 
 if(Test-Path -Path $compilerPath -PathType Leaf)
 {
-    Set-Location ModFolder/Effects
+    Set-Location SaladimHelper/ModFolder/Effects
     Start-Process $compilerPath
-    Set-Location ../../
+    Set-Location ../../../
 }
 else
 {

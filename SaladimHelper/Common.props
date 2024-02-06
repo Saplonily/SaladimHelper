@@ -6,5 +6,6 @@
     <ModAssetsFolderName>ModFolder</ModAssetsFolderName>
     <!--`copy` or `link`, `copy` is just what it means, `link` will create a soft link to celeste Mods folder-->
     <ModAssetsCopyType>copy</ModAssetsCopyType>
+    <CoreOnlyMod>false</CoreOnlyMod>
   </PropertyGroup>
 </Project>

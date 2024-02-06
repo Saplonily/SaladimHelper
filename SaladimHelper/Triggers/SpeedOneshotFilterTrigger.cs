@@ -1,6 +1,6 @@
 ﻿using Celeste.Mod.Entities;
 
-namespace Celeste.Mod.SaladimHelper;
+namespace Celeste.Mod.SaladimHelper.Triggers;
 
 [CustomEntity("SaladimHelper/SpeedOneshotFilterTrigger")]
 public sealed class SpeedOneshotFilterTrigger : Trigger

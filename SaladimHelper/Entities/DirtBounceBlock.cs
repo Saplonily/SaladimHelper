@@ -1,6 +1,6 @@
 ﻿using Celeste.Mod.Entities;
 
-namespace Celeste.Mod.SaladimHelper;
+namespace Celeste.Mod.SaladimHelper.Entities;
 
 [CustomEntity("SaladimHelper/DirtBounceBlock")]
 public class DirtBounceBlock : Solid
@@ -36,7 +36,7 @@ public class DirtBounceBlock : Solid
     {
         OnDashCollide = OnDashCollided;
         StartPosition = position;
-        images = BuildSprite(GFX.Game[$"{ModuleName}/Entities/more_bounce_block/rock_tiles"]);
+        images = BuildSprite(GFX.Game[$"{ModuleName}/Entities/moreBounceBlock/rock_tiles"]);
         var img = CenterImage = GFX.SpriteBank.Create("sal_bumpBlockCenterDirt");
         img.Position = Center - TopLeft;
         img.CenterOrigin();
@@ -92,7 +92,7 @@ public class DirtBounceBlock : Solid
             {
                 curState = State.Broken;
                 SceneAs<Level>().Particles.Emit(P_Motion, (int)(100 * AreaRadio), BottomCenter, new Vector2(Width, 2) / 2f);
-                MakeFallingDebris($"{ModuleName}/Entities/more_bounce_block/rock_rubble", d =>
+                MakeFallingDebris($"{ModuleName}/Entities/moreBounceBlock/rock_rubble", d =>
                 {
                     Vector2 direction = Calc.AngleToVector((-Vector2.UnitY).Angle() + Calc.Random.Range(-0.1f, 0.1f), 1f);
                     float sp = FallingSpeed;
@@ -119,7 +119,7 @@ public class DirtBounceBlock : Solid
         MoveStaticMovers(posOffset);
         Collidable = true;
         curState = State.Reforming;
-        MakeRespawnDebris($"{ModuleName}/Entities/more_bounce_block/rock_rubble", 0.4f);
+        MakeRespawnDebris($"{ModuleName}/Entities/moreBounceBlock/rock_rubble", 0.4f);
         yield return 0.2f;
         Audio.Play("event:/game/09_core/bounceblock_reappear", Center);
         yield return 0.2f;

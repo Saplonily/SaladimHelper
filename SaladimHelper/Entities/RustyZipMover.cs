@@ -1,13 +1,10 @@
 using System.Reflection;
-
 using Celeste.Mod.Entities;
-
 using Mono.Cecil.Cil;
-
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 
-namespace Celeste.Mod.SaladimHelper;
+namespace Celeste.Mod.SaladimHelper.Entities;
 
 [NeedModuleInit, CustomEntity("SaladimHelper/RustyZipMover")]
 public sealed class RustyZipMover : ZipMover

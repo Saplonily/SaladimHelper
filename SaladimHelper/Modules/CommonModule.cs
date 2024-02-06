@@ -1,4 +1,6 @@
-﻿namespace Celeste.Mod.SaladimHelper;
+using Celeste.Mod.SaladimHelper.Entities;
+
+namespace Celeste.Mod.SaladimHelper;
 
 [NeedModuleInit]
 public static class CommonModule
@@ -12,10 +14,23 @@ public static class CommonModule
 #endif
     }
 
+    public static void OnLoadParticles(On.Celeste.ParticleTypes.orig_Load orig)
+    {
+        orig();
+        LoadParticles();
+    }
+
     public static void Unload()
     {
         On.Celeste.ParticleTypes.Load -= OnLoadParticles;
     }
+
+#if DEBUG
+    static CommonModule()
+    {
+        LoadParticles();
+    }
+#endif
 
     public static void LoadParticles()
     {
@@ -42,11 +57,30 @@ public static class CommonModule
             Color2 = Calc.HexToColor("866833"),
             Direction = -MathHelper.Pi / 2
         };
+
+        // happy copying
+        BitsMomentumRefill.P_Shatter = new(Refill.P_Shatter);
+        BitsMomentumRefill.P_Regen = new(Refill.P_Regen);
+        BitsMomentumRefill.P_Glow = new(Refill.P_Glow);
+
+        BitsMomentumRefill.P_SpeedField = new(Refill.P_Regen)
+        {
+            DirectionRange = 5f / 180f * MathHelper.Pi,
+            Direction = 0f,
+            SpeedMax = 0f,
+            SpeedMin = 0f,
+            Color = Calc.HexToColor("FFD500"),
+            Color2 = Calc.HexToColor("FFFFFF"),
+            ColorMode = ParticleType.ColorModes.Fade,
+            LifeMin = 0.3f,
+            LifeMax = 0.5f,
+            Friction = 30f,
+        };
+
+        BitsMagicLantern.P_Impact = new ParticleType(TheoCrystal.P_Impact)
+        {
+            Color = Calc.HexToColor("eccc15"),
+        };
     }
 
-    public static void OnLoadParticles(On.Celeste.ParticleTypes.orig_Load orig)
-    {
-        orig();
-        LoadParticles();
-    }
 }

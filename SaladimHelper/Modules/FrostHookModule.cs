@@ -1,7 +1,7 @@
-﻿using Mono.Cecil.Cil;
+using System.Reflection;
+using Mono.Cecil.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
-using System.Reflection;
 
 namespace Celeste.Mod.SaladimHelper;
 
@@ -10,7 +10,7 @@ public static class FrostHookModule
 {
     public static ILHook FrostHelperDreamBlockHook = null;
 
-    public static void Load()
+    public static void Initialize()
     {
         // System.Int32 FrostHelper.CustomDreamBlockV2::Player_DreamDashUpdate(On.Celeste.Player/orig_DreamDashUpdate,Celeste.Player)
         try
@@ -22,6 +22,7 @@ public static class FrostHookModule
             };
             if (Everest.Loader.TryGetDependency(frostHelper, out var module))
             {
+                ThirdPartyHelpers.FrostHelperInstalled = true;
                 Logger.Log(LogLevel.Info, ModuleName, "Found FrostHelper, hooking CustomDreamBlockV2.Player_DreamDashUpdate...");
                 Assembly asm = module.GetType().Assembly;
                 Type dreamBlockType = asm.GetType("FrostHelper.CustomDreamBlockV2");
@@ -52,7 +53,7 @@ public static class FrostHookModule
             cur.Emit(OpCodes.Ldarg_1);
             cur.EmitDelegate((Entity obj, Player p) =>
             {
-                if (!ModuleSession.EnabledFrostFreeze && !ModuleSettings.AlwaysEnableFrostFreeze)
+                if (!ModuleSession.SessionFlags.EnabledFrostFreeze && !ModuleSettings.AlwaysEnableFrostFreeze)
                     return false;
                 DynamicData data = DynamicData.For(obj);
                 Input.Dash.ConsumePress();
