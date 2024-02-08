@@ -25,12 +25,10 @@ public static class CommonModule
         On.Celeste.ParticleTypes.Load -= OnLoadParticles;
     }
 
-#if DEBUG
     static CommonModule()
     {
         LoadParticles();
     }
-#endif
 
     public static void LoadParticles()
     {
