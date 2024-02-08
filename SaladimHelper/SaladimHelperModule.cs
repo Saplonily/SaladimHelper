@@ -24,19 +24,19 @@ public class SaladimHelperModule : EverestModule
 
     public override void Load()
     {
-        Logger.Log(LogLevel.Info, ModuleName, "Invoking module Load methods...");
+        Logger.Log(LogLevel.Debug, ModuleName, "Invoking module Load methods...");
         CallInitMethods(nameof(Load));
     }
 
     public override void Initialize()
     {
-        Logger.Log(LogLevel.Info, ModuleName, "Invoking module Initialize methods...");
+        Logger.Log(LogLevel.Debug, ModuleName, "Invoking module Initialize methods...");
         CallInitMethods(nameof(Initialize));
     }
 
     public override void Unload()
     {
-        Logger.Log(LogLevel.Info, ModuleName, "Invoking module Unload methods...");
+        Logger.Log(LogLevel.Debug, ModuleName, "Invoking module Unload methods...");
         CallInitMethods(nameof(Unload));
     }
 }

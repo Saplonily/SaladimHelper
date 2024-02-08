@@ -54,7 +54,7 @@ public partial class ReelCamera : Entity
             sb.Append(string.Join(",", MoveTimes));
             sb.Append(@"  |  ");
             sb.Append(string.Join(",", Delays));
-            Logger.Log(LogLevel.Info, "SaladimHelper", $"Loaded ReelCamera: {sb}");
+            Logger.Log(LogLevel.Debug, "SaladimHelper", $"Loaded ReelCamera: {sb}");
         }
         catch (Exception e)
         {

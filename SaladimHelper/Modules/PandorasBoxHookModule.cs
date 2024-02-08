@@ -22,7 +22,7 @@ public static class PandorasBoxHookModule
             };
             if (Everest.Loader.TryGetDependency(pandorasBox, out var module))
             {
-                Logger.Log(LogLevel.Info, ModuleName, "Found PandorasBox, hooking DreamDashController.dreamDashRedirect...");
+                Logger.Log(LogLevel.Debug, ModuleName, "Found PandorasBox, hooking DreamDashController.dreamDashRedirect...");
                 Assembly asm = module.GetType().Assembly;
                 Type controllerType = asm.GetType("Celeste.Mod.PandorasBox.DreamDashController");
                 MethodInfo method = controllerType.GetMethod("dreamDashRedirect", BindingFlags.Instance | BindingFlags.NonPublic);

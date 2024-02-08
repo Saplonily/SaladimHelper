@@ -20,7 +20,7 @@ public static class ChronoHookModule
         if (Everest.Loader.TryGetDependency(chronoHelper, out var module))
         {
             ThirdPartyHelpers.ChronoHelperInstalled = true;
-            Logger.Log(LogLevel.Info, ModuleName, "Found ChronoHelper, hooking GravityFallingBlock and Switch...");
+            Logger.Log(LogLevel.Debug, ModuleName, "Found ChronoHelper, hooking GravityFallingBlock and Switch...");
             try
             {
                 Type type = module.GetType().Assembly.GetType("Celeste.Mod.ChronoHelper.Entities.GravityFallingBlock");

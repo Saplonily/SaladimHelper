@@ -20,7 +20,7 @@ public static class FilterModule
         ILCursor cur = new(il);
         if (cur.TryGotoNext(MoveType.After, ins => ins.MatchCall("Celeste.Glitch", "Apply")))
         {
-            Logger.Log(LogLevel.Info, ModuleName, $"Applying Filter hook at {cur.Index}.");
+            Logger.Log(LogLevel.Debug, ModuleName, $"Applying Filter hook at {cur.Index}.");
             cur.EmitDelegate(ApplyFilters);
         }
     }
