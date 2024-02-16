@@ -2,7 +2,7 @@
 
 public class SessionFlags
 {
-    public bool EnabledFrostFreeze = false;
-    public bool NoChronoCheckCycle = false;
-    public bool NoCherryCSFallMusicCut = false;
+    public bool EnabledFrostFreeze { get; set; }
+    public bool EnableBetterPandorasFreeze { get; set; }
+    public bool NoChronoCheckCycle { get; set; }
 }
