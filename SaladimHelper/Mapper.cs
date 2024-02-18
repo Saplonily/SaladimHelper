@@ -16,7 +16,7 @@ public static class Mapper
         "CubeOut" => Ease.CubeOut,
         "CubeInOut" => Ease.CubeInOut,
         "QuintIn" => Ease.QuintIn,
-        "QuintOut " => Ease.QuintOut,
+        "QuintOut" => Ease.QuintOut,
         "QuintInOut" => Ease.QuintInOut,
         "ExpoIn" => Ease.ExpoIn,
         "ExpoOut" => Ease.ExpoOut,
@@ -30,7 +30,7 @@ public static class Mapper
         "ElasticIn" => Ease.ElasticIn,
         "ElasticOut" => Ease.ElasticOut,
         "ElasticInOut" => Ease.ElasticInOut,
-        "BounceIn " => Ease.BounceIn,
+        "BounceIn" => Ease.BounceIn,
         "BounceOut" => Ease.BounceOut,
         "BounceInOut" => Ease.BounceInOut,
         _ => Ease.Linear

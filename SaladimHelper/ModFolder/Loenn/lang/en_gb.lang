@@ -1,5 +1,3 @@
-style.effects.SaladimHelper/GravityWindSnowFG.name=Gravity Wind Snow FG
-
 entities.SaladimHelper/DirtBounceBlock.placements.name.dirtBounceBlock_normal=Dirt Bounce Block
 entities.SaladimHelper/ReelCamera.placements.name.reelCamera_normal=Reel Camera
 entities.SaladimHelper/DelayedFallingBlock.placements.name.normal=Delayed Falling Block
@@ -12,9 +10,6 @@ entities.SaladimHelper/CollectableCoin.placements.name.with_return=Collectable C
 entities.SaladimHelper/GDDShop.placements.name.normal=GDD Shop
 entities.SaladimHelper/DummyImage.placements.name.normal=Dummy Image
 entities.SaladimHelper/CustomAscendManager.placements.name.normal=Custom Ascend Manager
-entities.SaladimHelper/FallTeleportMirror.placements.name.roomTeleport=Fall Teleport Mirror (Room Teleport)
-entities.SaladimHelper/FallTeleportMirror.placements.name.endLevel=Fall Teleport Mirror (End Level)
-entities.SaladimHelper/FallTeleportMirror.placements.name.chapterChange=Fall Teleport Mirror (Chapter Change)
 entities.SaladimHelper/BitsMagicLantern.placements.name.normal=Bits Magic Lantern
 entities.SaladimHelper/BitsMagicLanternController.placements.name.normal=Bits Magic Lantern Controller
 
