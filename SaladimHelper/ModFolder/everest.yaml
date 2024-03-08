@@ -1,19 +1,7 @@
 - Name: SaladimHelper
-  Version: 0.2.4
+  Version: 0.2.5
   DLL: SaladimHelper.dll
   
   Dependencies:
     - Name: Everest
       Version: 1.3876.0
-# Actually they're truly "optionaly depended" but not as "optionaly dependencies"
-# OptionalDependencies:
-#   - Name: FrostHelper
-#     Version: 1.44.0
-#   - Name: VivHelper
-#     Version: 1.12.0
-#   - Name: DeathTracker
-#     Version: 1.0.0
-#   - Name: ChronoHelper
-#     Version: 1.1.4
-#   - Name: PandorasBox
-#     Version: 1.0.47
