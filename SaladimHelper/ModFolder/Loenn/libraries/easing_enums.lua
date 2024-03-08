@@ -10,7 +10,7 @@ return {
 	"CubeOut",
 	"CubeInOut",
 	"QuintIn",
-	"QuintOut ",
+	"QuintOut",
 	"QuintInOut",
 	"ExpoIn",
 	"ExpoOut",
@@ -24,7 +24,7 @@ return {
 	"ElasticIn",
 	"ElasticOut",
 	"ElasticInOut",
-	"BounceIn ",
+	"BounceIn",
 	"BounceOut",
 	"BounceInOut"
 }
