@@ -1,0 +1,5 @@
+- SaladimHelperSession.cs: Fix the typo in SessionFlag, but currently it seems to cause deserialization failure.
+- Filter System: Enhance the Filter System so that it can modify any shader parameters, including textures.
+- BitsMagicLanternController.cs: Do not track entity every frame on OnRender
+- Generic: Update documentation
+- Generic: Update documentation on loenn side
