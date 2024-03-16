@@ -83,6 +83,13 @@ public class BitsMagicLanternController : Entity
 
     private static void Player_OnRender(On.Celeste.Player.orig_Render orig, Player self)
     {
+        // entity is not tracked on code reloading
+#if DEBUG
+        if (!self.Scene.Tracker.IsEntityTracked<BitsMagicLanternController>())
+            return;
+#endif
+
+        // TODO: do not track entity every frame on OnRender
         var controller = self.Scene.Tracker.GetEntity<BitsMagicLanternController>();
 
         if (controller != null && controller.DarkDuration > 0)

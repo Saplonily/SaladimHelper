@@ -10,10 +10,11 @@ public class SaladimHelperSession : EverestModuleSession
 
     public List<FilterEntry> FilterEntries = new();
 
-    public (Vector2 speed, float mul)? MomentumRefillSpeedKept = null;
     public HashSet<int> ShopBoughtItems = new();
     public int CollectedCoinsAmount = 0;
+    [YamlIgnore] public (Vector2 speed, float mul)? MomentumRefillSpeedKept = null;
     [YamlIgnore] public CoinDisplayer CurrentCoinDisplayer = null;
+    [YamlIgnore] public (Ease.Easer easer, float threshold, float speed, float duration)? CustomTransition = null;
 
     public SaladimHelperSession()
     {

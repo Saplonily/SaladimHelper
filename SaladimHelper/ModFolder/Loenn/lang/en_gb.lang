@@ -23,3 +23,4 @@ triggers.SaladimHelper/OneshotFilterTrigger.placements.name.normal=Oneshot Filte
 triggers.SaladimHelper/KeyTeleField.placements.name.normal=Key To Teleport Field
 triggers.SaladimHelper/EnableChronoNoCheckCycleTrigger.placements.name.normal=Enable Chrono No Check Cycle Trigger
 triggers.SaladimHelper/EnableBetterPandorasFreezeTrigger.placements.name.normal=Enable Better Pandoras Freeze Trigger
+triggers.SaladimHelper/TransitionEasingTrigger.placements.name.normal=Change Transition Easing Trigger
