@@ -12,6 +12,7 @@ entities.SaladimHelper/DummyImage.placements.name.normal=Dummy Image
 entities.SaladimHelper/CustomAscendManager.placements.name.normal=Custom Ascend Manager
 entities.SaladimHelper/BitsMagicLantern.placements.name.normal=Bits Magic Lantern
 entities.SaladimHelper/BitsMagicLanternController.placements.name.normal=Bits Magic Lantern Controller
+entities.SaladimHelper/PositionBlock.placements.name.normal=Position Block
 
 triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=Enable Frost Freeze Trigger
 triggers.SaladimHelper/FadeFilterTrigger.placements.name.normal=Fade Filter Trigger
