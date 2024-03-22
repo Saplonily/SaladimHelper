@@ -1,36 +1,51 @@
 ﻿using Celeste.Mod.Entities;
+using static Celeste.DashSwitch;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
 [CustomEntity("SaladimHelper/PositionBlock")]
 public class PositionBlock : Solid
 {
-    private readonly float range;
+    private List<Actor> tempRiders;
     private readonly float speed;
     private readonly Ease.Easer easer;
-    private readonly bool leftToRight; // else topToBottom
     private readonly Vector2 startPosition;
+    private readonly Vector2 targetPosition;
 
     public PositionBlock(EntityData data, Vector2 offset)
         : this(
               data.Position + offset,
               data.Char("tiletype", '3'),
               data.Width, data.Height,
-              data.Bool("leftToRight", true), data.Float("range", -16f),
-              data.Float("speed", 128f), Mapper.GetEaser(data.Attr("easing"))
+              data.NodesOffset(offset)[0],
+              data.Float("speed", 128f),
+              Mapper.GetEaser(data.Attr("easing"))
               )
     {
     }
 
-    public PositionBlock(Vector2 position, char tile, int width, int height, bool leftToRight, float range, float speed, Ease.Easer easer)
+    public PositionBlock(Vector2 position, char tile, int width, int height, Vector2 targetPosition, float speed, Ease.Easer easer)
         : base(position, width, height, false)
     {
         Add(GFX.FGAutotiler.GenerateBox(tile, width / 8, height / 8).TileGrid);
         startPosition = position;
-        this.leftToRight = leftToRight;
-        this.range = range;
+        this.targetPosition = targetPosition;
         this.speed = speed;
         this.easer = easer;
+        tempRiders = new();
+    }
+
+    public override void Awake(Scene scene)
+    {
+        base.Awake(scene);
+        Player player = Scene.Tracker.GetEntity<Player>();
+        if (player is null) return;
+
+        // FIXME: weird lift speed
+        //MoveVCollideSolids(GetYPosition(player) - ExactPosition.Y, true);
+        //MoveHCollideSolids(GetXPosition(player) - ExactPosition.X, true);
+        X = GetXPosition(player);
+        Y = GetYPosition(player);
     }
 
     public override void Update()
@@ -38,51 +53,40 @@ public class PositionBlock : Solid
         base.Update();
         Player player = Scene.Tracker.GetEntity<Player>();
         if (player is null) return;
-        if (leftToRight)
-        {
-            float yFrom = startPosition.Y;
-            float yTo = startPosition.Y + range;
-            float xFrom = Left;
-            float xTo = Right;
-            float lerp = (player.CenterX - xFrom) / (xTo - xFrom);
-            lerp = MathHelper.Clamp(lerp, 0f, 1f);
-            float targetY = MathHelper.Lerp(yFrom, yTo, easer(lerp));
-            MoveTowardsY(targetY, speed * Engine.DeltaTime);
-        }
-        else
-        {
-            float yFrom = Top;
-            float yTo = Bottom;
-            float xFrom = startPosition.X;
-            float xTo = startPosition.X + range;
-            float lerp = (player.Bottom - yFrom) / (yTo - yFrom);
-            lerp = MathHelper.Clamp(lerp, 0f, 1f);
-            float targetX = MathHelper.Lerp(xFrom, xTo, easer(lerp));
-            MoveTowardsX(targetX, speed * Engine.DeltaTime);
-        }
+
+        // FIXME: weird lift speed
+        //MoveVCollideSolids(Math.Min(GetYPosition(player) - ExactPosition.Y, speed * Engine.DeltaTime), true);
+        //MoveHCollideSolids(Math.Min(GetXPosition(player) - ExactPosition.X, speed * Engine.DeltaTime), true);
+        MoveTowardsX(GetXPosition(player), speed * Engine.DeltaTime);
+        MoveTowardsY(GetYPosition(player), speed * Engine.DeltaTime);
+    }
+
+    private float GetXPosition(Player player)
+    {
+        float xLerpFrom = startPosition.X;
+        float xLerpTo = targetPosition.X;
+        float yCheckFrom = Y;
+        float yCheckTo = Y + Height;
+        float lerp = (player.Bottom - yCheckFrom) / (yCheckTo - yCheckFrom);
+        lerp = MathHelper.Clamp(lerp, 0f, 1f);
+        return MathHelper.Lerp(xLerpFrom, xLerpTo, easer(lerp));
+    }
+
+    private float GetYPosition(Player player)
+    {
+        float yLerpFrom = startPosition.Y;
+        float yLerpTo = targetPosition.Y;
+        float xCheckFrom = X;
+        float xCheckTo = X + Width;
+        float lerp = (player.CenterX - xCheckFrom) / (xCheckTo - xCheckFrom);
+        lerp = MathHelper.Clamp(lerp, 0f, 1f);
+        return MathHelper.Lerp(yLerpFrom, yLerpTo, easer(lerp));
     }
 
     public override void DebugRender(Camera camera)
     {
         base.DebugRender(camera);
-        float x = startPosition.X;
-        float y = startPosition.Y;
-        float w = Width;
-        float h = Height;
-        if (!leftToRight)
-        {
-            if (range >= 0)
-            { w += range; }
-            else
-            { w -= range; x += range; }
-        }
-        else
-        {
-            if (range >= 0)
-            { h += range; }
-            else
-            { h -= range; y += range; }
-        }
-        Draw.HollowRect(new Vector2(x, y), w, h, Color.Wheat);
+        Draw.HollowRect(startPosition, Width, Height, Color.Wheat);
+        Draw.HollowRect(targetPosition, Width, Height, Color.Wheat);
     }
 }
