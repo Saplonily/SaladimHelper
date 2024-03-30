@@ -13,7 +13,8 @@ block.placements = {
         width = 8,
         height = 8,
         speed = 128,
-        easing = "Linear"
+        easing = "Linear",
+        range = 0
     }
 }
 

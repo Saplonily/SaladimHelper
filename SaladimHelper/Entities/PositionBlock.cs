@@ -6,8 +6,8 @@ namespace Celeste.Mod.SaladimHelper.Entities;
 [CustomEntity("SaladimHelper/PositionBlock")]
 public class PositionBlock : Solid
 {
-    private List<Actor> tempRiders;
     private readonly float speed;
+    private readonly float range;
     private readonly Ease.Easer easer;
     private readonly Vector2 startPosition;
     private readonly Vector2 targetPosition;
@@ -18,21 +18,21 @@ public class PositionBlock : Solid
               data.Char("tiletype", '3'),
               data.Width, data.Height,
               data.NodesOffset(offset)[0],
-              data.Float("speed", 128f),
+              data.Float("speed", 128f), data.Float("range", 0f),
               Mapper.GetEaser(data.Attr("easing"))
               )
     {
     }
 
-    public PositionBlock(Vector2 position, char tile, int width, int height, Vector2 targetPosition, float speed, Ease.Easer easer)
+    public PositionBlock(Vector2 position, char tile, int width, int height, Vector2 targetPosition, float speed, float range, Ease.Easer easer)
         : base(position, width, height, false)
     {
         Add(GFX.FGAutotiler.GenerateBox(tile, width / 8, height / 8).TileGrid);
         startPosition = position;
         this.targetPosition = targetPosition;
         this.speed = speed;
+        this.range = range;
         this.easer = easer;
-        tempRiders = new();
     }
 
     public override void Awake(Scene scene)
@@ -65,8 +65,8 @@ public class PositionBlock : Solid
     {
         float xLerpFrom = startPosition.X;
         float xLerpTo = targetPosition.X;
-        float yCheckFrom = Y;
-        float yCheckTo = Y + Height;
+        float yCheckFrom = Y - range;
+        float yCheckTo = Y + Height + range;
         float lerp = (player.Bottom - yCheckFrom) / (yCheckTo - yCheckFrom);
         lerp = MathHelper.Clamp(lerp, 0f, 1f);
         return MathHelper.Lerp(xLerpFrom, xLerpTo, easer(lerp));
@@ -76,8 +76,8 @@ public class PositionBlock : Solid
     {
         float yLerpFrom = startPosition.Y;
         float yLerpTo = targetPosition.Y;
-        float xCheckFrom = X;
-        float xCheckTo = X + Width;
+        float xCheckFrom = X - range;
+        float xCheckTo = X + Width + range;
         float lerp = (player.CenterX - xCheckFrom) / (xCheckTo - xCheckFrom);
         lerp = MathHelper.Clamp(lerp, 0f, 1f);
         return MathHelper.Lerp(yLerpFrom, yLerpTo, easer(lerp));
