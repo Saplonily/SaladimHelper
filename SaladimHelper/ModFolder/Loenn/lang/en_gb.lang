@@ -1,28 +1,55 @@
 entities.SaladimHelper/DirtBounceBlock.placements.name.dirtBounceBlock_normal=Dirt Bounce Block
+entities.SaladimHelper/DirtBounceBlock.attributes.description.none_core_mode=Currently used.
+
 entities.SaladimHelper/ReelCamera.placements.name.reelCamera_normal=Reel Camera
+
 entities.SaladimHelper/DelayedFallingBlock.placements.name.normal=Delayed Falling Block
+entities.SaladimHelper/DelayedFallingBlock.attributes.description.preDelay=When player interacted with the falling block, it'll hold for *Pre Delay* then *Player Wait Delay* before it begins to fall, but *Player Wait Delay* can be cancelled by leaving the falling block.
+entities.SaladimHelper/DelayedFallingBlock.attributes.description.playerWaitDelay=When player interacted with the falling block, it'll hold for *Pre Delay* then *Player Wait Delay* before it begins to fall, but *Player Wait Delay* can be cancelled by leaving the falling block.
+entities.SaladimHelper/DelayedFallingBlock.attributes.description.noSfx=No sound effects while shaking.
+entities.SaladimHelper/DelayedFallingBlock.attributes.description.autoFall=The block will automatically fall down when placed.
+
 entities.SaladimHelper/RustyZipMover.placements.name.normal=Rusty Zip Mover
+
 entities.SaladimHelper/CustomAscendManager.placements.name.normal=Custom Ascend Manager
+
 entities.SaladimHelper/FlagRefill.placements.name.normal=Flag Custom Refill
+
 entities.SaladimHelper/BitsMomentumRefill.placements.name.normal=Bits Momentum Refill
+entities.SaladimHelper/BitsMomentumRefill.attributes.description.mul=Multiplier that applies on the kept momentum when release.
+entities.SaladimHelper/BitsMomentumRefill.attributes.description.recordX=Keep the momentum on X direction.
+entities.SaladimHelper/BitsMomentumRefill.attributes.description.recordY=Keep the momentum on Y direction.
+
 entities.SaladimHelper/CollectableCoin.placements.name.normal=Collectable Coin
 entities.SaladimHelper/CollectableCoin.placements.name.with_return=Collectable Coin (With Return)
+
 entities.SaladimHelper/GDDShop.placements.name.normal=GDD Shop
+
 entities.SaladimHelper/DummyImage.placements.name.normal=Dummy Image
-entities.SaladimHelper/CustomAscendManager.placements.name.normal=Custom Ascend Manager
+
 entities.SaladimHelper/BitsMagicLantern.placements.name.normal=Bits Magic Lantern
+entities.SaladimHelper/BitsMagicLantern.attributes.description.radius=Defines the radius of the circle of the lantern/flying sprites' glow.
+entities.SaladimHelper/BitsMagicLantern.attributes.description.holdable=When disabled, the entity you placed will be the flying sprites that emits a circle of glow. When enabled, the entity you placed will be that small lantern that falls and allows Madeline to hold.
+
 entities.SaladimHelper/BitsMagicLanternController.placements.name.normal=Bits Magic Lantern Controller
+entities.SaladimHelper/BitsMagicLanternController.attributes.description.maxDarkDuration=The duration that a player can stay outside the glow of Magic Lantern.
+entities.SaladimHelper/BitsMagicLanternController.attributes.description.gfxOnly=Disables the *die in the dark* setting.
+
 entities.SaladimHelper/PositionBlock.placements.name.normal=Position Block
+
 entities.SaladimHelper/ExplodeFocusArea.placements.name.normal=Explode Focus Area
 
 triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=Enable Frost Freeze Trigger
+triggers.SaladimHelper/EnableChronoNoCheckCycleTrigger.placements.name.normal=Enable Chrono No Check Cycle Trigger
+triggers.SaladimHelper/EnableBetterPandorasFreezeTrigger.placements.name.normal=Enable Better Pandoras Freeze Trigger
+
 triggers.SaladimHelper/FadeFilterTrigger.placements.name.normal=Fade Filter Trigger
 triggers.SaladimHelper/StaticFilterTrigger.placements.name.normal=Static Filter Trigger
 triggers.SaladimHelper/SpeedFadeFilterTrigger.placements.name.normal=Speed Fade Filter Trigger
 triggers.SaladimHelper/SpeedOneshotFilterTrigger.placements.name.normal=Speed Oneshot Filter Trigger
 triggers.SaladimHelper/SpeedTwoWayShotFilterTrigger.placements.name.normal=Speed Two Way Shot Filter Trigger
 triggers.SaladimHelper/OneshotFilterTrigger.placements.name.normal=Oneshot Filter Trigger
+
 triggers.SaladimHelper/KeyTeleField.placements.name.normal=Key To Teleport Field
-triggers.SaladimHelper/EnableChronoNoCheckCycleTrigger.placements.name.normal=Enable Chrono No Check Cycle Trigger
-triggers.SaladimHelper/EnableBetterPandorasFreezeTrigger.placements.name.normal=Enable Better Pandoras Freeze Trigger
+
 triggers.SaladimHelper/TransitionEasingTrigger.placements.name.normal=Change Transition Easing Trigger
