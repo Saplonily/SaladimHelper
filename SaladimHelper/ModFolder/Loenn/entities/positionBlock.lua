@@ -25,10 +25,12 @@ block.fieldInformation = {
         options = require("mods").requireFromPlugin("libraries.easing_enums"),
         editable = false
     },
-    tiletype = {
-        options = fakeTilesHelper.getTilesOptions(),
-        editable = false
-    }
+    tiletype = function()
+        return {
+            options = fakeTilesHelper.getTilesOptions(),
+            editable = false
+        }
+    end
 }
 
 function block.nodeRectangle(room, entity, node)
