@@ -20,18 +20,14 @@ block.placements = {
 
 block.sprite = fakeTilesHelper.getEntitySpriteFunction("tiletype", false)
 block.nodeSprite = fakeTilesHelper.getEntitySpriteFunction("tiletype", false)
-block.fieldInformation = {
+local info = {
     easing = {
         options = require("mods").requireFromPlugin("libraries.easing_enums"),
         editable = false
-    },
-    tiletype = function()
-        return {
-            options = fakeTilesHelper.getTilesOptions(),
-            editable = false
-        }
-    end
+    }
 }
+info = fakeTilesHelper.addTileFieldInformation(info, "tiletype", "tilesFg")
+block.fieldInformation = info
 
 function block.nodeRectangle(room, entity, node)
     return utils.rectangle(node.x or 0, node.y or 0, entity.width or 8, entity.height or 8)
