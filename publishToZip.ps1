@@ -1,5 +1,6 @@
+$mod_name = "SaladimHelper"
 dotnet build -c Release
-$sh_v_str = Get-Content -Path SaladimHelper/ModFolder/everest.yaml -Raw
-$sh_v = [regex]::Match($sh_v_str, "(?<=Version:\s)(.*?)\n").Value.Trim()
-Compress-Archive SaladimHelper/ModFolder/*,Documentation.md "SaladimHelper v$sh_v.zip" -Force
+$v_str = Get-Content -Path $mod_name/ModFolder/everest.yaml -Raw
+$v = [regex]::Match($v_str, "(?<=Version:\s)(.*?)\n").Value.Trim()
+Compress-Archive $mod_name/ModFolder/* "$mod_name v$v.zip" -Force
 dotnet clean
