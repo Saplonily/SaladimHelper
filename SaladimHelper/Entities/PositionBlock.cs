@@ -44,8 +44,11 @@ public class PositionBlock : Solid
         // FIXME: weird lift speed
         //MoveVCollideSolids(GetYPosition(player) - ExactPosition.Y, true);
         //MoveHCollideSolids(GetXPosition(player) - ExactPosition.X, true);
+        float px = X;
+        float py = Y;
         X = GetXPosition(player);
         Y = GetYPosition(player);
+        MoveStaticMovers(new(X - px, Y - py));
     }
 
     public override void Update()
