@@ -18,44 +18,60 @@ public class DirtBounceBlock : Solid
     public static ParticleType P_Motion;
     public static readonly float MaxFallingSpeed = 260f;
 
-    public State curState = State.Idle;
+    public State CurrentState = State.Idle;
     public float FallingSpeed;
-    public Coroutine coroutine = null;
+    public Coroutine Coroutine = null;
     public Vector2 StartPosition;
     public Image CenterImage;
 
-    // default, 0f(full white), completed, 1f(opacity)
-    public float respawnFlashPercent = 1f;
+    // default, 0f(full white) | completed, 1f(opacity)
+    public float RespawnFlashPercent = 1f;
 
     public float AreaRadio => Hitbox.Size.X * Hitbox.Size.Y / 1400f;
 
     protected List<Image> images;
+    protected string textureBasePath;
+    protected bool revertFallDir;
 
-    public DirtBounceBlock(Vector2 position, float width, float height)
+    public DirtBounceBlock(Vector2 position, float width, float height, string textureBasePath, string imageSprite, bool revertFallDir)
         : base(position, width, height, false)
     {
+        this.textureBasePath = string.IsNullOrWhiteSpace(textureBasePath) ?
+            "SaladimHelper/entities/moreBounceBlock" : textureBasePath;
         OnDashCollide = OnDashCollided;
         StartPosition = position;
-        images = BuildSprite(GFX.Game[$"{ModuleName}/Entities/moreBounceBlock/rock_tiles"]);
-        var img = CenterImage = GFX.SpriteBank.Create("sal_bumpBlockCenterDirt");
+        this.revertFallDir = revertFallDir;
+        images = BuildSprite(GFX.Game[$"{this.textureBasePath}/rock_tiles"]);
+        var img = CenterImage = GFX.SpriteBank.Create(string.IsNullOrWhiteSpace(imageSprite) ? "sal_bumpBlockCenterDirt" : imageSprite);
         img.Position = Center - TopLeft;
         img.CenterOrigin();
         Add(img);
     }
 
+    public DirtBounceBlock(Vector2 position, float width, float height)
+        : this(position, width, height, null, null, false)
+    {
+    }
+
     public DirtBounceBlock(EntityData data, Vector2 offset)
-        : this(data.Position + offset, data.Width, data.Height)
+        : this(
+              data.Position + offset,
+              data.Width, data.Height,
+              data.Attr("textureBasePath", null),
+              data.Attr("imageSprite", null),
+              data.Bool("revertFallDir", false)
+              )
     { }
 
     public DashCollisionResults OnDashCollided(Player player, Vector2 dir)
     {
-        if (curState is State.Idle)
+        if (CurrentState is State.Idle)
         {
-            coroutine = new Coroutine(MakeFallingCoroutine());
-            Add(coroutine);
+            Coroutine = new Coroutine(MakeFallingCoroutine());
+            Add(Coroutine);
 
             SceneAs<Level>().ParticlesFG.Emit(P_Motion, (int)(75 * AreaRadio), Center, new Vector2(Width, Height) / 1.9f, dir.Angle());
-            Celeste.Freeze(0.05f);
+            Celeste.Freeze(0.01f);
             Audio.Play("event:/game/general/fallblock_shake", Center);
             return DashCollisionResults.Rebound;
         }
@@ -78,25 +94,26 @@ public class DirtBounceBlock : Solid
 
     public IEnumerator MakeFallingCoroutine()
     {
-        curState = State.Breaking;
+        CurrentState = State.Breaking;
         StartShaking(1f);
         yield return 1f;
         FallingSpeed = 0f;
         while (true)
         {
             FallingSpeed = Calc.Approach(FallingSpeed, MaxFallingSpeed, 500f * Engine.DeltaTime);
-
-            bool collided = MoveVCollideSolids(FallingSpeed * Engine.DeltaTime, true, null);
+            float revertFallDirFloat = (revertFallDir ? -1f : 1f);
+            bool collided = MoveVCollideSolids(FallingSpeed * Engine.DeltaTime * revertFallDirFloat, true, null);
             SceneAs<Level>().Particles.Emit(P_Motion, 1, Center, new Vector2(Width, Height) / 1.5f);
             if (collided)
             {
-                curState = State.Broken;
+                CurrentState = State.Broken;
                 SceneAs<Level>().Particles.Emit(P_Motion, (int)(100 * AreaRadio), BottomCenter, new Vector2(Width, 2) / 2f);
-                MakeFallingDebris($"{ModuleName}/Entities/moreBounceBlock/rock_rubble", d =>
+                MakeFallingDebris($"{textureBasePath}/rock_rubble", d =>
                 {
                     Vector2 direction = Calc.AngleToVector((-Vector2.UnitY).Angle() + Calc.Random.Range(-0.1f, 0.1f), 1f);
                     float sp = FallingSpeed;
-                    d.Speed = direction * Calc.Random.Range(sp * 0.2f, sp * 0.4f);
+                    float extraSpeedMul = revertFallDir ? 0.2f : 0.0f;
+                    d.Speed = direction * Calc.Random.Range(sp * (0.2f + extraSpeedMul), sp * (0.4f + extraSpeedMul));
                 });
                 Audio.Play("event:/game/general/wall_break_stone", BottomCenter);
                 DisableStaticMovers();
@@ -118,26 +135,26 @@ public class DirtBounceBlock : Solid
         Vector2 posOffset = Position - prePos;
         MoveStaticMovers(posOffset);
         Collidable = true;
-        curState = State.Reforming;
-        MakeRespawnDebris($"{ModuleName}/Entities/moreBounceBlock/rock_rubble", 0.4f);
+        CurrentState = State.Reforming;
+        MakeRespawnDebris($"{textureBasePath}/rock_rubble", 0.4f);
         yield return 0.2f;
         Audio.Play("event:/game/09_core/bounceblock_reappear", Center);
         yield return 0.2f;
-        curState = State.Appearing;
+        CurrentState = State.Appearing;
         Visible = true;
         EnableStaticMovers();
-        respawnFlashPercent = 0f;
+        RespawnFlashPercent = 0f;
         while (true)
         {
-            respawnFlashPercent += Engine.DeltaTime / 0.1f;
-            if (respawnFlashPercent is < 1f)
+            RespawnFlashPercent += Engine.DeltaTime / 0.1f;
+            if (RespawnFlashPercent is < 1f)
                 yield return null;
             else
                 break;
         }
         MakeReformParticles();
-        curState = State.Idle;
-        respawnFlashPercent = 1f;
+        CurrentState = State.Idle;
+        RespawnFlashPercent = 1f;
     }
 
     // let's do happy copying
@@ -167,10 +184,8 @@ public class DirtBounceBlock : Solid
                 else
                     resultH = Calc.Random.Next(1, heightInTile - 2);
 
-                Image image = new(source.GetSubtexture(resultW * 8, resultH * 8, 8, 8))
-                {
-                    Position = new Vector2(w, h)
-                };
+                Image image = new(source.GetSubtexture(resultW * 8, resultH * 8, 8, 8));
+                image.Position = new Vector2(w, h);
                 list.Add(image);
                 Add(image);
                 h += 8;
@@ -217,11 +232,11 @@ public class DirtBounceBlock : Solid
     public override void Update()
     {
         base.Update();
-        if (curState is State.Broken)
+        if (CurrentState is State.Broken)
         {
             Visible = Collidable = false;
         }
-        if (curState is State.Reforming)
+        else if (CurrentState is State.Reforming)
         {
             Visible = false;
         }
@@ -230,9 +245,9 @@ public class DirtBounceBlock : Solid
     public override void Render()
     {
         base.Render();
-        if (respawnFlashPercent != 1f)
+        if (RespawnFlashPercent != 1f)
         {
-            Draw.Rect(X, Y, Width, Height, Color.White * (Ease.CubeOut(1f - respawnFlashPercent)));
+            Draw.Rect(X, Y, Width, Height, Color.White * (Ease.CubeOut(1f - RespawnFlashPercent)));
         }
     }
 
