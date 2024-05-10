@@ -46,13 +46,6 @@ triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=Enable Fr
 triggers.SaladimHelper/EnableChronoNoCheckCycleTrigger.placements.name.normal=Enable Chrono No Check Cycle Trigger
 triggers.SaladimHelper/EnableBetterPandorasFreezeTrigger.placements.name.normal=Enable Better Pandoras Freeze Trigger
 
-triggers.SaladimHelper/FadeFilterTrigger.placements.name.normal=Fade Filter Trigger
-triggers.SaladimHelper/StaticFilterTrigger.placements.name.normal=Static Filter Trigger
-triggers.SaladimHelper/SpeedFadeFilterTrigger.placements.name.normal=Speed Fade Filter Trigger
-triggers.SaladimHelper/SpeedOneshotFilterTrigger.placements.name.normal=Speed Oneshot Filter Trigger
-triggers.SaladimHelper/SpeedTwoWayShotFilterTrigger.placements.name.normal=Speed Two Way Shot Filter Trigger
-triggers.SaladimHelper/OneshotFilterTrigger.placements.name.normal=Oneshot Filter Trigger
-
 triggers.SaladimHelper/KeyTeleField.placements.name.normal=Key To Teleport Field
 
 triggers.SaladimHelper/TransitionEasingTrigger.placements.name.normal=Change Transition Easing Trigger
