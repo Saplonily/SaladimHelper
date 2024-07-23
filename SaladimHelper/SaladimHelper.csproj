@@ -2,55 +2,26 @@
   <Import Project="CelesteMod.props" />
 
   <PropertyGroup>
+    <CelesteRootPath>C:\Program Files (x86)\Steam\steamapps\common\Celeste</CelesteRootPath>
     <RootNamespace>Celeste.Mod.SaladimHelper</RootNamespace>
     <LangVersion>preview</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Platforms>x86</Platforms>
+    <ImplicitUsings>true</ImplicitUsings>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
   </PropertyGroup>
 
   <ItemGroup>
-    <Using Include="System.Collections" />
-    <Using Include="Celeste.Mod.SaladimHelper.SaladimHelperModule" Static="true" />
-    
-    <Reference Include="Mono.Cecil">
-      <HintPath>$(CelesteAssemblyPath)/Mono.Cecil.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MonoMod.RuntimeDetour">
-      <HintPath>$(CelesteAssemblyPath)/MonoMod.RuntimeDetour.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="NLua">
-      <HintPath>$(CelesteAssemblyPath)/NLua.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="ChronoHelper">
-      <HintPath>$(CelesteAssemblyPath)/Mods/Cache/ChronoHelper.ChronoHelper.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MonoMod" Condition="'$(CoreOnlyMod)' == 'false'">
-      <HintPath>$(CelesteAssemblyPath)/MonoMod.exe</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MonoMod" Condition="'$(CoreOnlyMod)' == 'true'">
-      <HintPath>$(CelesteAssemblyPath)/MonoMod.Patcher.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.ValueTuple" Condition="'$(CoreOnlyMod)' == 'false'">
-      <HintPath>$(CelesteAssemblyPath)/System.ValueTuple.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
+    <Using Include="System.Collections"/>
+    <Using Include="Celeste.Mod.SaladimHelper.SaladimHelperModule" Static="true"/>
+    <Using Include="MonoMod.Cil"/>
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="System" />
-    <Using Include="System.Collections.Generic" />
-    <Using Include="System.IO" />
-    <Using Include="System.Linq" />
-    <Using Include="System.Threading" />
-    <Using Include="System.Threading.Tasks" />
+    <Reference Include="MonoMod">
+      <HintPath>$(CelesteRootPath)/MonoMod.Patcher.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
-
+  
   <Import Project="CelesteMod.targets" />
 </Project>

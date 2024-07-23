@@ -1,5 +1,5 @@
 modname_saladimhelper=Saladim Helper
-modoptions_saladimhelper_title=Saladim Helper, Saplonily's interesting stuffs
+modoptions_saladimhelper_title=Saladim Helper
 modoptions_saladimhelper_doteleport=Teleport
 modoptions_saladimhelper_alwaysenablefrostfreeze=FF1
 modoptions_saladimhelper_alwaysenablepandorasboxdreamdashbetterfreeze=FF2

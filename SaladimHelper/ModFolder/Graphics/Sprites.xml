@@ -11,4 +11,5 @@
     <Anim id="holdable" path="holdable" frames="0-0" />
     <Loop id="static" delay="0.03" path="static" frames="0-6" />
   </sal_bitsMagicLanternLight>
+
 </Sprites>

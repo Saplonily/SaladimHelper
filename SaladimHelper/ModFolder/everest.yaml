@@ -1,7 +1,7 @@
 - Name: SaladimHelper
-  Version: 0.2.13
-  DLL: SaladimHelper.dll
+  Version: 0.3.0
+  DLL: Code/SaladimHelper.dll
   
   Dependencies:
-    - Name: Everest
-      Version: 1.3876.0
+    - Name: EverestCore
+      Version: 1.4465.0
