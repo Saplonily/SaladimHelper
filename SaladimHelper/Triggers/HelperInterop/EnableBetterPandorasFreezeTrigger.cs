@@ -16,6 +16,6 @@ public class EnableBetterPandorasFreezeTrigger : Trigger
     public override void OnEnter(Player player)
     {
         base.OnEnter(player);
-        ModuleSession.SessionFlags.EnableBetterPandorasFreeze = isEnable;
+        ModuleSession.SessionFlags.EnabledBetterPandorasFreeze = isEnable;
     }
 }

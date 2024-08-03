@@ -54,7 +54,7 @@ public static class PandorasBoxHookModule
             {
                 DynamicData data = DynamicData.For(dreamBlock);
 
-                if (ModuleSession.SessionFlags.EnableBetterPandorasFreeze || ModuleSettings.AlwaysEnablePandorasBoxDreamDashBetterFreeze)
+                if (ModuleSession.SessionFlags.EnabledBetterPandorasFreeze || ModuleSettings.AlwaysEnablePandorasBoxDreamDashBetterFreeze)
                     player.Add(new Coroutine(MakeDoRealRedirectRoutine(dreamBlock, player, flag)));
                 else
                     DoRealRedirect(dreamBlock, player, flag);
