@@ -32,7 +32,7 @@ public class KeyTeleField : Trigger
     public override void OnStay(Player player)
     {
         base.OnStay(player);
-        var key = ModuleSettings.DoTeleport;
+        var key = Input.Grab;
         if (key.Pressed)
         {
             key.ConsumePress();

@@ -53,7 +53,7 @@ public static class FrostHookModule
             cur.Emit(OpCodes.Ldarg_1);
             cur.EmitDelegate((Entity obj, Player p) =>
             {
-                if (!ModuleSession.SessionFlags.EnabledFrostFreeze && !ModuleSettings.AlwaysEnableFrostFreeze)
+                if (!ModuleSession.SessionFlags.EnabledFrostFreeze)
                     return false;
                 DynamicData data = DynamicData.For(obj);
                 Input.Dash.ConsumePress();
