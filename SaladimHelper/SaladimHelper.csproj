@@ -11,9 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Using Include="System.Collections"/>
-    <Using Include="Celeste.Mod.SaladimHelper.SaladimHelperModule" Static="true"/>
-    <Using Include="MonoMod.Cil"/>
+    <Using Include="System.Collections" />
+    <Using Include="Celeste.Mod.SaladimHelper.SaladimHelperModule" Static="true" />
+    <Using Include="MonoMod.Cil" />
   </ItemGroup>
 
   <ItemGroup>
