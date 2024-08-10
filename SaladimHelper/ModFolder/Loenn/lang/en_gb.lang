@@ -1,6 +1,5 @@
 entities.SaladimHelper/DirtBounceBlock.placements.name.normal=Dirt Bounce Block
-entities.SaladimHelper/DirtBounceBlock.attributes.description.none_core_mode=Currently used.
-entities.SaladimHelper/DirtBounceBlock.attributes.description.textureBasePath=Custom texture base path, will be like "SaladimHelper/entities/moreBounceBlock".
+entities.SaladimHelper/DirtBounceBlock.attributes.description.textureBasePath=Custom texture base path, will be a path like "SaladimHelper/entities/moreBounceBlock".
 entities.SaladimHelper/DirtBounceBlock.attributes.description.imageSprite=Custom center image, will be like "sal_bumpBlockCenterDirt" in Sprites.xml (This will not affect texture shown in loenn, it'll search for "rock_center00" under textureBasePath instead).
 entities.SaladimHelper/DirtBounceBlock.attributes.description.revertFallDir=Whether to revert the fall direction (so it falls up).
 

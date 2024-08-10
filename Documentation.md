@@ -1,9 +1,9 @@
 # Index
 
-Hi! Thanks for using this small personal celeste helper. If you have encoutered any problems or found some bugs with it, always be free to ping me in the celescord (Saplonily#8059)!  
-Also, here is the source code repository : [Github](https://github.com/Saplonily/SaladimHelper), you can raise issues and pull requests there too.  
+Hi! Thanks for using this small personal celeste helper. If you have encoutered any problems or found some bugs with it, always feel free to ping me in the celescord (Saplonily#8059)!  
+Also, here is the source code repository : [Github](https://github.com/Saplonily/SaladimHelper), you can raise any issues and pull requests there too.  
 
-English version at [Section English](#english).
+English version is at [Section English](#english).
 
 ## Chinese
 
@@ -12,7 +12,9 @@ English version at [Section English](#english).
 某位好友想出的三个新的 Core 模式之一的 Dirt 模式下的 BounceBlock  
 需要冲刺撞击才会破碎.
 
-- `None Core Mode`: 未使用参数.
+- `textureBasePath`: 自定义贴图目录路径, 参考 "SaladimHelper/entities/moreBounceBlock"
+- `imageSprite`: 自定义中心图片, 参考 Sprites.xml 中的 "sal_bumpBlockCenterDirt" (Loenn 显示的贴图不会被影响, 反而它会使用 textureBasePath 下的 "rock_center00")
+- `revertFallDir`: 是否反重力掉落
 
 ### ReelCamera
 
@@ -31,81 +33,7 @@ English version at [Section English](#english).
 
 ### EnableFrostFreezeTrigger
 
-给 FrostHelper 的 DreamBlock 加上冻结帧(或者你也可以在设置中打开 AlwaysEnableFrostFreeze).
-
-### Key To Teleport Field
-
-Trigger, 在此区域内玩家可以按下按键(默认为 A 键)来进行传送. **已过时**
-
-- `AudioToPlay`: 传送时播放的音效
-- `TargetRoomId`: 目标房间 ID.
-- `Vector X`: 传送向量 X 分量
-- `Vector Y`: 传送向量 Y 分量
-- `Absolute`: 传送向量是否是绝对坐标. 如果是并且 `Cross Room` 为假, 则传送到相对于房间左上角的偏移处, 否则相对于玩家移动到偏移处.
-- `Cross Room`: 是否是跨房间的, 是则播放特效并传送到对应房间. (为 true 并且未填写 `TargetRoomId` 会使游戏崩溃)
-- `KillPlayerOnCollideWall`: 当玩家传送进墙里时是否直接杀死玩家.
-
-### Filter
-
-通用参数:
-
-- `Easing`: 缓动方式
-- `Effect Path`: 滤镜特效的路径
-- `Index`: 序号
-- `Strength`: 滤镜强度, 范围为 0 ~ 100, 可以超出范围但是行为未定义.
-- `StrengthFrom`: 同 `Strength`, 开始滤镜强度
-- `StrengthTo`: 同 `Strength`, 目标滤镜强度
-
-目前支持的滤镜效果有:
-
-- Blur
-- Invert
-- Gray
-- MirrorX
-- MirrorY
-
-滤镜的作用顺序即为序号顺序, 序号越大越晚作用.  
-当多个 Trigger 同时存在时, 修改的滤镜层目标为 Index 和 EffectPath 的组合, 两者任一不相同则会新创建滤镜层并修改.
-
-#### FadeFilterTrigger
-
-位置渐变滤镜 Trigger, 滤镜强度随玩家在 Trigger 内位置决定.
-
-- `LeftToRight`: 决定是从左到右缓动还是从上到下
-
-#### OneshotFilterTrigger
-
-单发渐变滤镜 Trigger, 玩家进入 Trigger 后触发.
-
-- `Duration`: 缓动时间
-- `Once`: 是否只触发一次
-- `StrengthFromCurrent`: 为 true 时忽略 `StrengthFrom` 参数, 并使用当前滤镜强度作为替代.
-
-#### SpeedFadeFilterTrigger
-
-速度渐变滤镜 Trigger, 玩家在内时根据速度的大小插值到滤镜强度.
-
-- `Speed From`: 最低速度
-- `Speed To`: 最高速度
-
-#### SpeedOneshotFilterTrigger
-
-速度单发渐变滤镜 Trigger, 玩家在内时达到一定速度阈值后开始缓动滤镜强度, 达不到时立刻回落.
-
-- `Duration`: 缓动时间
-- `Speed Threshold`: 速度阈值
-- `StrengthFromCurrent`: 为 true 时忽略 `StrengthFrom` 参数, 并使用当前滤镜强度作为替代.
-
-#### SpeedTwoWayShotFilterTrigger
-
-速度双发渐变滤镜 Trigger, 同 [`SpeedOneshotFilterTrigger`](#speedoneshotfiltertrigger), 但是速度下降到一定数值时才会回落.
-
-- `Speed Threshold`: 速度阈值
-- `Speed Fall Threshold`: 回落的速度阈值
-
-#### StaticFilterTrigger
-
-静态滤镜强度更改 Trigger, 玩家进入时更改对应滤镜层强度.
+给 FrostHelper 的 DreamBlock 加上冻结帧.
 
 ### CustomAscendManager
 
@@ -120,6 +48,29 @@ Trigger, 在此区域内玩家可以按下按键(默认为 A 键)来进行传送
 - `noSfx`: 抖动时是否取消音效的播放
 - `autoFall`: 是否自动掉落, 通常需要配合 `noSfx` 开启
 
+### FlagRefill
+
+使用后获得 Flag 的水晶.
+
+- `flag`: flag
+- `useOnlyNoFlag`: 仅在没有flag时才能使用
+- `removeFlagDelay`: 当冲刺开始后应该多久后移除 Flag
+
+### ExplodeFocusArea
+
+爆炸聚焦区域, 它会尝试将所在区域内的爆炸方向固定为四向, 八向等等.
+
+- `focusType`: 固定类型
+- `rotation`: 固定方向的旋转
+
+### PositionBlock
+
+位置方块, 它的位置会根据玩家相对于其的位置而改变. 它的节点通常应该在 x 或 y 坐标上与本体一致.
+
+- `speed`: 改变的速度
+- `easing`: 位置变更所使用的缓动
+- `range`: 生效范围, 0 为仅在方块本身位置, 其他表示向周围拓展几个像素
+
 ## English
 
 > Sorry for my poor English, will be thankful for correcting the following!
@@ -129,7 +80,9 @@ Trigger, 在此区域内玩家可以按下按键(默认为 A 键)来进行传送
 BounceBlock in one of the three new core modes my friend came up with.  
 Takes a dash to shatter.
 
-- `None Core Mode`: unused.
+- `textureBasePath`: Custom texture base path, will be a path like "SaladimHelper/entities/moreBounceBlock".
+- `imageSprite`: Custom center image, will be like "sal_bumpBlockCenterDirt" in Sprites.xml (This will not affect texture shown in loenn, it'll search for "rock_center00" under textureBasePath instead).
+- `revertFallDir`: Whether to revert the fall direction (so it falls up).
 
 ### ReelCamera
 
@@ -148,81 +101,7 @@ After the player touched the entity, it waits for `Start Delay` seconds and then
 
 ### EnableFrostFreezeTrigger
 
-Add freeze frames to FrostHelper's DreamBlocks (or you can turn on `AlwaysEnableFrostFreeze` in the mod settings).
-
-### Key To Teleport Field
-
-Trigger, player can teleport by pressing the key (A by default) while staying in the trigger. **Obsolete**
-
-- `AudioToPlay`: The sound will play when teleporting.
-- `TargetRoomId`: The target room ID.
-- `Vector X`: vector X component
-- `Vector Y`: vector Y component
-- `Absolute`: Whether the teleportation vector is absolute. If it's true and `Cross Room` is false, then teleport to an offset relative to the top left corner of the room, otherwise move to an offset relative to the player.
-- `Cross Room`: Whether it's cross-room, if it's true then the glitch effect will be played and player will be teleported to the target room. (`true` but not filling in `TargetRoomId` would crash the game)
-- `KillPlayerOnCollideWall`: Whether or not the player is killed when teleporting into the wall.
-
-### Filter
-
-General parameters:
-
-- `Easing`: Easing type
-- `Effect Path`: The path of the filter
-- `Index`: The index of the Filter
-- `Strength`: The strength of the filter, range in 0 ~ 100, can be out of range but the behavior is unidentified.
-- `StrengthFrom`: Same as `Strength`, the filter strength will be at the start.
-- `StrengthTo`: Same as `Strength`, the filter strength will be at the end.
-
-Currently supported filter type:
-
-- Blur
-- Invert
-- Gray
-- MirrorX
-- MirrorY
-
-The order which the filters will be in is the same as `Index`, the larger the `Index`, the later it will be applied.  
-When multiple Triggers exist at the same time, the modified filter layer will be distinguished by the `Index` and `EffectPath`. If either of the two is different, a new filter layer is created and modified.
-
-#### FadeFilterTrigger
-
-Position gradient filter trigger, the strength of the filter depends on the player's position in the Trigger.
-
-- `LeftToRight`: Decide whether to ease from left to right or top to bottom
-
-#### OneshotFilterTrigger
-
-single-shot gradient filter trigger, triggered when the player enters the trigger.
-
-- `Duration`: Easing time
-- `Once`: whether it will be triggered only once
-- `StrengthFromCurrent`: Ignores the `StrengthFrom` parameter when `true`, and uses the current filter strength instead.
-
-#### SpeedFadeFilterTrigger
-
-Speed gradient filter trigger, the strength of the filter is based on the speed of the player when the player is inside.
-
-- `Speed From`: The minimum speed.
-- `Speed To`: The maximum speed.
-
-#### SpeedOneshotFilterTrigger
-
-Speed single-shot gradient filter trigger, the player starts to ease the filter strength when the player reaches a certain speed threshold, and immediately drops back when it is not reached.
-
-- `Duration`: Easing time
-- `Speed Threshold`: The speed threshold
-- `StrengthFromCurrent`: Ignores the `StrengthFrom` parameter when true, and uses the current filter strength as an alternative.
-
-#### SpeedTwoWayShotFilterTrigger
-
-The speed dual-shot Filter Trigger, the same as [`SpeedOneshotFilterTrigger`](#speedoneshotfiltertrigger), but fallback when the speed reaches the lower threshold.
-
-- `Speed Threshold`: The speed threshold
-- `Speed Fall Threshold`: The speed threshold when the strength will fallback.
-
-#### StaticFilterTrigger
-
-Static filter trigger, change the strength when the player enters.
+Add freeze frames to FrostHelper's DreamBlocks.
 
 ### CustomAscendManager
 
@@ -236,3 +115,26 @@ A falling block with adjustable time parameters.
 - `playerWaitDelay`: Wait time after player touched that can be canceled by leaving the falling block, default to 0.4s.
 - `noSfx`: Whether to disable sound effects during shaking. Usually true with `autoFall` set to true.
 - `autoFall`: Whether to fall automatically.
+
+### FlagRefill
+
+A refill that set flag on using.
+
+- `flag`: flag.
+- `useOnlyNoFlag`: Whether this refill can be used with no flag set.
+- `removeFlagDelay`: Delay to remove flag after dash start.
+
+### ExplodeFocusArea
+
+Explode Focus Area, it will try to fix the direction of the explosion to four directions, eight directions, etc.
+
+- `focusType`: focus type.
+- `rotation`: rotation of the fix directions.
+
+### PositionBlock
+
+Position Block, its position will change according to the player's position relative to it. The nodes should usually be at the same x or y coordinate as the block itself.
+
+- `speed`: the speed it changes its position.
+- `easing`: easing of the position change.
+- `range`: the range of effect, 0 for only the block itself, other for expanding around the block by pixels.

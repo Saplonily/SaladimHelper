@@ -13,8 +13,7 @@ dirtBounceBlock.placements = {
         height = 16,
         textureBasePath = "",
         imageSprite = "",
-        revertFallDir = false,
-        none_core_mode = false
+        revertFallDir = false
     }
 }
 
