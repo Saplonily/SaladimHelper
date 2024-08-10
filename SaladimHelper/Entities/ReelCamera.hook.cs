@@ -1,6 +1,6 @@
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[NeedModuleInit]
+[SaladimModule]
 public partial class ReelCamera
 {
     // TODO optimize

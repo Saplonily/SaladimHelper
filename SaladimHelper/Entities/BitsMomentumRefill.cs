@@ -3,7 +3,7 @@ using Mono.Cecil.Cil;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity("SaladimHelper/BitsMomentumRefill"), NeedModuleInit]
+[CustomEntity("SaladimHelper/BitsMomentumRefill"), SaladimModule]
 public class BitsMomentumRefill : Entity
 {
     // lets do happy copying

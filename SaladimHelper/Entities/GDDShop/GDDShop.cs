@@ -4,7 +4,7 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity("SaladimHelper/MaybeAShop", "SaladimHelper/GDDShop"), NeedModuleInit]
+[CustomEntity("SaladimHelper/MaybeAShop", "SaladimHelper/GDDShop"), SaladimModule]
 public partial class GDDShop : Entity
 {
     public readonly EntityID ID;

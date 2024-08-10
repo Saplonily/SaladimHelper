@@ -2,7 +2,7 @@
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[NeedModuleInit]
+[SaladimModule]
 public partial class ExplodeFocusArea
 {
     public static void Load()

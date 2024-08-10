@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Celeste.Mod.SaladimHelper.Triggers;
 
-[NeedModuleInit]
+[SaladimModule]
 public partial class TransitionEasingTrigger
 {
     private static ILHook levelTransitionRoutineILHook;

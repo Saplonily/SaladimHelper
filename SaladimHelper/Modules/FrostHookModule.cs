@@ -5,7 +5,7 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper;
 
-[NeedModuleInit]
+[SaladimModule]
 public static class FrostHookModule
 {
     public static ILHook FrostHelperDreamBlockHook = null;

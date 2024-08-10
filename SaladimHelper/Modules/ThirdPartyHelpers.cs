@@ -1,7 +1,7 @@
 ﻿namespace Celeste.Mod.SaladimHelper;
 
 // better naming?
-[NeedModuleInit]
+[SaladimModule]
 public static class ThirdPartyHelpers
 {
     public static bool ChronoHelperInstalled { get; set; }

@@ -19,7 +19,7 @@ public class SaladimHelperModule : EverestModule
     public static void CallInitMethods(string methodName)
     {
         Assembly asm = Assembly.GetAssembly(typeof(SaladimHelperModule));
-        var types = asm.GetTypes().Where(t => t.GetCustomAttribute<NeedModuleInitAttribute>() is not null);
+        var types = asm.GetTypes().Where(t => t.GetCustomAttribute<SaladimModuleAttribute>() is not null);
         foreach (var type in types)
             type.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public)?.Invoke(null, null);
     }

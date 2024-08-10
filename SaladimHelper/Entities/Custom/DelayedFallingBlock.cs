@@ -6,7 +6,7 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity("SaladimHelper/DelayedFallingBlock"), NeedModuleInit]
+[CustomEntity("SaladimHelper/DelayedFallingBlock"), SaladimModule]
 public class DelayedFallingBlock : FallingBlock
 {
     public float preDelay = 0.2f;

@@ -2,7 +2,7 @@ using Celeste.Mod.SaladimHelper.Entities;
 
 namespace Celeste.Mod.SaladimHelper;
 
-[NeedModuleInit]
+[SaladimModule]
 public static class CommonModule
 {
     public static void Load()

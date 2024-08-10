@@ -4,7 +4,7 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper;
 
-[NeedModuleInit]
+[SaladimModule]
 public static class ChronoHookModule
 {
     private static ILHook GravityBlockSequenceHook;

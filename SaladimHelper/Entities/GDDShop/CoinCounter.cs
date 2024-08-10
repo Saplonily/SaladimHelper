@@ -2,7 +2,7 @@
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[NeedModuleInit]
+[SaladimModule]
 public class CoinCounter : StrawberriesCounter
 {
     public CoinCounter(bool centeredX, int amount)

@@ -6,7 +6,7 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[NeedModuleInit, CustomEntity("SaladimHelper/RustyZipMover")]
+[SaladimModule, CustomEntity("SaladimHelper/RustyZipMover")]
 public sealed class RustyZipMover : ZipMover
 {
     public static ILHook hook;
