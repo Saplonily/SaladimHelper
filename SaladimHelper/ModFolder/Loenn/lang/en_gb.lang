@@ -1,7 +1,7 @@
 entities.SaladimHelper/DirtBounceBlock.placements.name.normal=Dirt Bounce Block
 entities.SaladimHelper/DirtBounceBlock.attributes.description.none_core_mode=Currently used.
 entities.SaladimHelper/DirtBounceBlock.attributes.description.textureBasePath=Custom texture base path, will be like "SaladimHelper/entities/moreBounceBlock".
-entities.SaladimHelper/DirtBounceBlock.attributes.description.imageSprite=Custom center image, will be like "sal_bumpBlockCenterDirt" in Sprites.xml (This will not affect texture shown in loenn, it'll instead search for "rock_center00" under textureBasePath).
+entities.SaladimHelper/DirtBounceBlock.attributes.description.imageSprite=Custom center image, will be like "sal_bumpBlockCenterDirt" in Sprites.xml (This will not affect texture shown in loenn, it'll search for "rock_center00" under textureBasePath instead).
 entities.SaladimHelper/DirtBounceBlock.attributes.description.revertFallDir=Whether to revert the fall direction (so it falls up).
 
 entities.SaladimHelper/ReelCamera.placements.name.reelCamera_normal=Reel Camera
@@ -45,7 +45,5 @@ entities.SaladimHelper/ExplodeFocusArea.placements.name.normal=Explode Focus Are
 triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=Enable Frost Freeze Trigger
 triggers.SaladimHelper/EnableChronoNoCheckCycleTrigger.placements.name.normal=Enable Chrono No Check Cycle Trigger
 triggers.SaladimHelper/EnableBetterPandorasFreezeTrigger.placements.name.normal=Enable Better Pandoras Freeze Trigger
-
-triggers.SaladimHelper/KeyTeleField.placements.name.normal=Key To Teleport Field
 
 triggers.SaladimHelper/TransitionEasingTrigger.placements.name.normal=Change Transition Easing Trigger
