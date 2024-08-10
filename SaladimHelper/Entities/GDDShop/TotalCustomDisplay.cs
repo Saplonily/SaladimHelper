@@ -8,21 +8,20 @@ public class TotalCustomDisplay : Entity
     public const float LerpInSpeed = 1.2f;
     public const float LerpOutSpeed = 2f;
 
-    public static Color FlashColor;
     public float DrawLerp;
     private bool updateLerping;
     protected MTexture bg;
     protected StrawberriesCounter counter;
-    protected float yoffset;
+    protected float yOffset;
 
-    public TotalCustomDisplay(StrawberriesCounter counter, float yoffset = 96f)
+    public TotalCustomDisplay(StrawberriesCounter counter, float yOffset = 96f)
     {
-        Y = yoffset;
+        Y = yOffset;
         Depth = -101;
         Tag = Tags.HUD | Tags.PauseUpdate | Tags.TransitionUpdate | Tags.Global | Tags.Persistent;
         bg = GFX.Gui["strawberryCountBG"];
         this.counter = counter;
-        this.yoffset = yoffset;
+        this.yOffset = yOffset;
         Add(counter);
         Add(new Coroutine(UpdateCoroutine()));
     }
@@ -33,7 +32,7 @@ public class TotalCustomDisplay : Entity
         var level = SceneAs<Level>();
         if (Visible)
         {
-            float thisYOffset = yoffset;
+            float thisYOffset = yOffset;
             if (!level.TimerHidden)
             {
                 thisYOffset += Settings.Instance.SpeedrunClock switch

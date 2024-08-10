@@ -8,7 +8,7 @@ public static class Commands
         ModuleSession.CollectedCoinsAmount = amount;
     }
 
-    [Command("sal_freeze", "Freeze the level.")]
+    [Command("sal_freeze", "Advance the timer until `level.TimeActive += Engine.DeltaTime` does nothing.")]
     public static void Freeze()
     {
         if (Engine.Scene is not Level level) return;
