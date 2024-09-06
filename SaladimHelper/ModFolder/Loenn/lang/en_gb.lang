@@ -24,6 +24,7 @@ entities.SaladimHelper/BitsMomentumRefill.attributes.description.recordY=Keep th
 
 entities.SaladimHelper/CollectableCoin.placements.name.normal=Collectable Coin
 entities.SaladimHelper/CollectableCoin.placements.name.with_return=Collectable Coin (With Return)
+entities.SaladimHelper/CollectableCoin.attributes.description.persist=Whether this coin is recollectable.
 
 entities.SaladimHelper/GDDShop.placements.name.normal=GDD Shop
 

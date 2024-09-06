@@ -8,7 +8,10 @@ coin.texture = "SaladimHelper/entities/collectableCoin/idle00"
 
 coin.placements = {
     {
-        name = "normal"
+        name = "normal",
+        data = {
+            persist = false
+        }
     },
     {
         name = "with_return",
@@ -17,7 +20,8 @@ coin.placements = {
             nodes = {
                 { x = 0, y = 0 },
                 { x = 0, y = 0 }
-            }
+            },
+            persist = false
         }
     }
 }

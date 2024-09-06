@@ -5,6 +5,8 @@ namespace Celeste.Mod.SaladimHelper.Entities;
 [CustomEntity("SaladimHelper/CollectableCoin")]
 public class CollectableCoin : Entity
 {
+    private readonly bool persist;
+
     private bool collected = false;
     private EntityID entityID;
     private Sprite spr;
@@ -13,13 +15,20 @@ public class CollectableCoin : Entity
     private BloomPoint bloom;
 
     public CollectableCoin(EntityData data, Vector2 offset, EntityID entityID)
-        : this(data.Position + offset, data.NodesOffset(offset), entityID)
+        : this(data.Position + offset, data.NodesOffset(offset), entityID, data.Bool("persist", false))
     {
     }
 
     public CollectableCoin(Vector2 pos, Vector2[] nodes, EntityID entityID)
+        : this(pos, nodes, entityID, false)
+    {
+
+    }
+
+    public CollectableCoin(Vector2 pos, Vector2[] nodes, EntityID entityID, bool persist)
     {
         this.entityID = entityID;
+        this.persist = persist;
         this.nodes = nodes;
         Position = pos;
         // add some awesome bloom!
@@ -63,7 +72,8 @@ public class CollectableCoin : Entity
 
         var session = SceneAs<Level>().Session;
         ModuleSession.CollectedCoinsAmount++;
-        session.DoNotLoad.Add(entityID);
+        if (!persist)
+            session.DoNotLoad.Add(entityID);
 
         PlayAnim();
         CoinDisplayer.Display(Scene);
