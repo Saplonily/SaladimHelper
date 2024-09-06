@@ -5,7 +5,11 @@ namespace Celeste.Mod.SaladimHelper.Entities;
 [CustomEntity("SaladimHelper/CollectableCoin")]
 public class CollectableCoin : Entity
 {
+    private const string DefaultSprite = "SaladimHelper/entities/collectableCoin/idle";
+    private const string DefaultSfx = "event:/gddcoin/key_get";
+
     private readonly bool persist;
+    private readonly string sfx;
 
     private bool collected = false;
     private EntityID entityID;
@@ -15,28 +19,33 @@ public class CollectableCoin : Entity
     private BloomPoint bloom;
 
     public CollectableCoin(EntityData data, Vector2 offset, EntityID entityID)
-        : this(data.Position + offset, data.NodesOffset(offset), entityID, data.Bool("persist", false))
+        : this(data.Position + offset, data.NodesOffset(offset),
+              entityID,
+              data.Attr("sprite", DefaultSprite),
+              data.Attr("sfx", DefaultSfx),
+              data.Bool("persist", false)
+              )
     {
     }
 
     public CollectableCoin(Vector2 pos, Vector2[] nodes, EntityID entityID)
-        : this(pos, nodes, entityID, false)
+        : this(pos, nodes, entityID, DefaultSprite, DefaultSfx, false)
     {
-
     }
 
-    public CollectableCoin(Vector2 pos, Vector2[] nodes, EntityID entityID, bool persist)
+    public CollectableCoin(Vector2 pos, Vector2[] nodes, EntityID entityID, string sprite, string sfx, bool persist)
     {
         this.entityID = entityID;
+        this.sfx = sfx;
         this.persist = persist;
         this.nodes = nodes;
         Position = pos;
-        // add some awesome bloom!
+        // add an awesome bloom!
         Add(bloom = new BloomPoint(0f, 16f));
         bloom.Alpha = 0.5f;
 
         Collider = new Hitbox(16, 16, -8, -8);
-        Add(spr = new Sprite(GFX.Game, "SaladimHelper/entities/collectableCoin/idle"));
+        Add(spr = new Sprite(GFX.Game, sprite));
         Add(new PlayerCollider(OnPlayer));
 
         spr.Add("idle", "", 0.1f, new Chooser<string>("idle", 1f), 0, 0, 1, 2, 3, 4, 5, 6, 6, 7, 8, 9, 10, 11);
@@ -68,10 +77,10 @@ public class CollectableCoin : Entity
     public void Collect()
     {
         if (collected) return;
-        Audio.Play("event:/gddcoin/key_get", Center);
+        Audio.Play(sfx, Center);
 
         var session = SceneAs<Level>().Session;
-        ModuleSession.CollectedCoinsAmount++;
+        ModuleSession.CollectedCoinsCount++;
         if (!persist)
             session.DoNotLoad.Add(entityID);
 

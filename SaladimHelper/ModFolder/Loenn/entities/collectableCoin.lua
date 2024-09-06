@@ -8,10 +8,7 @@ coin.texture = "SaladimHelper/entities/collectableCoin/idle00"
 
 coin.placements = {
     {
-        name = "normal",
-        data = {
-            persist = false
-        }
+        name = "normal"
     },
     {
         name = "with_return",
@@ -22,6 +19,27 @@ coin.placements = {
                 { x = 0, y = 0 }
             },
             persist = false
+        }
+    },
+    {
+        name = "custom",
+        data = {
+            persist = false,
+            sfx = "event:/gddcoin/key_get",
+            sprite = "SaladimHelper/entities/collectableCoin/idle"
+        }
+    },
+    {
+        name = "custom_with_return",
+        placementType = "point",
+        data = {
+            persist = false,
+            sfx = "event:/gddcoin/key_get",
+            sprite = "SaladimHelper/entities/collectableCoin/idle",
+            nodes = {
+                { x = 0, y = 0 },
+                { x = 0, y = 0 }
+            },
         }
     }
 }

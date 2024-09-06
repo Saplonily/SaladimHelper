@@ -243,7 +243,7 @@ public class GDDShopUI : Entity
         var cost = costs[index];
         if (ModuleSession.ShopBoughtItems.Contains(index))
             return false;
-        if (ModuleSession.CollectedCoinsAmount >= cost)
+        if (ModuleSession.CollectedCoinsCount >= cost)
             return true;
         return false;
     }

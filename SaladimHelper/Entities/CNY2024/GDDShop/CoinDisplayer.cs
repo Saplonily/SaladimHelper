@@ -13,10 +13,10 @@ public class CoinDisplayer : TotalCustomDisplay
     }
 
     private static CoinCounter MakeCoinCounter(bool silence)
-        => new CoinCounter(false, ModuleSession.CollectedCoinsAmount - (silence ? 0 : 1));
+        => new CoinCounter(false, ModuleSession.CollectedCoinsCount - (silence ? 0 : 1));
 
     public override int GetValue()
-        => ModuleSession.CollectedCoinsAmount;
+        => ModuleSession.CollectedCoinsCount;
 
     public override bool GetNeedLerpIn()
         => base.GetNeedLerpIn() || AlwaysDisplay;
@@ -36,7 +36,7 @@ public class CoinDisplayer : TotalCustomDisplay
             scene.Add(cur);
         }
         if (setAmountAgain)
-            cur.counter.Amount = ModuleSession.CollectedCoinsAmount;
+            cur.counter.Amount = ModuleSession.CollectedCoinsCount;
         return cur;
     }
 }

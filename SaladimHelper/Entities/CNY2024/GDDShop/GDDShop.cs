@@ -154,7 +154,7 @@ public partial class GDDShop : Entity
         }
         void OnBought(GDDShopUI ui, int index)
         {
-            ModuleSession.CollectedCoinsAmount -= costs[index];
+            ModuleSession.CollectedCoinsCount -= costs[index];
             ModuleSession.ShopBoughtItems.Add(index);
             CoinDisplayer.Display(Scene, setAmountAgain: true);
             foreach (var item in shopEntities[index])

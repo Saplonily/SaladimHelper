@@ -2,10 +2,10 @@
 
 public static class Commands
 {
-    [Command("sal_set_coin", "Set the coin amount of the gddshop.")]
-    public static void SetCoin(int amount)
+    [Command("sal_set_coin", "Set the count of coins.")]
+    public static void SetCoin(int count)
     {
-        ModuleSession.CollectedCoinsAmount = amount;
+        ModuleSession.CollectedCoinsCount = count;
     }
 
     [Command("sal_freeze", "Advance the timer until `level.TimeActive += Engine.DeltaTime` does nothing.")]
