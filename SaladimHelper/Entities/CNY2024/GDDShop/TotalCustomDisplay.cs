@@ -54,8 +54,8 @@ public class TotalCustomDisplay : Entity
     {
         while (true)
         {
-            bool GetNeedUpdate() => GetValue() > counter.Amount;
-            if (GetNeedUpdate())
+            int GetAmountNeedToUpdate() => GetValue() - counter.Amount;
+            if (GetAmountNeedToUpdate() > 0)
             {
                 while (true)
                 {
@@ -68,10 +68,16 @@ public class TotalCustomDisplay : Entity
                 yield return NumberUpdateDelay;
                 do
                 {
-                    counter.Amount += 1;
+                    int n = GetAmountNeedToUpdate();
+                    counter.Amount +=
+                        n >= 6 ? 6 :
+                        n >= 3 ? 3 :
+                        1;
+
                     yield return ComboUpdateDelay;
                 }
-                while (GetNeedUpdate());
+                while (GetAmountNeedToUpdate() > 0);
+
                 yield return AfterUpdateDelay;
                 updateLerping = false;
             }

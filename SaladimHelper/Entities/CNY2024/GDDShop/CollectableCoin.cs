@@ -53,11 +53,6 @@ public class CollectableCoin : Entity
         spr.CenterOrigin();
     }
 
-    public override void Added(Scene scene)
-    {
-        base.Added(scene);
-    }
-
     public void OnPlayer(Player p)
     {
         if (!collected)
