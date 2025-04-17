@@ -14,6 +14,13 @@ entities.SaladimHelper/DelayedFallingBlock.attributes.description.autoFall=The b
 entities.SaladimHelper/RustyZipMover.placements.name.normal=Rusty Zip Mover
 
 entities.SaladimHelper/CustomAscendManager.placements.name.normal=Custom Ascend Manager
+entities.SaladimHelper/CustomAscendManager.attributes.description.backgroundColor=The color to use for the background during the launch.
+entities.SaladimHelper/CustomAscendManager.attributes.description.streakColors=A comma-separated list of colors to use for streaks during the launch.
+entities.SaladimHelper/CustomAscendManager.attributes.description.dialog=The dialog ID to play mid-launch.\nLeave blank for no dialogue.
+entities.SaladimHelper/CustomAscendManager.attributes.description.introLaunch=Whether this launch is at the start of the chapter like in 7A.\nIf so, it will have different movement and cannot have dialogue.
+entities.SaladimHelper/CustomAscendManager.attributes.description.finalLaunch=Whether this launch is at the end of the chapter like in Farewell.\nIf so, it will have different movement and cannot have dialogue.
+entities.SaladimHelper/CustomAscendManager.attributes.description.borders=Whether this launch will have thin borders at the side, colored like the streaks.\nAll vanilla launches have this.
+entities.SaladimHelper/CustomAscendManager.attributes.description.dark=Whether this launch should use the dark colors from the start of Farewell.
 
 entities.SaladimHelper/FlagRefill.placements.name.normal=Flag Custom Refill
 
