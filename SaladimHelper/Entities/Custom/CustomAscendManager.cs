@@ -21,6 +21,7 @@ public class CustomAscendManager : Entity
     private float fade;
     private bool launchStarted;
     private bool launchCompleted;
+    private string dialog;
     private Level level;
     private bool finalLaunch;
 
@@ -32,6 +33,7 @@ public class CustomAscendManager : Entity
         finalLaunch = data.Bool("finalLaunch");
         backgroundColor = Calc.HexToColor(data.Attr("backgroundColor", "75a0ab"));
         introLaunch = data.Bool("introLaunch");
+        dialog = data.Attr("dialog");
         Borders = data.Bool("borders", true);
         Dark = data.Bool("dark", false);
         StreakColors = data.Attr("streakColors", "ffffff,e69ecb")
@@ -78,7 +80,16 @@ public class CustomAscendManager : Entity
         else
         {
             yield return FadeTo(1f, 0.8f);
-            yield return 0.5f;
+            if (!string.IsNullOrEmpty(dialog))
+            {
+                yield return 0.25f;
+                AscendCutscene cs = new AscendCutscene(dialog);
+                level.Add(cs);
+                yield return null;
+                while (cs.Running) 
+                    yield return null;
+            } else 
+                yield return 0.5f;
         }
 
         level.CanRetry = false;
@@ -318,6 +329,82 @@ public class CustomAscendManager : Entity
                 Vector2 position = (Scene as Level).Camera.Position;
                 Draw.Rect(position.X - 10f, position.Y - 10f, 340f, 200f, (manager.Dark ? Color.Black : Color.White) * Fade);
             }
+        }
+    }
+
+    public class AscendCutscene : CutsceneEntity
+    {
+        private BadelineDummy badeline;
+        private Player player;
+        private Vector2 origin;
+        private string dialog;
+        private bool spinning;
+
+        public AscendCutscene(string dialog)
+        {
+            this.dialog = dialog;
+        }
+            
+        public override void OnBegin(Level level)
+        {
+            Add(new Coroutine(Cutscene()));
+        }
+            
+        private IEnumerator Cutscene()
+        {
+            while ((player = Scene.Tracker.GetEntity<Player>()) == null) yield return null;
+            origin = player.Position;
+                
+            Audio.Play("event:/char/badeline/maddy_split");
+            player.CreateSplitParticles();
+            Input.Rumble(RumbleStrength.Light, RumbleLength.Medium);
+            Level.Displacement.AddBurst(player.Position, 0.4f, 8f, 32f, 0.5f);
+            player.Facing = Facings.Right;
+            Scene.Add(badeline = new BadelineDummy(player.Position));
+            badeline.AutoAnimator.Enabled = false;
+            spinning = true;
+            Add(new Coroutine(SpinCharacters()));
+                
+            yield return Textbox.Say(dialog);
+            Audio.Play("event:/char/badeline/maddy_join");
+            spinning = false;
+            yield return 0.25f;
+            badeline.RemoveSelf();
+            player.CreateSplitParticles();
+            Input.Rumble(RumbleStrength.Light, RumbleLength.Medium);
+            Level.Displacement.AddBurst(player.Position, 0.4f, 8f, 32f, 0.5f);
+            EndCutscene(Level);
+        }
+            
+        private IEnumerator SpinCharacters()
+        {
+            float dist = 0f;
+            Vector2 center = player.Position;
+            float timer = MathF.PI / 2f;
+            player.Sprite.Play("spin");
+            badeline.Sprite.Play("spin");
+            badeline.Sprite.Scale.X = 1f;
+            while (spinning || dist > 0f)
+            {
+                dist = Calc.Approach(dist, spinning ? 1f : 0f, Engine.DeltaTime * 4f);
+                int num = (int)(timer / (MathF.PI * 2f) * 14f + 10f);
+                float num2 = (float)Math.Sin(timer);
+                float num3 = (float)Math.Cos(timer);
+                float num4 = Ease.CubeOut(dist) * 32f;
+                player.Sprite.SetAnimationFrame(num);
+                badeline.Sprite.SetAnimationFrame(num + 7);
+                player.Position = center - new Vector2(num2 * num4, num3 * dist * 8f);
+                badeline.Position = center + new Vector2(num2 * num4, num3 * dist * 8f);
+                timer -= Engine.DeltaTime * 2f;
+                if (timer <= 0f) timer += MathF.PI * 2f;
+                yield return null;
+            }
+        }
+
+        public override void OnEnd(Level level)
+        {
+            if (badeline != null) badeline.RemoveSelf();
+            if (player != null) player.Position = origin;
         }
     }
 }
