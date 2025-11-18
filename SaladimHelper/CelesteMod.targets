@@ -1,14 +1,13 @@
 <Project>
 
   <Target Name="PostModBuild" AfterTargets="AfterBuild">
-    <Message Text="Post mod build, root path: $(CelesteRootPath)" Importance="high"/>
     <Error Condition="'$(ModAssetsFolderName)' == ''" Text="ModAssetsFolderName is not set." Code="SMT04"/>
 
-    <!--.dll and .pdb files copying-->
+    <!--copy compile output files-->
     <ItemGroup>
       <_CompileOutput Include="$(OutputPath)/**"/>
     </ItemGroup>
-    <Copy SourceFiles="@(_CompileOutput)" DestinationFolder="$(ModAssetsFolderName)/Code"/>
+    <Copy SourceFiles="@(_CompileOutput)" DestinationFolder="$(ModAssetsFolderName)/Code/%(RecursiveDir)" SkipUnchangedFiles="true"/>
 
     <CallTarget Condition="$(ModAssetsCopyType) == 'link'" Targets="CheckAndCreateSymbolicLink"/>
     <CallTarget Condition="$(ModAssetsCopyType) == 'copy'" Targets="CopyModFolder"/>
@@ -40,19 +39,35 @@
     <Message Text="$(AssemblyName) -> $(CelesteRootPath)/Mods/$(AssemblyName)_copy/$(AssemblyName).dll" Importance="high"/>
   </Target>
 
-  <Target Name="CheckingCelestePaths" BeforeTargets="PreBuildEvent">
+  <Target Name="CheckCelestePaths" BeforeTargets="PreBuildEvent">
     <Message Text="Checking celeste root path..."/>
-    <Error Condition="!Exists($(CelesteRootPath))" Text="Celeste not found." Code="SMT01"/>
+    <Error Condition="!Exists('$(CelesteRootPath)/Celeste.exe') And !Exists('$(CelesteRootPath)/Celeste')"
+         Text="Celeste not found. Please check your CelesteRootPath property."
+         Code="SMT01"/>
     <Error Condition="!Exists('$(CelesteRootPath)/Celeste.Mod.mm.dll')" Text="Everest not installed." Code="SMT02"/>
     <Error Condition="Exists('$(CelesteRootPath)/Celeste.exe.config')"
            Code="SMT03" Text="Legacy versions of Everest are not supported. Please update your Everest to 4465+."/>
   </Target>
 
-  <Target Name="CleanRemoteFolder" BeforeTargets="Clean">
+  <Target Name="CleanRemoteFolder" BeforeTargets="Clean" Condition="$(ModAssetsCopyType) == 'copy'">
     <Error Condition="'$(ModAssetsFolderName)' == ''" Text="ModAssetsFolderName is not set." Code="SMT04"/>
-    <RemoveDir Directories="$(CelesteRootPath)/Mods/$(AssemblyName)_link" Condition="Exists('$(CelesteRootPath)/Mods/$(AssemblyName)_link')"/>
-    <RemoveDir Directories="$(CelesteRootPath)/Mods/$(AssemblyName)_copy" Condition="Exists('$(CelesteRootPath)/Mods/$(AssemblyName)_copy')"/>
-    <RemoveDir Directories="$(ModAssetsFolderName)/Code"/>
+
+    <ItemGroup>
+      <_FilesToDelete Include="$(ModAssetsFolderName)/Code/**" />
+      <_FilesToDelete Include="$(CelesteRootPath)/Mods/$(AssemblyName)_copy/Code/**" />
+    </ItemGroup>
+
+    <Delete Files="@(_FilesToDelete)" />
+  </Target>
+
+  <Target Name="CleanInplaceFolder" BeforeTargets="Clean" Condition="$(ModAssetsCopyType) == 'link'">
+    <Error Condition="'$(ModAssetsFolderName)' == ''" Text="ModAssetsFolderName is not set." Code="SMT04"/>
+
+    <ItemGroup>
+      <_FilesToDelete Include="$(ModAssetsFolderName)/Code/**" />
+    </ItemGroup>
+
+    <Delete Files="@(_FilesToDelete)" />
   </Target>
 
   <ItemGroup>

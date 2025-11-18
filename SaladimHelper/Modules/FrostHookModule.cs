@@ -51,14 +51,16 @@ public static class FrostHookModule
             cur.Index += 2;
             cur.Emit(OpCodes.Ldloc_0);
             cur.Emit(OpCodes.Ldarg_1);
-            cur.EmitDelegate((Entity obj, Player p) =>
+            cur.EmitDelegate(static (Entity obj, Player p) =>
             {
                 if (!ModuleSession.SessionFlags.EnabledFrostFreeze)
                     return false;
                 DynamicData data = DynamicData.For(obj);
                 Input.Dash.ConsumePress();
                 Input.CrouchDash.ConsumePress();
+#pragma warning disable CS0618 // we just read that instead of modifying that
                 if (Engine.TimeRate > 0.25f)
+#pragma warning restore CS0618
                     Celeste.Freeze(0.05f);
                 var co = MakeCoroutine(p, data);
                 obj.Add(new Coroutine(co));

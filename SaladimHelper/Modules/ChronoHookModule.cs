@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 
@@ -57,11 +57,11 @@ public static class ChronoHookModule
     {
         ILCursor cur = new(context);
         if (cur.TryGotoNext(MoveType.After, ins => ins.MatchLdcR4(0.1f), ins => ins.MatchBox<float>()))
-            _ = cur.EmitDelegate<Func<object, object>>(f => ModuleSession.SessionFlags.NoChronoCheckCycle ? null : f);
+            _ = cur.EmitDelegate<Func<object, object>>(static f => ModuleSession.SessionFlags.NoChronoCheckCycle ? null : f);
         cur.Index = 0;
         if (cur.TryGotoNext(MoveType.After, ins => ins.MatchLdcR4(0.2f), ins => ins.MatchBox<float>())
             && cur.TryGotoNext(MoveType.After, ins => ins.MatchLdcR4(0.2f), ins => ins.MatchBox<float>()))
-            cur.EmitDelegate<Func<object, object>>(f => ModuleSession.SessionFlags.NoChronoCheckCycle ? null : f);
+            cur.EmitDelegate<Func<object, object>>(static f => ModuleSession.SessionFlags.NoChronoCheckCycle ? null : f);
     }
 
     public static void Unload()

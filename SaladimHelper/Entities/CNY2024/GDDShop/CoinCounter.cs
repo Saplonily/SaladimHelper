@@ -1,4 +1,4 @@
-﻿using Mono.Cecil.Cil;
+using Mono.Cecil.Cil;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
@@ -26,7 +26,7 @@ public class CoinCounter : StrawberriesCounter
         {
             cur.Index++;
             cur.Emit(OpCodes.Ldarg_0);
-            cur.EmitDelegate((string preStr, StrawberriesCounter b) => b is CoinCounter cc ? "SaladimHelper/coin" : preStr);
+            cur.EmitDelegate(static (string preStr, StrawberriesCounter b) => b is CoinCounter cc ? "SaladimHelper/coin" : preStr);
         }
     }
 }

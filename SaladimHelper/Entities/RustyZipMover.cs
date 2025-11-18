@@ -39,19 +39,13 @@ public sealed class RustyZipMover : ZipMover
         base.Update();
     }
 
-    //public override void Render()
-    //{
-    //    base.Render();
-
-    //}
-
     private static void SequenceILHooked(ILContext il)
     {
         ILCursor cur = new(il);
         if (cur.TryGotoNext(MoveType.After, ins => ins.MatchCallvirt("Celeste.Solid", "HasPlayerRider")))
         {
             cur.Emit(OpCodes.Ldloc_1);
-            cur.EmitDelegate<Func<ZipMover, bool>>(z => z is not RustyZipMover rzm || !rzm.Rusty);
+            cur.EmitDelegate<Func<ZipMover, bool>>(static z => z is not RustyZipMover rzm || !rzm.Rusty);
             cur.Emit(OpCodes.And);
         }
     }

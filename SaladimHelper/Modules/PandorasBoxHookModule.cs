@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Mono.Cecil.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
@@ -50,7 +50,7 @@ public static class PandorasBoxHookModule
             cur.Emit(OpCodes.Ldarg_0);
             cur.Emit(OpCodes.Ldarg_1);
             cur.Emit(OpCodes.Ldloc_2);
-            cur.EmitDelegate((DreamBlock dreamBlock, Player player, bool flag) =>
+            cur.EmitDelegate(static (DreamBlock dreamBlock, Player player, bool flag) =>
             {
                 DynamicData data = DynamicData.For(dreamBlock);
 

@@ -1,4 +1,4 @@
-﻿using Celeste.Mod.Entities;
+using Celeste.Mod.Entities;
 using Mono.Cecil.Cil;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
@@ -62,7 +62,7 @@ public class BitsMomentumRefill : Entity
             cur.Emit(OpCodes.Ldarg_0);
             cur.Emit(OpCodes.Ldfld, typeof(Player).GetField("CurrentBooster"));
             cur.Emit(OpCodes.Ldarg_0);
-            cur.EmitDelegate((Booster booster, Player player) =>
+            cur.EmitDelegate(static (Booster booster, Player player) =>
             {
                 if (booster.GetType() == typeof(Booster))
                     TryAddingMomentum(player);

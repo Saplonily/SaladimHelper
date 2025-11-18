@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Celeste.Mod.Entities;
 using Mono.Cecil.Cil;
 using MonoMod.RuntimeDetour;
@@ -43,16 +43,20 @@ public class DelayedFallingBlock : FallingBlock
         ILCursor cur = new(il);
         if (cur.TryGotoNext(ins => ins.MatchLdcR4(0.2f)))
         {
-            cur.Remove();
+            cur.Index++;
             cur.Emit(OpCodes.Ldloc_1);
-            cur.EmitDelegate<Func<FallingBlock, float>>(f => f is DelayedFallingBlock d ? d.preDelay : 0.2f);
+            cur.EmitDelegate(
+                static (float orig, FallingBlock f) => f is DelayedFallingBlock d ? d.preDelay : orig
+            );
         }
         cur.Index = 0;
         if (cur.TryGotoNext(ins => ins.MatchLdcR4(0.4f)))
         {
-            cur.Remove();
+            cur.Index++;
             cur.Emit(OpCodes.Ldloc_1);
-            cur.EmitDelegate<Func<FallingBlock, float>>(f => f is DelayedFallingBlock d ? d.playerWaitDelay : 0.4f);
+            cur.EmitDelegate(
+                static (float orig, FallingBlock f) => f is DelayedFallingBlock d ? d.playerWaitDelay : orig
+            );
         }
     }
 
