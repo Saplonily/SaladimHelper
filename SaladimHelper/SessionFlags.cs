@@ -1,4 +1,4 @@
-﻿namespace Celeste.Mod.SaladimHelper;
+namespace Celeste.Mod.SaladimHelper;
 
 public class SessionFlags
 {

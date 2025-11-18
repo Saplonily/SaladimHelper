@@ -1,4 +1,4 @@
-﻿using Celeste.Mod.Entities;
+using Celeste.Mod.Entities;
 
 // modified and refactored from ChineseNewYear2024Helper by optimize-2
 // https://github.com/optimize-2/ChineseNewYear2024Helper

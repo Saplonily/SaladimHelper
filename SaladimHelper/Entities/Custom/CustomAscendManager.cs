@@ -1,4 +1,4 @@
-﻿using Celeste.Mod.Entities;
+using Celeste.Mod.Entities;
 
 // copied from SJ2021
 // repository at https://github.com/StrawberryJam2021/StrawberryJam2021

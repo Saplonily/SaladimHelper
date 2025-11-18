@@ -1,4 +1,4 @@
-﻿local t = {}
+local t = {}
 
 t.name = "SaladimHelper/TransitionEasingTrigger"
 

@@ -1,4 +1,4 @@
-﻿namespace Celeste.Mod.SaladimHelper.Entities;
+namespace Celeste.Mod.SaladimHelper.Entities;
 
 public class TotalCustomDisplay : Entity
 {

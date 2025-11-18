@@ -1,4 +1,4 @@
-﻿using Celeste.Mod.Entities;
+using Celeste.Mod.Entities;
 using static Celeste.DashSwitch;
 
 namespace Celeste.Mod.SaladimHelper.Entities;

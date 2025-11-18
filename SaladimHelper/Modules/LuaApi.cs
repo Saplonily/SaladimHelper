@@ -1,4 +1,4 @@
-﻿namespace Celeste.Mod.SaladimHelper;
+namespace Celeste.Mod.SaladimHelper;
 
 // contains methods that usually called from lua codes
 // but i'm too lazy to add more methods

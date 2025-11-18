@@ -1,4 +1,4 @@
-﻿local refill = {}
+local refill = {}
 
 refill.name = "SaladimHelper/BitsMomentumRefill"
 refill.depth = -100

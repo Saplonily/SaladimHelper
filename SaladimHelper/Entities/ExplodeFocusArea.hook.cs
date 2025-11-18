@@ -1,4 +1,4 @@
-﻿using Mono.Cecil.Cil;
+using Mono.Cecil.Cil;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 

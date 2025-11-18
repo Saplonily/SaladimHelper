@@ -1,4 +1,4 @@
-﻿namespace Celeste.Mod.SaladimHelper;
+namespace Celeste.Mod.SaladimHelper;
 
 [MonoMod.ModInterop.ModExportName("SaladimHelper.Mapper")]
 public static class Mapper

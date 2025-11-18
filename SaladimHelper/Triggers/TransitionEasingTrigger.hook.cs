@@ -1,4 +1,4 @@
-﻿using Mono.Cecil.Cil;
+using Mono.Cecil.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 using System.Reflection;
