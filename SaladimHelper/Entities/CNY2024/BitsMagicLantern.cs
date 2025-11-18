@@ -8,6 +8,8 @@ namespace Celeste.Mod.SaladimHelper.Entities;
 [CustomEntity("SaladimHelper/BitsMagicLantern"), Tracked]
 public class BitsMagicLantern : Actor
 {
+    public const string DefaultLanternSprite = "sal_bitsMagicLanternLight";
+
     public static ParticleType P_Impact;
 
     public Vector2 Speed;
@@ -26,15 +28,29 @@ public class BitsMagicLantern : Actor
     private float hardVerticalHitSoundCooldown;
     private VertexLight vertexLight;
 
-    public BitsMagicLantern(EntityData e, Vector2 offset) : base(e.Position + offset)
+    public BitsMagicLantern(EntityData e, Vector2 offset)
+        : this(
+              e.Position + offset,
+              e.Float("radius", 20f),
+              e.Bool("holdable", false),
+              e.Attr("lanternSprite", DefaultLanternSprite)
+         )
     {
-        Radius = e.Float("radius", 20f);
-        IsHoldable = e.Bool("holdable", false);
 
-        previousPosition = e.Position + offset;
+    }
+
+    public BitsMagicLantern(Vector2 position, float radius, bool holdable, string lanternSprite = DefaultLanternSprite)
+        : base(position)
+    {
+        Position = position;
+        previousPosition = Position;
+
+        Radius = radius;
+        IsHoldable = holdable;
+
         Collider = new Hitbox(8f, 10f, -4f, -10f);
 
-        Add(sprite = GFX.SpriteBank.Create("sal_bitsMagicLanternLight"));
+        Add(sprite = GFX.SpriteBank.Create(lanternSprite));
         sprite.Y += -4;
         sprite.Scale.X = -1f;
         if (!IsHoldable)
