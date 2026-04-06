@@ -3,7 +3,7 @@ using Celeste.Mod.Entities;
 namespace Celeste.Mod.SaladimHelper.Entities;
 
 [CustomEntity("SaladimHelper/ExplodeFocusArea"), Tracked]
-public partial class ExplodeFocusArea : Entity
+public sealed partial class ExplodeFocusArea : Entity
 {
     public enum FocusType
     {

@@ -6,8 +6,8 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity("SaladimHelper/DelayedFallingBlock"), SaladimModule]
-public class DelayedFallingBlock : FallingBlock
+[CustomEntity("SaladimHelper/DelayedFallingBlock")]
+public sealed class DelayedFallingBlock : FallingBlock
 {
     public float preDelay = 0.2f;
     public float playerWaitDelay = 0.4f;
@@ -41,21 +41,19 @@ public class DelayedFallingBlock : FallingBlock
     private static void OnFallingBlockCoroutine(ILContext il)
     {
         ILCursor cur = new(il);
-        if (cur.TryGotoNext(ins => ins.MatchLdcR4(0.2f)))
+        if (cur.TryGotoNext(MoveType.After, ins => ins.MatchLdcR4(0.2f)))
         {
-            cur.Index++;
             cur.Emit(OpCodes.Ldloc_1);
-            cur.EmitDelegate(
-                static (float orig, FallingBlock f) => f is DelayedFallingBlock d ? d.preDelay : orig
+            cur.EmitDelegate<Func<float, FallingBlock, float>>(
+                static (time, entity) => entity is DelayedFallingBlock d ? d.preDelay : time
             );
         }
         cur.Index = 0;
-        if (cur.TryGotoNext(ins => ins.MatchLdcR4(0.4f)))
+        if (cur.TryGotoNext(MoveType.After, ins => ins.MatchLdcR4(0.4f)))
         {
-            cur.Index++;
             cur.Emit(OpCodes.Ldloc_1);
-            cur.EmitDelegate(
-                static (float orig, FallingBlock f) => f is DelayedFallingBlock d ? d.playerWaitDelay : orig
+            cur.EmitDelegate<Func<float, FallingBlock, float>>(
+                static (time, entity) => entity is DelayedFallingBlock d ? d.playerWaitDelay : time
             );
         }
     }
@@ -72,7 +70,7 @@ public class DelayedFallingBlock : FallingBlock
         fallingBlockCoroutineHook = new ILHook(
             typeof(FallingBlock).GetMethod("Sequence", BindingFlags.NonPublic | BindingFlags.Instance).GetStateMachineTarget(),
             OnFallingBlockCoroutine
-            );
+        );
         On.Celeste.FallingBlock.ShakeSfx += FallingBlock_ShakeSfx;
     }
 

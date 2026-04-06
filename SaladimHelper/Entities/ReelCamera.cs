@@ -6,7 +6,7 @@ namespace Celeste.Mod.SaladimHelper.Entities;
 
 // TODO unstable, need refactoring
 [CustomEntity("SaladimHelper/ReelCamera"), Tracked]
-public partial class ReelCamera : Entity
+public sealed partial class ReelCamera : Entity
 {
     public Vector2[] Nodes;
     public Vector2 CameraPosition;
@@ -23,8 +23,8 @@ public partial class ReelCamera : Entity
 
     public bool Delaying = false;
 
-    public static ReelCamera ActivedReelCamera;
-    public static Player PlayerDoingReel;
+    private static ReelCamera ActivedReelCamera;
+    private static Player PlayerDoingReel;
 
     public ReelCamera(EntityData data, Vector2 offset) : base(data.Position + offset)
     {
@@ -80,7 +80,7 @@ public partial class ReelCamera : Entity
         StartMoveTime = startMoveTime;
     }
 
-    protected static float[] ParseFloatSequence(string sequenceStr)
+    private static float[] ParseFloatSequence(string sequenceStr)
         => sequenceStr.Split(',').Select(float.Parse).ToArray();
 
     public override void Update()

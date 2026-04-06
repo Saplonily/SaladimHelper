@@ -3,7 +3,7 @@ using Celeste.Mod.Entities;
 namespace Celeste.Mod.SaladimHelper.Triggers;
 
 [CustomEntity("SaladimHelper/EnableFrostFreezeTrigger")]
-public class EnableFrostFreezeTrigger : Trigger
+public sealed class EnableFrostFreezeTrigger : Trigger
 {
     public bool isEnable = true;
 

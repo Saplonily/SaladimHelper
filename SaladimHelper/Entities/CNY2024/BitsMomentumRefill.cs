@@ -3,7 +3,7 @@ using Mono.Cecil.Cil;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity("SaladimHelper/BitsMomentumRefill"), SaladimModule]
+[CustomEntity("SaladimHelper/BitsMomentumRefill")]
 public class BitsMomentumRefill : Entity
 {
     // lets do happy copying
@@ -55,7 +55,7 @@ public class BitsMomentumRefill : Entity
         if (cur.TryGotoNext(MoveType.After, ins => ins.MatchStfld<SaveData>("TotalDashes")))
         {
             cur.Emit(OpCodes.Ldarg_0);
-            cur.EmitDelegate(TryAddingMomentum);
+            cur.EmitDelegate<Action<Player>>(new(TryAddingMomentum));
         }
         if (cur.TryGotoNext(MoveType.Before, ins => ins.MatchCallvirt<Booster>("PlayerBoosted")))
         {

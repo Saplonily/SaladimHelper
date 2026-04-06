@@ -3,7 +3,7 @@ using Celeste.Mod.Entities;
 namespace Celeste.Mod.SaladimHelper.Triggers;
 
 [CustomEntity("SaladimHelper/EnableBetterPandorasFreezeTrigger")]
-public class EnableBetterPandorasFreezeTrigger : Trigger
+public sealed class EnableBetterPandorasFreezeTrigger : Trigger
 {
     public bool isEnable = true;
 

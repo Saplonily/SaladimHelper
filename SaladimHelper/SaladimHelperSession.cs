@@ -4,7 +4,7 @@ using YamlDotNet.Serialization;
 
 namespace Celeste.Mod.SaladimHelper;
 
-public class SaladimHelperSession : EverestModuleSession
+public sealed class SaladimHelperSession : EverestModuleSession
 {
     public SessionFlags SessionFlags;
 

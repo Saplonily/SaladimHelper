@@ -4,7 +4,6 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper;
 
-[SaladimModule]
 public static class ChronoHookModule
 {
     private static ILHook GravityBlockSequenceHook;
@@ -21,25 +20,19 @@ public static class ChronoHookModule
         {
             ThirdPartyHelpers.ChronoHelperInstalled = true;
             Logger.Log(LogLevel.Debug, ModuleName, "Found ChronoHelper, hooking GravityFallingBlock and Switch...");
-            try
+
+            Type type = module.GetType().Assembly.GetType("Celeste.Mod.ChronoHelper.Entities.GravityFallingBlock");
+            Type switchType = module.GetType().Assembly.GetType("Celeste.Mod.ChronoHelper.Entities.GravityFallingBlockSwitch");
+            MethodInfo sequenceMethod = type.GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic);
+            MethodInfo onPlayerMethod = switchType.GetMethod("OnPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
+            if (sequenceMethod is not null)
             {
-                Type type = module.GetType().Assembly.GetType("Celeste.Mod.ChronoHelper.Entities.GravityFallingBlock");
-                Type switchType = module.GetType().Assembly.GetType("Celeste.Mod.ChronoHelper.Entities.GravityFallingBlockSwitch");
-                MethodInfo sequenceMethod = type.GetMethod("Sequence", BindingFlags.Instance | BindingFlags.NonPublic);
-                MethodInfo onPlayerMethod = switchType.GetMethod("OnPlayer", BindingFlags.NonPublic | BindingFlags.Instance);
-                if (sequenceMethod is not null)
-                {
-                    GravityBlockSequenceHook = new(sequenceMethod.GetStateMachineTarget(), SequenceHook);
-                    GravityBlockSwitchOnPlayerHook = new(onPlayerMethod, OnPlayerHook);
-                }
-                else
-                {
-                    Logger.Log(LogLevel.Error, ModuleName, $"ChronoHelper's GravityFallingBlock.Sequence method not found.");
-                }
+                GravityBlockSequenceHook = new(sequenceMethod.GetStateMachineTarget(), SequenceHook);
+                GravityBlockSwitchOnPlayerHook = new(onPlayerMethod, OnPlayerHook);
             }
-            catch (Exception e)
+            else
             {
-                Logger.LogDetailed(e, ModuleName);
+                Logger.Log(LogLevel.Error, ModuleName, $"ChronoHelper's GravityFallingBlock.Sequence method not found.");
             }
         }
     }

@@ -5,7 +5,7 @@ using Celeste.Mod.Entities;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[CustomEntity("SaladimHelper/BitsMagicLanternController"), Tracked, SaladimModule]
+[CustomEntity("SaladimHelper/BitsMagicLanternController"), Tracked]
 public class BitsMagicLanternController : Entity
 {
     public float DarkDuration;

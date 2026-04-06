@@ -5,7 +5,6 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper;
 
-[SaladimModule]
 public static class FrostHookModule
 {
     public static ILHook FrostHelperDreamBlockHook = null;
@@ -62,6 +61,7 @@ public static class FrostHookModule
                 if (Engine.TimeRate > 0.25f)
 #pragma warning restore CS0618
                     Celeste.Freeze(0.05f);
+#pragma warning restore CS0618
                 var co = MakeCoroutine(p, data);
                 obj.Add(new Coroutine(co));
                 return true;

@@ -1,12 +1,10 @@
 namespace Celeste.Mod.SaladimHelper;
 
 // better naming?
-[SaladimModule]
 public static class ThirdPartyHelpers
 {
     public static bool ChronoHelperInstalled { get; set; }
     public static bool FrostHelperInstalled { get; set; }
-    public static bool VivHelperInstalled { get; set; }
     public static bool DeathTrackerInstalled { get; set; }
 
     public static void Initialize()

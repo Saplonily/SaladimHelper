@@ -4,7 +4,7 @@ namespace Celeste.Mod.SaladimHelper.Entities;
 
 // yes, just these, cuz it's dummy!
 [CustomEntity("SaladimHelper/DummyImage")]
-public class DummyImage : Entity
+public sealed class DummyImage : Entity
 {
     public DummyImage(EntityData data, Vector2 offset)
         : this(

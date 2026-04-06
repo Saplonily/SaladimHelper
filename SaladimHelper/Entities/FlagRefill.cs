@@ -3,7 +3,7 @@ using Celeste.Mod.Entities;
 namespace Celeste.Mod.SaladimHelper.Entities;
 
 [CustomEntity("SaladimHelper/FlagRefill")]
-public class FlagRefill : Entity
+public sealed class FlagRefill : Entity
 {
     private Sprite sprite;
     private Sprite flash;

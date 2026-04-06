@@ -6,10 +6,11 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[SaladimModule, CustomEntity("SaladimHelper/RustyZipMover")]
+[CustomEntity("SaladimHelper/RustyZipMover")]
 public sealed class RustyZipMover : ZipMover
 {
-    public static ILHook hook;
+    private static ILHook hook;
+
     public bool Rusty = true;
     public float AreaRadio => Hitbox.Size.X * Hitbox.Size.Y / 1400f;
 

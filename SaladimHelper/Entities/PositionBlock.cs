@@ -4,7 +4,7 @@ using static Celeste.DashSwitch;
 namespace Celeste.Mod.SaladimHelper.Entities;
 
 [CustomEntity("SaladimHelper/PositionBlock")]
-public class PositionBlock : Solid
+public sealed class PositionBlock : Solid
 {
     private readonly float speed;
     private readonly float range;

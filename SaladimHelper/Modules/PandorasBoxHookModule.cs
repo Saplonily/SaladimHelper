@@ -5,7 +5,6 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper;
 
-[SaladimModule]
 public static class PandorasBoxHookModule
 {
     public static ILHook DreamDashRedirectILHook;

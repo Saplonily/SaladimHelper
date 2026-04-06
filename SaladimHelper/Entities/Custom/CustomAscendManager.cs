@@ -8,7 +8,7 @@ namespace Celeste.Mod.SaladimHelper.Entities;
 
 [Tracked]
 [CustomEntity("SaladimHelper/CustomAscendManager")]
-public class CustomAscendManager : Entity
+public sealed class CustomAscendManager : Entity
 {
     private static char[] separators = [','];
 

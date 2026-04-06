@@ -1,4 +1,6 @@
 using System.Reflection;
+using Celeste.Mod.SaladimHelper.Entities;
+using Celeste.Mod.SaladimHelper.Triggers;
 
 namespace Celeste.Mod.SaladimHelper;
 
@@ -8,37 +10,50 @@ public sealed class SaladimHelperModule : EverestModule
 
     public static SaladimHelperModule ModuleInstance { get; set; }
 
-    //public static SaladimHelperSettings ModuleSettings => ModuleInstance._Settings as SaladimHelperSettings;
-    //public override Type SettingsType => typeof(SaladimHelperSettings);
-
     public static SaladimHelperSession ModuleSession => ModuleInstance._Session as SaladimHelperSession;
     public override Type SessionType => typeof(SaladimHelperSession);
-
-
-    private static void CallModuleMethods(string methodName)
-    {
-        Assembly asm = Assembly.GetAssembly(typeof(SaladimHelperModule));
-        var types = asm.GetTypes().Where(t => t.GetCustomAttribute<SaladimModuleAttribute>() is not null);
-        foreach (var type in types)
-            type.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public)?.Invoke(null, null);
-    }
 
     public override void Load()
     {
         ModuleInstance = this;
-        Logger.Log(LogLevel.Debug, ModuleName, "Invoking module Load methods...");
-        CallModuleMethods(nameof(Load));
-    }
-
-    public override void Initialize()
-    {
-        Logger.Log(LogLevel.Debug, ModuleName, "Invoking module Initialize methods...");
-        CallModuleMethods(nameof(Initialize));
+#if DEBUG
+        Logger.SetLogLevel(ModuleName, LogLevel.Verbose);
+#endif
+        ExplodeFocusArea.Load();
+        DelayedFallingBlock.Load();
+        ReelCamera.Load();
+        CommonModule.Load();
+        BitsMagicLanternController.Load();
+        BitsMomentumRefill.Load();
+        CoinCounter.Load();
+        GDDShop.Load();
+        RustyZipMover.Load();
+        TransitionEasingTrigger.Load();
     }
 
     public override void Unload()
     {
-        Logger.Log(LogLevel.Debug, ModuleName, "Invoking module Unload methods...");
-        CallModuleMethods(nameof(Unload));
+        ExplodeFocusArea.Unload();
+        DelayedFallingBlock.Unload();
+        ReelCamera.Unload();
+        CommonModule.Unload();
+        BitsMagicLanternController.Unload();
+        BitsMomentumRefill.Unload();
+        CoinCounter.Unload();
+        GDDShop.Unload();
+        RustyZipMover.Unload();
+        TransitionEasingTrigger.Unload();
+
+        ChronoHookModule.Unload();
+        PandorasBoxHookModule.Unload();
+        FrostHookModule.Unload();
+    }
+
+    public override void Initialize()
+    {
+        ThirdPartyHelpers.Initialize();
+        ChronoHookModule.Initialize();
+        FrostHookModule.Initialize();
+        PandorasBoxHookModule.Initialize();
     }
 }

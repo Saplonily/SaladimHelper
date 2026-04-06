@@ -2,7 +2,6 @@ using Mono.Cecil.Cil;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
 
-[SaladimModule]
 public class CoinCounter : StrawberriesCounter
 {
     public CoinCounter(bool centeredX, int amount)
