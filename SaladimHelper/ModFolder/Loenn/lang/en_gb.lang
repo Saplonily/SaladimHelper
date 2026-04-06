@@ -23,6 +23,16 @@ entities.SaladimHelper/CustomAscendManager.attributes.description.borders=Whethe
 entities.SaladimHelper/CustomAscendManager.attributes.description.dark=Whether this launch should use the dark colors from the start of Farewell.
 
 entities.SaladimHelper/FlagRefill.placements.name.normal=Flag Custom Refill
+entities.SaladimHelper/FlagRefill.attributes.description.idleTexture= Idle Texture being used.
+entities.SaladimHelper/FlagRefill.attributes.description.outlineTexture= Outline Texture being used.
+entities.SaladimHelper/FlagRefill.attributes.description.flashTexture= Flash Texture being used.
+entities.SaladimHelper/FlagRefill.attributes.description.oneUse= Whether this refill can respawn.
+entities.SaladimHelper/FlagRefill.attributes.description.dashRefill= Should it refill dashes.
+entities.SaladimHelper/FlagRefill.attributes.description.flag= The flag to be gotten on using.
+entities.SaladimHelper/FlagRefill.attributes.description.useOnlyNoFlag= Whether this refill can be used with no flag set.
+entities.SaladimHelper/FlagRefill.attributes.description.sfxUsed= The sound played on using.
+entities.SaladimHelper/FlagRefill.attributes.description.sfxRespawned= The sound played on respawning.
+entities.SaladimHelper/FlagRefill.attributes.description.removeFlagDelay= The delay to remove the flag after dashing.
 
 entities.SaladimHelper/BitsMomentumRefill.placements.name.normal=Bits Momentum Refill
 entities.SaladimHelper/BitsMomentumRefill.attributes.description.mul=Multiplier that applies on the kept momentum when release.
@@ -51,8 +61,14 @@ entities.SaladimHelper/BitsMagicLanternController.attributes.description.maxDark
 entities.SaladimHelper/BitsMagicLanternController.attributes.description.gfxOnly=Disables the *die in the dark* setting.
 
 entities.SaladimHelper/PositionBlock.placements.name.normal=Position Block
+entities.SaladimHelper/PositionBlock.attributes.description.tiletype=Tile type of this tile block.
+entities.SaladimHelper/PositionBlock.attributes.description.speed=Max move speed.
+entities.SaladimHelper/PositionBlock.attributes.description.easing=Easing being used.
+entities.SaladimHelper/PositionBlock.attributes.description.range=The extended move detection range.\nOnly move when player is inside it if set to 0.
 
 entities.SaladimHelper/ExplodeFocusArea.placements.name.normal=Explode Focus Area
+entities.SaladimHelper/ExplodeFocusArea.attributes.description.focusType=Focus type.
+entities.SaladimHelper/ExplodeFocusArea.attributes.description.rotation=Rotation of the fix directions.
 
 triggers.SaladimHelper/EnableFrostFreezeTrigger.placements.name.normal=Enable Frost Freeze Trigger
 triggers.SaladimHelper/EnableChronoNoCheckCycleTrigger.placements.name.normal=Enable Chrono No Check Cycle Trigger
