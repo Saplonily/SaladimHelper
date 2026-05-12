@@ -15,9 +15,6 @@ public sealed class SaladimHelperSession : EverestModuleSession
     public (Vector2 speed, float mul)? MomentumRefillSpeedKept = null;
 
     [YamlIgnore] 
-    public CoinDisplayer CurrentCoinDisplayer = null;
-
-    [YamlIgnore] 
     internal CustomTransitionParameters? CustomTransition = null;
 
     public SaladimHelperSession()

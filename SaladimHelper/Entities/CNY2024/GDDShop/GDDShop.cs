@@ -57,9 +57,7 @@ public partial class GDDShop : Entity
     {
         base.Update();
 
-        var displayer = ModuleSession.CurrentCoinDisplayer;
-        if (displayer is not null && displayer.Scene != Scene)
-            displayer = null;
+        var displayer = CoinDisplayer.Display(Scene, true);
         var player = Scene.Tracker.GetEntity<Player>();
         if (player is not null && player.CollideCheck(this))
         {
