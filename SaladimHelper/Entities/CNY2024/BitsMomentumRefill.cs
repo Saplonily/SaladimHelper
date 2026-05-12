@@ -1,18 +1,31 @@
 using Celeste.Mod.Entities;
 using Mono.Cecil.Cil;
+using MonoMod.Utils;
 
 namespace Celeste.Mod.SaladimHelper.Entities;
+
+public readonly struct BitsMomentumRefillKeptSpeed
+{
+    public readonly Vector2 Speed;
+    public readonly float Multiplier;
+
+    public BitsMomentumRefillKeptSpeed(Vector2 speed, float multiplier)
+    {
+        Speed = speed;
+        Multiplier = multiplier;
+    }
+}
 
 [CustomEntity("SaladimHelper/BitsMomentumRefill")]
 public class BitsMomentumRefill : Entity
 {
     // lets do happy copying
-    public static ParticleType P_Shatter;
-    public static ParticleType P_Regen;
-    public static ParticleType P_Glow;
-    public static ParticleType P_SpeedField;
+    internal static ParticleType P_Shatter;
+    internal static ParticleType P_Regen;
+    internal static ParticleType P_Glow;
+    internal static ParticleType P_SpeedField;
 
-    public static Color MainColor = Calc.HexToColor("FFD500");
+    internal static Color MainColor = Calc.HexToColor("FFD500");
 
     private Sprite sprite;
     private Sprite flash;
@@ -28,78 +41,72 @@ public class BitsMomentumRefill : Entity
     private bool recordX;
     private bool recordY;
     private bool isBlooming;
-    private float mul;
+    private float multiplier;
 
     public static void Load()
     {
         IL.Celeste.Player.CallDashEvents += Player_CallDashEvents;
-        On.Celeste.Player.Render += Player_Render;
-        Everest.Events.Player.OnSpawn += Player_OnSpawn;
+        Everest.Events.Player.OnAfterUpdate += Player_OnAfterUpdate;
     }
 
     public static void Unload()
     {
         IL.Celeste.Player.CallDashEvents -= Player_CallDashEvents;
-        On.Celeste.Player.Render -= Player_Render;
-        Everest.Events.Player.OnSpawn -= Player_OnSpawn;
-    }
-
-    private static void Player_OnSpawn(Player obj)
-    {
-        ModuleSession.MomentumRefillSpeedKept = null;
+        Everest.Events.Player.OnAfterUpdate -= Player_OnAfterUpdate;
     }
 
     private static void Player_CallDashEvents(ILContext il)
     {
         ILCursor cur = new(il);
-        if (cur.TryGotoNext(MoveType.After, ins => ins.MatchStfld<SaveData>("TotalDashes")))
+        if (cur.TryGotoNext(MoveType.After, ins => ins.MatchStfld<SaveData>(nameof(SaveData.TotalDashes))))
         {
             cur.Emit(OpCodes.Ldarg_0);
             cur.EmitDelegate<Action<Player>>(new(TryAddingMomentum));
         }
-        if (cur.TryGotoNext(MoveType.Before, ins => ins.MatchCallvirt<Booster>("PlayerBoosted")))
+        if (cur.TryGotoNext(MoveType.Before, ins => ins.MatchCallvirt<Booster>(nameof(Booster.PlayerBoosted))))
         {
             cur.Emit(OpCodes.Ldarg_0);
-            cur.Emit(OpCodes.Ldfld, typeof(Player).GetField("CurrentBooster"));
+            cur.Emit(OpCodes.Ldfld, typeof(Player).GetField(nameof(Player.CurrentBooster)));
             cur.Emit(OpCodes.Ldarg_0);
             cur.EmitDelegate(static (Booster booster, Player player) =>
             {
+                // it was once a bug...
                 if (booster.GetType() == typeof(Booster))
                     TryAddingMomentum(player);
             });
         }
+
         static void TryAddingMomentum(Player player)
         {
-            var sn = ModuleSession.MomentumRefillSpeedKept;
+            var sn = GetSpeedKept(player);
             if (sn is not null)
             {
                 var s = sn.Value;
-                player.Speed += s.speed * s.mul;
-                MakeSpeedField(player.SceneAs<Level>().Particles, player.Center, s.speed);
-                ModuleSession.MomentumRefillSpeedKept = null;
+                player.Speed += s.Speed * s.Multiplier;
+                MakeSpeedField(player.SceneAs<Level>().Particles, player.Center, s.Speed);
+                SetSpeedKept(player, null);
                 Celeste.Freeze(1 / 60f);
             }
         }
     }
 
-    private static void Player_Render(On.Celeste.Player.orig_Render orig, Player self)
+    private static void Player_OnAfterUpdate(Player player)
     {
-        orig(self);
-        if (ModuleSession.MomentumRefillSpeedKept is not null && self.Scene.OnInterval(0.1f))
+        if (GetSpeedKept(player) is not null && player.Scene.OnInterval(0.1f))
         {
-            Vector2 vector = new(Math.Abs(self.Sprite.Scale.X) * (float)self.Facing, self.Sprite.Scale.Y);
-            TrailManager.Add(self, vector, MainColor, 1f);
+            Vector2 vector = new(Math.Abs(player.Sprite.Scale.X) * (float)player.Facing, player.Sprite.Scale.Y);
+            TrailManager.Add(player, vector, MainColor, 1f);
         }
     }
 
-    public BitsMomentumRefill(Vector2 position, bool oneUse, bool recordX, bool recordY, bool isBlooming, float mul)
+    public BitsMomentumRefill(Vector2 position, bool oneUse, bool recordX, bool recordY, bool isBlooming, float multiplier)
         : base(position)
     {
         this.oneUse = oneUse;
         this.recordX = recordX;
         this.recordY = recordY;
         this.isBlooming = isBlooming;
-        this.mul = mul;
+        this.multiplier = multiplier;
 
         Collider = new Hitbox(16f, 16f, -8f, -8f);
         Add(new PlayerCollider(new Action<Player>(OnPlayer)));
@@ -196,7 +203,7 @@ public class BitsMomentumRefill : Entity
             outline.Visible = false;
             Depth = -100;
             wiggler.Start();
-            Audio.Play("event:/momentum_refill/momentum_refill_return", Position);
+            Audio.Play(SaladimSFX.MomentumRefillReturn, Position);
             level.ParticlesFG.Emit(P_Regen, 16, Position, Vector2.One * 2f);
         }
     }
@@ -219,16 +226,16 @@ public class BitsMomentumRefill : Entity
     private void OnPlayer(Player player)
     {
         // no speed kept
-        if (ModuleSession.MomentumRefillSpeedKept is null)
+        if (GetSpeedKept(player) is null)
         {
-            var sp = player.Speed;
-            if (!recordX) sp.X = 0;
-            if (!recordY) sp.Y = 0;
+            var playerSpeed = player.Speed;
+            if (!recordX) playerSpeed.X = 0;
+            if (!recordY) playerSpeed.Y = 0;
             // do speed keeping
-            ModuleSession.MomentumRefillSpeedKept = (sp, mul);
+            SetSpeedKept(player, new(playerSpeed, multiplier));
             // and do effects
-            MakeSpeedField(SceneAs<Level>().Particles, Position, sp);
-            Audio.Play("event:/momentum_refill/momentum_refill_touch", Position);
+            MakeSpeedField(SceneAs<Level>().Particles, Position, playerSpeed);
+            Audio.Play(SaladimSFX.MomentumRefillTouch, Position);
             Input.Rumble(RumbleStrength.Medium, RumbleLength.Medium);
             Collidable = false;
             Add(new Coroutine(RefillRoutine(player)));
@@ -257,4 +264,10 @@ public class BitsMomentumRefill : Entity
             RemoveSelf();
         yield break;
     }
+
+    private static BitsMomentumRefillKeptSpeed? GetSpeedKept(Player player)
+        => DynamicData.For(player).Get("sh_momentum_speed_kept") as BitsMomentumRefillKeptSpeed?;
+
+    private static void SetSpeedKept(Player player, BitsMomentumRefillKeptSpeed? value)
+        => DynamicData.For(player).Set("sh_momentum_speed_kept", value);
 }
